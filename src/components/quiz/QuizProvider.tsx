@@ -37,15 +37,44 @@ interface QuizContextType {
 
 const QuizContext = createContext<QuizContextType | undefined>(undefined);
 
-const normalizeName = (name: string) => name.trim().replace(/\s+/g, ' ').toLowerCase();
+const ensureUserRecord = async (name: string, firestore: any) => {
+  const auth = getAuth();
+  let currentUser = auth.currentUser;
 
-const shuffleArray = <T,>(items: T[]) => {
-  const arr = [...items];
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
+  if (!currentUser) {
+    const userCred = await signInAnonymously(auth);
+    currentUser = userCred.user;
   }
-  return arr;
+
+  if (!currentUser) {
+    throw new Error('No se pudo obtener el usuario de Firebase.');
+  }
+
+  const cleanName = name.trim();
+  if (currentUser.displayName !== cleanName) {
+    await updateProfile(currentUser, { displayName: cleanName });
+  }
+
+  if (!firestore) {
+    throw new Error('Firestore no disponible para registrar usuario.');
+  }
+
+  const userRef = doc(firestore, 'users', currentUser.uid);
+  const userSnap = await getDoc(userRef);
+
+  const payload: any = {
+    uid: currentUser.uid,
+    name: cleanName,
+    nameNormalized: normalizeName(cleanName),
+    lastActive: serverTimestamp(),
+  };
+
+  if (!userSnap.exists()) {
+    payload.createdAt = serverTimestamp();
+  }
+
+  await setDoc(userRef, payload, { merge: true });
+  return currentUser;
 };
 
 export function QuizProvider({ children }: { children: React.ReactNode }) {
@@ -71,7 +100,7 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
   // Listener en tiempo real para el Ranking (Solo General)
   // Optimizamos: traemos los datos y ordenamos en memoria para evitar errores de índice compuesto
   useEffect(() => {
-    if (!firestore || !user) return;
+    if (!firestore) return;
     
     const q = query(
       collection(firestore, 'ranking'), 
@@ -97,20 +126,20 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
       console.warn("Fallo de sincronización ranking:", err.message);
     });
     return () => unsubscribe();
-  }, [firestore, user]);
+  }, [firestore]);
 
   // Listener para Historial Personal
   useEffect(() => {
-    const searchName = identifiedName || user?.displayName;
-    if (!firestore || !searchName || !user) {
-      if (!searchName) setHistoryData([]);
+    const searchUid = user?.uid;
+    if (!firestore || !searchUid) {
+      if (!identifiedName) setHistoryData([]);
       return;
     }
     
     setIsLoadingHistory(true);
     const q = query(
       collection(firestore, 'resultados'),
-      where('displayName', '==', searchName)
+      where('userId', '==', searchUid)
     );
     
     const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -133,7 +162,7 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
   const updateRankingEntry = useCallback(async (name: string, uid: string, perc: number, dur: number, aciertos: number) => {
     if (!firestore || !name) return;
 
-    const rankingRef = doc(firestore, 'ranking', name);
+    const rankingRef = doc(firestore, 'ranking', uid);
     const rankingSnap = await getDoc(rankingRef);
 
     let shouldUpdate = false;
@@ -207,34 +236,20 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
   }, [firestore, updateRankingEntry]);
 
   const startQuiz = useCallback(async (fullName: string, subjectKey: 'general' | 'is' | 'prog' = 'general', subType?: 'teorico' | 'practico') => {
-    const auth = getAuth();
     const cleanName = fullName.trim();
-    let currentUser = auth.currentUser;
+    if (!cleanName) return;
 
-    if (!currentUser) {
-      const userCred = await signInAnonymously(auth);
-      currentUser = userCred.user;
-    }
-
-    await updateProfile(currentUser, { displayName: cleanName });
+    const currentUser = await ensureUserRecord(cleanName, firestore);
     setIdentifiedName(cleanName);
     localStorage.setItem('tic_student_name', cleanName);
+    localStorage.setItem('tic_user_id', currentUser.uid);
     localStorage.setItem('tic_active_subject', subjectKey);
     if (subType) localStorage.setItem('tic_active_subtype', subType);
     
     const now = Date.now();
     localStorage.setItem('tic_quiz_start_time', now.toString());
 
-    if (firestore) {
-      await setDoc(doc(firestore, 'users', cleanName), {
-        uid: currentUser.uid,
-        name: cleanName,
-        nameNormalized: normalizeName(cleanName),
-        lastActive: serverTimestamp(),
-      }, { merge: true });
-    }
-
-    const sessionId = `sess_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`;
+    const sessionId = `sess_${now}_${Math.random().toString(36).substr(2, 5)}`;
     setActiveSessionId(sessionId);
 
     let pool: Question[] = [];
@@ -249,13 +264,7 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
     pool = pool.sort(() => Math.random() - 0.5);
     
     const newState: QuizState = {
-      questions: pool.map((q: any) => ({
-        ...q,
-        optionOrder: shuffleArray(
-          (['A', 'B', 'C', 'D'] as Array<'A' | 'B' | 'C' | 'D'>)
-            .filter((key) => q.opciones[key] && q.opciones[key].trim() !== '' && q.opciones[key] !== 'N/A')
-        )
-      })),
+      questions: pool.map((q: any) => ({ ...q })),
       currentQuestionIndex: 0,
       responses: [],
       status: 'in_progress',

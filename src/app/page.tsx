@@ -14,7 +14,6 @@ import { cn } from '@/lib/utils';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogClose } from "@/components/ui/dialog";
 import { toast } from '@/hooks/use-toast';
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import { getAuth, signInAnonymously } from 'firebase/auth';
 
 export default function Home() {
   const { history, ranking, isLoadingHistory, startQuiz, identifiedName, deleteResult } = useQuiz();
@@ -37,9 +36,6 @@ export default function Home() {
     setMounted(true);
   }, []);
 
-  const normalizeName = (name: string) => name.trim().replace(/\s+/g, ' ').toLowerCase();
-  const formatName = (name: string) => name.trim().replace(/\s+/g, ' ');
-
   const handleStartAttempt = (subject: 'general' | 'is' | 'prog' = 'general') => {
     if (subject === 'prog') {
       toast({ title: "Módulo en Desarrollo", description: "El simulador de Programación estará disponible próximamente." });
@@ -60,66 +56,20 @@ export default function Home() {
   };
 
   const handleIdentity = async () => {
-    const rawName = fullName.trim();
-    if (!rawName) return;
-    const formattedName = formatName(rawName);
-    const normalizedInput = normalizeName(formattedName);
-    const inputWords = normalizedInput.split(' ');
-
+    if (!fullName.trim()) return;
     setIsProcessing(true);
     try {
-      if (!firestore) throw new Error('Sin conexión a la base de datos');
-
-      const auth = getAuth();
-      if (!auth.currentUser) {
-        await signInAnonymously(auth);
-      }
-
-      const usersSnapshot = await getDocs(collection(firestore, 'users'));
-      const userDoc = usersSnapshot.docs.find((doc) => {
-        const data = doc.data();
-        const storedName = typeof data.name === 'string'
-          ? data.name
-          : typeof data.displayName === 'string'
-          ? data.displayName
-          : '';
-        const normalizedStored = normalizeName(storedName);
-        const storedWords = normalizedStored.split(' ');
-
-        if (normalizedStored === normalizedInput) return true;
-        if (inputWords.length === 1 && storedWords[0] === inputWords[0]) return true;
-        return false;
-      });
-
-      if (!userDoc) {
-        toast({
-          variant: 'destructive',
-          title: 'Acceso denegado',
-          description: 'El nombre no coincide con la base de datos. Revisa mayúsculas, minúsculas y apellido.'
-        });
-        return;
-      }
-
-      const canonicalName = formatName(
-        (userDoc.data().name || userDoc.data().displayName || formattedName).toString()
-      );
-      setFullName(canonicalName);
-
+      const name = fullName.trim();
       if (pendingSubject === 'is') {
         setAuthOpen(false);
         setModeOpen(true);
-      } else {
-        await startQuiz(canonicalName, pendingSubject || 'general');
+      } else if (pendingSubject === 'general') {
+        await startQuiz(name, 'general');
         setAuthOpen(false);
         setPendingSubject(null);
       }
     } catch (err: any) {
-      console.error(err);
-      toast({
-        variant: 'destructive',
-        title: 'Error de Acceso',
-        description: 'No pudimos conectar con tu perfil académico.'
-      });
+      toast({ variant: "destructive", title: "Error de Acceso", description: "No pudimos conectar con tu perfil académico." });
     } finally {
       setIsProcessing(false);
     }
@@ -139,7 +89,7 @@ export default function Home() {
     try {
       const q = query(
         collection(firestore, 'resultados'),
-        where('displayName', '==', student.displayName)
+        where('userId', '==', student.userId || student.displayName)
       );
       const snap = await getDocs(q);
       const results = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));

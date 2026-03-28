@@ -11,7 +11,6 @@ export interface Question {
     D?: string;
   };
   correcta: 'A' | 'B' | 'C' | 'D';
-  optionOrder?: Array<'A' | 'B' | 'C' | 'D'>;
   justificacion: string;
   explicacionError: string;
   categoria: string;

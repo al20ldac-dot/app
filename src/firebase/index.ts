@@ -12,6 +12,7 @@ export function initializeFirebase() {
     return getSdks(firebaseApp);
   }
 
+  // If already initialized, return the SDKs with the already initialized App
   return getSdks(getApp());
 }
 
