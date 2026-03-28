@@ -37,66 +37,6 @@ interface QuizContextType {
 
 const QuizContext = createContext<QuizContextType | undefined>(undefined);
 
-const normalizeName = (name: string) => name.trim().replace(/\s+/g, ' ').toLowerCase();
-
-const ensureUserRecord = async (name: string, firestore: any) => {
-  const cleanName = name.trim();
-  const normalizedInput = normalizeName(cleanName);
-
-  if (!firestore) {
-    throw new Error('Firestore no disponible para registrar usuario.');
-  }
-
-  const usersQuery = query(
-    collection(firestore, 'users'),
-    where('nameNormalized', '==', normalizedInput),
-    limit(1)
-  );
-  const usersSnapshot = await getDocs(usersQuery);
-
-  const auth = getAuth();
-  let currentUser = auth.currentUser;
-  if (!currentUser) {
-    const userCred = await signInAnonymously(auth);
-    currentUser = userCred.user;
-  }
-
-  if (!currentUser) {
-    throw new Error('No se pudo obtener el usuario de Firebase.');
-  }
-
-  if (!currentUser.displayName || normalizeName(currentUser.displayName) !== normalizedInput) {
-    await updateProfile(currentUser, { displayName: cleanName });
-  }
-
-  if (!usersSnapshot.empty) {
-    const userDoc = usersSnapshot.docs[0];
-    await setDoc(doc(firestore, 'users', userDoc.id), {
-      lastActive: serverTimestamp(),
-    }, { merge: true });
-
-    return {
-      uid: userDoc.id,
-      displayName: userDoc.data().name || cleanName,
-    };
-  }
-
-  const newUserRef = doc(collection(firestore, 'users'));
-  await setDoc(newUserRef, {
-    uid: newUserRef.id,
-    name: cleanName,
-    nameNormalized: normalizedInput,
-    firstName: cleanName.split(' ')[0],
-    lastActive: serverTimestamp(),
-    createdAt: serverTimestamp(),
-  }, { merge: true });
-
-  return {
-    uid: newUserRef.id,
-    displayName: cleanName,
-  };
-};
-
 export function QuizProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const { firestore, user } = useFirebase();
@@ -116,19 +56,11 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
   const [historyData, setHistoryData] = useState<any[]>([]);
   const [isLoadingHistory, setIsLoadingHistory] = useState(false);
   const [identifiedName, setIdentifiedName] = useState<string | null>(null);
-  const [identifiedUserId, setIdentifiedUserId] = useState<string | null>(null);
-
-  useEffect(() => {
-    const savedName = typeof window !== 'undefined' ? localStorage.getItem('tic_student_name') : null;
-    const savedUserId = typeof window !== 'undefined' ? localStorage.getItem('tic_user_id') : null;
-    if (savedName) setIdentifiedName(savedName);
-    if (savedUserId) setIdentifiedUserId(savedUserId);
-  }, []);
 
   // Listener en tiempo real para el Ranking (Solo General)
   // Optimizamos: traemos los datos y ordenamos en memoria para evitar errores de índice compuesto
   useEffect(() => {
-    if (!firestore) return;
+    if (!firestore || !user) return;
     
     const q = query(
       collection(firestore, 'ranking'), 
@@ -154,20 +86,20 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
       console.warn("Fallo de sincronización ranking:", err.message);
     });
     return () => unsubscribe();
-  }, [firestore]);
+  }, [firestore, user]);
 
   // Listener para Historial Personal
   useEffect(() => {
-    const searchUid = user?.uid;
-    if (!firestore || !searchUid) {
-      if (!identifiedName) setHistoryData([]);
+    const searchName = identifiedName || user?.displayName;
+    if (!firestore || !searchName || !user) {
+      if (!searchName) setHistoryData([]);
       return;
     }
     
     setIsLoadingHistory(true);
     const q = query(
       collection(firestore, 'resultados'),
-      where('userId', '==', searchUid)
+      where('displayName', '==', searchName)
     );
     
     const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -190,7 +122,7 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
   const updateRankingEntry = useCallback(async (name: string, uid: string, perc: number, dur: number, aciertos: number) => {
     if (!firestore || !name) return;
 
-    const rankingRef = doc(firestore, 'ranking', uid);
+    const rankingRef = doc(firestore, 'ranking', name);
     const rankingSnap = await getDoc(rankingRef);
 
     let shouldUpdate = false;
@@ -264,21 +196,33 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
   }, [firestore, updateRankingEntry]);
 
   const startQuiz = useCallback(async (fullName: string, subjectKey: 'general' | 'is' | 'prog' = 'general', subType?: 'teorico' | 'practico') => {
+    const auth = getAuth();
     const cleanName = fullName.trim();
-    if (!cleanName) return;
+    let currentUser = auth.currentUser;
 
-    const currentUser = await ensureUserRecord(cleanName, firestore);
+    if (!currentUser) {
+      const userCred = await signInAnonymously(auth);
+      currentUser = userCred.user;
+    }
+
+    await updateProfile(currentUser, { displayName: cleanName });
     setIdentifiedName(cleanName);
-    setIdentifiedUserId(currentUser.uid);
     localStorage.setItem('tic_student_name', cleanName);
-    localStorage.setItem('tic_user_id', currentUser.uid);
     localStorage.setItem('tic_active_subject', subjectKey);
     if (subType) localStorage.setItem('tic_active_subtype', subType);
     
     const now = Date.now();
     localStorage.setItem('tic_quiz_start_time', now.toString());
 
-    const sessionId = `sess_${now}_${Math.random().toString(36).substr(2, 5)}`;
+    if (firestore) {
+      await setDoc(doc(firestore, 'users', cleanName), {
+        uid: currentUser.uid,
+        name: cleanName,
+        lastActive: serverTimestamp(),
+      }, { merge: true });
+    }
+
+    const sessionId = `sess_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`;
     setActiveSessionId(sessionId);
 
     let pool: Question[] = [];

@@ -89,7 +89,7 @@ export default function Home() {
     try {
       const q = query(
         collection(firestore, 'resultados'),
-        where('userId', '==', student.userId || student.displayName)
+        where('displayName', '==', student.displayName)
       );
       const snap = await getDocs(q);
       const results = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
