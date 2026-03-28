@@ -1,0 +1,1371 @@
+
+[
+  {
+    "id": "Q1",
+    "pregunta": "Un equipo de desarrollo está migrando una aplicación monolítica al framework mvc-educaysoft mencionado en clases. Durante la implementación, se observa que la lógica de validación de formatos de datos de entrada y la conexión directa a la base de datos se encuentran mezcladas dentro del archivo de la \"Vista\". ¿Qué principio de la arquitectura MVC se está vulnerando y cuál es la consecuencia técnica inmediata?",
+    "opciones": {
+      "A": "Se vulnera el Modelo; impide la reutilización de la interfaz de usuario en otros dispositivos.",
+      "B": "Se vulnera la Vista; provoca un acoplamiento estrecho que dificulta el mantenimiento y la escalabilidad de la lógica de negocio.",
+      "C": "Se vulnera el Controlador; genera una redundancia de datos en el servidor de aplicaciones.",
+      "D": "Se vulnera la Cohesión; causa que el sistema no pueda ser versionado en repositorios como GitHub."
+    },
+    "correcta": "B",
+    "justificacion": "Según Pressman y Maxim (2020), la separación de intereses en MVC busca que la Vista solo se encargue de la presentación. Al incluir lógica de acceso a datos (Modelo) en la Vista, se rompe la modularidad, aumentando la complejidad del mantenimiento.",
+    "explicacionError": "Los demás literales confunden las responsabilidades de las capas (el Modelo no gestiona interfaces) o atribuyen consecuencias no relacionadas directamente con el patrón arquitectónico (como el versionamiento o la redundancia de servidor).",
+    "categoria": "Ingeniería de Software"
+  },
+  {
+    "id": "Q2",
+    "pregunta": "En una sesión de Planning Poker para un sistema de gestión académica, el equipo Scrum presenta una alta dispersión en las estimaciones de una Historia de Usuario (HU) sobre \"Generación de Reportes Dinámicos\". Dos desarrolladores votan 3 puntos, mientras que el Scrum Master nota que el Product Owner insiste en que es una tarea simple, pero el Desarrollador Senior vota 21 puntos. ¿Cuál es la acción técnica correcta a seguir bajo el marco de trabajo Scrum?",
+    "opciones": {
+      "A": "Promediar los votos para obtener un valor intermedio (12 puntos) y avanzar a la siguiente HU.",
+      "B": "Tomar el valor del Desarrollador Senior por ser el de mayor experiencia técnica en el equipo.",
+      "C": "Iniciar un debate técnico donde los extremos expliquen sus razones, ya que la dispersión indica falta de claridad en los requerimientos o complejidad técnica oculta.",
+      "D": "El Product Owner debe asignar el valor final puesto que él conoce el valor de negocio de la funcionalidad."
+    },
+    "correcta": "C",
+    "justificacion": "En la metodología ágil Scrum, la estimación es un proceso colaborativo. La dispersión en el Planning Poker se utiliza para identificar incertidumbres o falta de detalles en los requerimientos antes de comprometer el trabajo en el Sprint.",
+    "explicacionError": "El promedio anula la detección de riesgos, el Senior no tiene voto unilateral y el Product Owner no estima el esfuerzo técnico, solo prioriza el valor.",
+    "categoria": "Metodologías Ágiles"
+  },
+  {
+    "id": "Q3",
+    "pregunta": "El artículo científico analizado en clase \"¿Existe una situación de crisis del software educativo?\" plantea que muchos proyectos fallan por la falta de un enfoque sistémico. Si un proyecto de software educativo presenta errores constantes tras cada actualización y el costo de corrección es superior al de desarrollo original, ¿en qué fase del ciclo de vida y bajo qué métrica se evidencia el problema principal?",
+    "opciones": {
+      "A": "En la fase de Implementación; métrica de Líneas de Código (LOC).",
+      "B": "En la fase de Requerimientos; métrica de Puntos de Función.",
+      "C": "En la fase de Mantenimiento; evidenciando una falta de control de calidad y pruebas de regresión.",
+      "D": "En la fase de Diseño; por el uso inadecuado de herramientas de prototipado."
+    },
+    "correcta": "C",
+    "justificacion": "Sommerville (2011) indica que el mantenimiento representa la mayor parte del costo del ciclo de vida. Una crisis de software se manifiesta cuando el software es difícil de evolucionar debido a una mala base de ingeniería previa.",
+    "explicacionError": "Aunque los requerimientos o el diseño pueden ser el origen, la pregunta pide dónde se evidencia el problema (costos post-entrega), lo cual corresponde estrictamente a la etapa de mantenimiento y evolución.",
+    "categoria": "Ingeniería de Software"
+  },
+  {
+    "id": "Q4",
+    "pregunta": "Un equipo de 5 estudiantes utiliza un repositorio en GitHub para el proyecto de la Unidad 3. Un integrante intenta realizar un push de sus cambios en el módulo de \"Docentes\", pero el sistema rechaza la operación indicando que existen cambios en el remoto que no tiene localmente. ¿Cuál es el flujo de comandos correcto para resolver esto minimizando conflictos?",
+    "opciones": {
+      "A": "git commit -m \"update\" -> git push --force",
+      "B": "git fetch -> git merge (o git pull) -> Resolver conflictos si existen -> git push",
+      "C": "git init -> git add . -> git commit",
+      "D": "git checkout -b error-módulo -> git push origin error-módulo"
+    },
+    "correcta": "B",
+    "justificacion": "Para mantener la integridad del repositorio colaborativo, es necesario integrar los cambios del servidor antes de subir nuevos, siguiendo las buenas prácticas de Git descritas en la bibliografía complementaria.",
+    "explicacionError": "El uso de --force sobrescribe el trabajo ajeno (mala práctica), git init reinicializa el repo y crear una rama nueva solo pospone la integración necesaria en la rama principal.",
+    "categoria": "Gestión de Versiones"
+  },
+  {
+    "id": "Q5",
+    "pregunta": "En el marco de trabajo Scrum, el Scrum Master tiene la autoridad jerárquica para asignar tareas específicas a cada desarrollador durante el Sprint Backlog y es el único responsable de la calidad técnica del código entregado.",
+    "opciones": {
+      "A": "Verdadero",
+      "B": "Falsos"
+    },
+    "correcta": "B",
+    "justificacion": "El equipo Scrum es auto-organizado. El Scrum Master actúa como un \"líder servicial\" que elimina impedimentos, pero no asigna tareas individualmente ni es el único responsable de la calidad; esa responsabilidad es compartida por todo el equipo de desarrollo.",
+    "explicacionError": "La metodología Scrum elimina la jerarquía tradicional en favor de un modelo de responsabilidad compartida y autonomía técnica.",
+    "categoria": "Metodologías Ágiles"
+  },
+  {
+    "id": "Q6",
+    "pregunta": "El mantenimiento adaptativo en ingeniería de software se refiere exclusivamente a la corrección de errores (bugs) encontrados por los usuarios finales después de que el sistema ha sido desplegado en producción.",
+    "opciones": {
+      "A": "Verdadero",
+      "B": "Falso"
+    },
+    "correcta": "B",
+    "justificacion": "El mantenimiento adaptativo consiste en modificar el software para que siga siendo operativo en un entorno que cambia (por ejemplo, cambio de sistema operativo o base de datos). La corrección de errores se denomina mantenimiento correctivo.",
+    "explicacionError": "Se confunde el mantenimiento adaptativo con el correctivo, el cual es el encargado de subsanar fallos reportados.",
+    "categoria": "Ingeniería de Software"
+  },
+  {
+    "id": "Q7",
+    "pregunta": "Para redactar una Historia de Usuario efectiva en el sistema académico institucional, se debe seguir la estructura: \"Como (1)_____, quiero (2)_____, para (3)_____\", asegurando que cumpla con los criterios INVEST, donde la 'V' significa que la historia debe tener (4)_____.",
+    "opciones": {
+      "A": "(1) Desarrollador - (2) Programar un módulo - (3) Aprobar la materia - (4) Variabilidad.",
+      "B": "(1) Rol de usuario - (2) Una funcionalidad - (3) Un beneficio de negocio - (4) Valor.",
+      "C": "(1) Stakeholder - (2) Un diagrama UML - (3) Documentar - (4) Verificabilidad.",
+      "D": "(1) Scrum Master - (2) Definir el Sprint - (3) Organizar - (4) Velocidad."
+    },
+    "correcta": "B",
+    "justificacion": "La estructura estándar de una HU se centra en el usuario y el valor que aporta al negocio. Según el sílabo, los estudiantes deben ser capaces de redactar HU para sistemas reales. En el acrónimo INVEST, la 'V' representa \"Valuable\" (Valiosa para el cliente).",
+    "explicacionError": "Las otras opciones incluyen roles técnicos (desarrollador) o tareas de proceso (diagramar) que no representan el objetivo de una Historia de Usuario.",
+    "categoria": "Metodologías Ágiles"
+  },
+  {
+    "id": "Q8",
+    "pregunta": "Analice el diagrama de Casos de Uso generado para el sistema académico. Si un estudiante desea \"Registrar Matrícula\", ¿cuál es la implicación técnica de la relación <<include>> observada en el gráfico?",
+    "opciones": {
+      "A": "El estudiante puede elegir si desea loguearse o no antes de matricularse.",
+      "B": "El sistema ejecutará obligatoriamente el caso de uso \"Login\" como parte del proceso de matrícula.",
+      "C": "La matrícula es una opción adicional que solo ocurre si el \"Login\" falla.",
+      "D": "El administrador es quien debe validar el \"Login\" para que el estudiante vea sus registros."
+    },
+    "correcta": "B",
+    "justificacion": "En UML, la relación de inclusión (<<include>>) indica que el caso de uso base no está completo sin el caso de uso incluido; por tanto, su ejecución es obligatoria.",
+    "explicacionError": "Los distractores confunden la obligatoriedad del include con la opcionalidad del extend o asignan roles de usuario que no corresponden a la dirección de la relación en el diagrama.",
+    "categoria": "Análisis y Diseño UML"
+  },
+  {
+    "id": "Q9",
+    "pregunta": "Durante la gestión del software bajo la metodología Ágil Scrum, el equipo presenta el gráfico \"Burndown Chart\" adjunto. ¿Qué diagnóstico técnico describe la situación del equipo entre el día 1 y el día 5?",
+    "opciones": {
+      "A": "El equipo tuvo una velocidad constante y un progreso ideal según la planificación.",
+      "B": "El equipo no logró mover ninguna historia de usuario al estado \"Done\" (Terminado), posiblemente por impedimentos o historias muy complejas.",
+      "C": "Se añadieron nuevas funcionalidades al Sprint Backlog, incrementando el esfuerzo total.",
+      "D": "El Scrum Master canceló el Sprint debido a que el esfuerzo real superó al ideal."
+    },
+    "correcta": "B",
+    "justificacion": "Una línea horizontal (meseta) en un Burndown Chart indica que los puntos de historia no están disminuyendo, lo que refleja falta de progreso en la entrega de valor durante esos días.",
+    "explicacionError": "Un progreso ideal se vería como una caída diagonal; la adición de trabajo subiría la línea en lugar de mantenerla plana, y el gráfico no sugiere una cancelación de Sprint.",
+    "categoria": "Métricas de Seguimiento"
+  },
+  {
+    "id": "Q10",
+    "pregunta": "En el desarrollo de un software para la \"Terminal de Autobuses de Quinindé\" (caso de estudio del sílabo), se decide implementar una arquitectura de Microservicios. Durante el despliegue, se observa que la latencia de red afecta la comunicación entre el servicio de 'Boletos' y el de 'Contabilidad'. ¿Qué patrón de diseño de comunicación se debería implementar para mitigar este acoplamiento temporal?",
+    "opciones": {
+      "A": "Comunicación Sincrónica mediante REST tradicional.",
+      "B": "Comunicación Asincrónica mediante un Message Broker (como RabbitMQ o Kafka).",
+      "C": "Comunicación Directa mediante punteros de memoria compartida.",
+      "D": "Comunicación por lotes (Batch processing) al final del día."
+    },
+    "correcta": "B",
+    "justificacion": "Según Spinellis & Gousios (2021), la comunicación asincrónica desacopla los servicios en el tiempo, permitiendo que el sistema siga funcionando aunque un servicio no responda de inmediato, mejorando la resiliencia en sistemas distribuidos.",
+    "explicacionError": "REST es sincrónico y aumenta la dependencia; los punteros de memoria no existen en servicios distribuidos; y el procesamiento por lotes no permite la actualización en tiempo real necesaria.",
+    "categoria": "Arquitectura de Software"
+  },
+  {
+    "id": "Q11",
+    "pregunta": "Se requiere realizar una estimación de esfuerzo para un nuevo módulo de \"Seguimiento Académico\" utilizando Puntos de Función. El equipo identifica 5 entradas externas, 3 salidas externas y 2 archivos lógicos internos, todos de complejidad media. ¿Cuál es el objetivo primordial de utilizar esta métrica técnica en lugar de medir solo líneas de código (LOC)?",
+    "opciones": {
+      "A": "Evaluar la productividad del programador basada en la rapidez con la que escribe sintaxis.",
+      "B": "Obtener una medida del tamaño del software basada en la funcionalidad entregada al usuario, independiente del lenguaje de programación.",
+      "C": "Calcular el costo de la energía eléctrica consumida por los servidores de la facultad.",
+      "D": "Definir cuántas ramas de Git se deben crear para el proyecto."
+    },
+    "correcta": "B",
+    "justificacion": "Los Puntos de Función son una métrica de diseño que permite estimar el tamaño y esfuerzo basándose en la complejidad funcional de los requerimientos, lo cual es más preciso que las LOC que varían según el estilo del programador (Sommerville, 2011).",
+    "explicacionError": "No miden rapidez de escritura, ni costos eléctricos, ni tienen relación con la estructura de ramificación de Git.",
+    "categoria": "Ingeniería de Software"
+  },
+  {
+    "id": "Q12",
+    "pregunta": "Un equipo Scrum en la UTLVTE detecta que el Product Backlog tiene elementos que no han sido refinados y cuya descripción es ambigua. Si el equipo decide iniciar el Sprint con estas Historias de Usuario, ¿qué criterio del acrónimo INVEST se está incumpliendo primordialmente?",
+    "opciones": {
+      "A": "Independent (Independiente).",
+      "B": "Negotiable (Negociable).",
+      "C": "Small (Pequeña).",
+      "D": "Estimatable (Estimable)."
+    },
+    "correcta": "D",
+    "justificacion": "Según el material sobre metodologías ágiles del sílabo, si una historia de usuario es ambigua o no está clara, el equipo no puede calcular el esfuerzo necesario para completarla, violando la característica de ser \"Estimable\" (Fowler, 2021).",
+    "explicacionError": "Aunque podría afectar la independencia o el tamaño, la consecuencia directa de la ambigüedad es la incapacidad de estimar el esfuerzo técnico.",
+    "categoria": "Metodologías Ágiles"
+  },
+  {
+    "id": "Q13",
+    "pregunta": "En el proceso de aseguramiento de la calidad (SQA), se realiza una Auditoría de Software para verificar si los entregables del proyecto cumplen con los estándares definidos en el Plan de Calidad. ¿Cuál es la diferencia fundamental entre Aseguramiento de Calidad (QA) y Control de Calidad (QC)?",
+    "opciones": {
+      "A": "QA se enfoca en el proceso para prevenir defectos, mientras que QC se enfoca en el producto para identificar defectos.",
+      "B": "QA es realizado por los desarrolladores y QC por el Product Owner.",
+      "C": "No existe diferencia; ambos términos se refieren a realizar pruebas de unidad.",
+      "D": "QA se realiza solo al final del proyecto y QC se realiza al inicio."
+    },
+    "correcta": "A",
+    "justificacion": "El aseguramiento de calidad es proactivo (procesos), mientras que el control de calidad es reactivo (verificación del producto terminado), conforme a la norma ISO mencionada en el sílabo (Sommerville, 2011).",
+    "explicacionError": "Las responsabilidades y tiempos definidos en las otras opciones son técnicamente incorrectos en el estándar industrial de ingeniería de software.",
+    "categoria": "Calidad de Software"
+  },
+  {
+    "id": "Q14",
+    "pregunta": "Las metodologías ágiles, como Scrum, eliminan por completo la necesidad de documentar el software, ya que el Manifiesto Ágil prioriza el \"Software funcionando sobre documentación extensiva\".",
+    "opciones": {
+      "A": "Verdadero",
+      "B": "Falso"
+    },
+    "correcta": "B",
+    "justificacion": "El Manifiesto Ágil indica que se valora más el software funcionando, pero no dice que la documentación deba eliminarse. En proyectos complejos, la documentación de arquitectura y APIs sigue siendo esencial (Fowler, 2021).",
+    "explicacionError": "Se malinterpreta la prioridad del manifiesto; la documentación técnica es necesaria para la mantenibilidad y evolución del software.",
+    "categoria": "Metodologías Ágiles"
+  },
+  {
+    "id": "Q15",
+    "pregunta": "Al utilizar GitHub para la gestión de configuración, una \"Pull Request\" es el mecanismo técnico que permite a un desarrollador solicitar que sus cambios sean revisados e integrados en una rama protegida tras pasar por un proceso de revisión por pares.",
+    "opciones": {
+      "A": "Verdadero",
+      "B": "Falso"
+    },
+    "correcta": "A",
+    "justificacion": "Según las buenas prácticas de Git y GitHub estudiadas en la Unidad 3, las Pull Requests son fundamentales para el control de versiones colaborativo y la calidad del código mediante la revisión antes del \"merge\".",
+    "explicacionError": "N/A",
+    "categoria": "Gestión de Versiones"
+  },
+  {
+    "id": "Q16",
+    "pregunta": "En una arquitectura basada en (1)_____, cada componente es un servicio independiente que se comunica mediante protocolos ligeros; esto facilita la (2)_____ del sistema, permitiendo que si un servicio falla, el resto de la aplicación pueda seguir operativa.",
+    "opciones": {
+      "A": "(1) Monolitos - (2) Centralización.",
+      "B": "(1) Microservicios - (2) Resiliencia.",
+      "C": "(1) Capas - (2) Seguridad.",
+      "D": "(1) Código Spaghetti - (2) Rapidez."
+    },
+    "correcta": "B",
+    "justificacion": "La arquitectura de microservicios promueve la resiliencia (tolerancia a fallos) debido al aislamiento de sus componentes, a diferencia de los monolitos donde un error puede derribar todo el sistema.",
+    "explicacionError": "Los monolitos son dependientes; el código spaghetti es un antipatrón; las capas no garantizan el aislamiento de fallos por servicio.",
+    "categoria": "Arquitectura de Software"
+  },
+  {
+    "id": "Q17",
+    "pregunta": "Observe el gráfico sobre la Deuda Técnica. Si el equipo de desarrollo del sistema de la UTELVT decide ignorar la refactorización y las pruebas unitarias para entregar más rápido en el primer mes, ¿qué consecuencia técnica a largo plazo se visualiza en la curva de \"Desarrollo Rápido\"?",
+    "opciones": {
+      "A": "El esfuerzo de mantenimiento disminuirá conforme pase el tiempo.",
+      "B": "El costo de implementar nuevas funcionalidades será cada vez mayor, hasta volver el sistema inmanejable.",
+      "C": "La calidad del software aumentará automáticamente debido a la experiencia adquirida.",
+      "D": "La deuda técnica se convertirá en un activo financiero para la universidad."
+    },
+    "correcta": "B",
+    "justificacion": "La deuda técnica acumulada representa el costo futuro de no hacer las cosas bien desde el inicio. A largo plazo, el \"interés\" de esa deuda se paga con un esfuerzo de mantenimiento desproporcionado (Spinellis & Gousios, 2021).",
+    "explicacionError": "El mantenimiento no disminuye, la calidad no sube sola y la deuda técnica en software es siempre un riesgo/pasivo, nunca un activo financiero.",
+    "categoria": "Ingeniería de Software"
+  },
+  {
+    "id": "Q18",
+    "pregunta": "En el flujo de DevOps mostrado en el gráfico, ¿qué sucede si en la etapa 3 (Test) se detecta que una prueba de integración falla?",
+    "opciones": {
+      "A": "El sistema pasa automáticamente a la etapa de Deploy para que los usuarios detecten el error.",
+      "B": "El Pipeline se detiene (Stop), se notifica al equipo y no se realiza el despliegue hasta que el error sea corregido en la etapa de 'Code'.",
+      "C": "Se ignora el error siempre que el código haya compilado correctamente en la etapa 2.",
+      "D": "Se elimina el módulo fallido y se continúa el despliegue con lo que funciona."
+    },
+    "correcta": "B",
+    "justificacion": "La filosofía de CI/CD busca evitar que errores lleguen a producción. Si una prueba falla, el pipeline debe romperse para asegurar la calidad del incremento de software entregado (Ali, 2024).",
+    "explicacionError": "Desplegar con errores o ignorarlos anula el propósito de DevOps; eliminar módulos sin previo aviso causaría inconsistencias graves en el sistema.",
+    "categoria": "DevOps"
+  },
+  {
+    "id": "Q19",
+    "pregunta": "En el diseño conceptual de una base de datos para la facultad, se identifica una entidad \"Estudiante\" y una entidad \"Curso\". Un estudiante puede inscribirse en muchos cursos y un curso puede tener muchos estudiantes. ¿Cuál es la transformación técnica correcta de esta relación al pasar al modelo relacional para evitar redundancia y pérdida de integridad?",
+    "opciones": {
+      "A": "Colocar la clave primaria de Estudiante como clave foránea en la tabla Curso.",
+      "B": "Crear una tabla asociativa (intermedia) que contenga las claves primarias de ambas entidades como claves foráneas.",
+      "C": "Fusionar ambas entidades en una sola tabla llamada \"Inscripciones\" para simplificar las consultas.",
+      "D": "Utilizar un atributo multi-valuado dentro de la tabla Estudiante para listar los IDs de los cursos."
+    },
+    "correcta": "B",
+    "justificacion": "Según Silberschatz et al. (2019), las relaciones de muchos a muchos (N:M) no pueden representarse directamente en el modelo relacional mediante claves foráneas simples; requieren una tabla intermedia para descomponer la relación en dos relaciones 1:N.",
+    "explicacionError": "Las opciones A y D generan redundancia o violan la primera forma normal (1FN), mientras que la C causaría una pérdida de la identidad de las entidades originales.",
+    "categoria": "Bases de Datos"
+  },
+  {
+    "id": "Q20",
+    "pregunta": "Se tiene una tabla PRODUCTOS con los campos: ID_Prod, Nombre, Categoría, Precio, Proveedor_Dirección. Se observa que si un proveedor cambia de dirección, hay que actualizar múltiples filas. ¿En qué forma normal se encuentra esta tabla y qué problema de diseño presenta?",
+    "opciones": {
+      "A": "Primera Forma Normal (1FN); presenta anomalías de actualización debido a una dependencia transitiva.",
+      "B": "Segunda Forma Normal (2FN); presenta una dependencia parcial de la clave primaria.",
+      "C": "Tercera Forma Normal (3FN); no presenta problemas, el diseño es óptimo.",
+      "D": "Forma Normal de Boyce-Codd; el diseño es demasiado estricto para bases de datos pequeñas."
+    },
+    "correcta": "A",
+    "justificacion": "La tabla está en 1FN porque tiene valores atómicos, pero viola la 3FN porque la dirección del proveedor depende del proveedor y no directamente de la clave primaria (ID_Prod). Esto causa anomalías de modificación (Coronel & Morris, 2017).",
+    "explicacionError": "El diseño es ineficiente; no alcanza la 2FN o 3FN debido a que existen dependencias funcionales de atributos no primos sobre otros atributos no primos.",
+    "categoria": "Bases de Datos"
+  },
+  {
+    "id": "Q21",
+    "pregunta": "Se requiere un listado de todos los estudiantes que no han registrado ninguna nota en el sistema actual. ¿Cuál es el operador de álgebra relacional o cláusula SQL que permite identificar estos registros comparando la tabla ESTUDIANTES con la tabla NOTAS?",
+    "opciones": {
+      "A": "Un INNER JOIN entre ambas tablas filtrando por nota mayor a cero.",
+      "B": "Un LEFT JOIN de Estudiantes con Notas, filtrando en el WHERE aquellos donde la clave de Notas sea NULL.",
+      "C": "Un CROSS JOIN para ver todas las combinaciones posibles.",
+      "D": "Una función de agregado SUM(notas) agrupada por estudiante."
+    },
+    "correcta": "B",
+    "justificacion": "El LEFT JOIN mantiene todos los registros de la tabla izquierda. Si no hay coincidencia en la derecha, los campos resultan nulos, permitiendo identificar la ausencia de registros relacionados (Jiménez Capel, 2015).",
+    "explicacionError": "Los otros métodos o bien excluyen a los estudiantes sin notas (INNER JOIN) o realizan operaciones matemáticas que no responden a la lógica de existencia de registros.",
+    "categoria": "Bases de Datos"
+  },
+  {
+    "id": "Q22",
+    "pregunta": "Durante la fase de implementación en SQL, se define una restricción ON DELETE CASCADE en una clave foránea que conecta FACULTADES con CARRERAS. ¿Cuál es la consecuencia técnica de eliminar un registro de la tabla FACULTADES?",
+    "opciones": {
+      "A": "El sistema impedirá la eliminación si existen carreras asociadas a esa facultad.",
+      "B": "Se eliminará la facultad y automáticamente se eliminarán todas las carreras vinculadas a ella.",
+      "C": "La facultad se elimina, pero las carreras quedan con el campo ID_Facultad en blanco (NULL).",
+      "D": "Solo se eliminan las carreras, pero la facultad permanece activa en la base de datos."
+    },
+    "correcta": "B",
+    "justificacion": "La integridad referencial con la opción CASCADE asegura que las operaciones de eliminación en la tabla padre se propaguen a las tablas hijas, manteniendo la consistencia (Pulido Romero et al., 2019).",
+    "explicacionError": "Estas opciones corresponden a otras restricciones como RESTRICT o SET NULL, las cuales tienen propósitos de integridad distintos al borrado en cascada.",
+    "categoria": "Bases de Datos"
+  },
+  {
+    "id": "Q23",
+    "pregunta": "Afirmación: En el modelo Entidad-Relación, un atributo \"Derivado\" es aquel que no se almacena físicamente en la base de datos, sino que se calcula a partir de otros atributos (por ejemplo, la 'Edad' calculada desde la 'Fecha de Nacimiento').",
+    "opciones": {
+      "A": "Verdadero",
+      "B": "Falso"
+    },
+    "correcta": "A",
+    "justificacion": "Según el sílabo y la bibliografía de Capacho & Nieto (2017), los atributos derivados ahorran espacio de almacenamiento y evitan inconsistencias si los datos base cambian.",
+    "explicacionError": "N/A",
+    "categoria": "Bases de Datos"
+  },
+  {
+    "id": "Q24",
+    "pregunta": "Afirmación: La sentencia SQL DROP TABLE tiene la misma función que TRUNCATE TABLE, ya que ambas eliminan todos los datos de la tabla y borran la definición de la estructura del diccionario de datos.",
+    "opciones": {
+      "A": "Verdadero",
+      "B": "Falso"
+    },
+    "correcta": "B",
+    "justificacion": "DROP elimina la estructura y los datos; TRUNCATE solo elimina los datos, manteniendo la estructura de la tabla intacta para futuros inserts (Gallegos & Martínez, 2017).",
+    "explicacionError": "N/A",
+    "categoria": "Bases de Datos"
+  },
+  {
+    "id": "Q25",
+    "pregunta": "Para garantizar la (1)_____ de una transacción en SQL, el sistema debe asegurar que se ejecuten todas las operaciones con éxito o ninguna, mientras que el aislamiento (Isolation) garantiza que las transacciones (2)_____ no interfieran entre sí.",
+    "opciones": {
+      "A": "(1) Durabilidad - (2) Concurrentes.",
+      "B": "(1) Atomicidad - (2) Simultáneas/Concurrentes.",
+      "C": "(1) Consistencia - (2) Serializadas.",
+      "D": "(1) Redundancia - (2) Únicas."
+    },
+    "correcta": "B",
+    "justificacion": "Estas son propiedades del modelo ACID. La atomicidad es el principio de \"todo o nada\", vital para la integridad en bases de datos relacionales (Silberschatz et al., 2019).",
+    "explicacionError": "La durabilidad garantiza persistencia tras fallos; la consistencia asegura estados válidos; las transacciones únicas no definen aislamiento.",
+    "categoria": "Bases de Datos"
+  },
+  {
+    "id": "Q26",
+    "pregunta": "Observe el diagrama ERD proporcionado. De acuerdo con la cardinalidad mostrada entre \"Profesor\" y \"Materia\", ¿cuál es la interpretación correcta del modelo de negocio?",
+    "opciones": {
+      "A": "Una materia puede ser dictada por muchos profesores simultáneamente.",
+      "B": "Un profesor puede dictar muchas materias, pero cada materia es dictada por un único profesor.",
+      "C": "Un profesor solo puede dictar una materia en toda su carrera.",
+      "D": "No existe una relación directa entre profesores y materias en este modelo."
+    },
+    "correcta": "B",
+    "justificacion": "La simbología (1,1) en un extremo y (1,N) en el otro establece una relación uno a muchos. En el modelo relacional, esto se traduce en que la clave de \"Profesor\" viaja a la tabla \"Materia\" como clave foránea (Conesa Caralt & Casas Roma, 2014).",
+    "explicacionError": "Se malinterpreta la dirección de la cardinalidad o se ignora la conexión explícita que existe entre las entidades.",
+    "categoria": "Bases de Datos"
+  },
+  {
+    "id": "Q27",
+    "pregunta": "Enunciado: El gráfico ilustra el funcionamiento de un Índice en una base de datos relacional. Si la tabla EMPLEADOS tiene 1 millón de registros, ¿cuál es la ventaja técnica de implementar un índice sobre el campo DNI para las consultas de búsqueda?",
+    "opciones": {
+      "A": "Reduce el espacio físico que ocupa la base de datos en el disco duro.",
+      "B": "Mejora drásticamente la velocidad de las consultas SELECT, pasando de una complejidad lineal O(n) a una logarítmica O(log n).",
+      "C": "Aumenta la velocidad de las operaciones INSERT y UPDATE ya que los datos se guardan ordenados.",
+      "D": "Permite que la base de datos sea accesible sin necesidad de un usuario y contraseña."
+    },
+    "correcta": "B",
+    "justificacion": "Los índices como el B-Tree organizan punteros a los datos, permitiendo búsquedas rápidas. Sin embargo, suelen ralentizar los INSERT porque el índice debe actualizarse (Silberschatz et al., 2019).",
+    "explicacionError": "Erróneamente sugieren que los índices ahorran espacio (en realidad ocupan más) o que aceleran la escritura (la ralentizan por la re-indexación).",
+    "categoria": "Bases de Datos"
+  },
+  {
+    "id": "Q28",
+    "pregunta": "En el desarrollo de procedimientos almacenados para la UTELVT, se requiere implementar una estructura que permita manejar errores en tiempo de ejecución (como una división para cero o clave duplicada) para evitar que la aplicación colapse. ¿Cuál es el bloque técnico correcto en PL/SQL o lenguajes procedimentales de BD para este fin?",
+    "opciones": {
+      "A": "Bloque IF-THEN-ELSE para validar cada dato antes de insertarlo.",
+      "B": "Bloque EXCEPTION dentro de una estructura BEGIN...END.",
+      "C": "Uso de la sentencia ROLLBACK al inicio de cada función.",
+      "D": "Creación de un TRIGGER que borre los datos erróneos automáticamente."
+    },
+    "correcta": "B",
+    "justificacion": "Según Martínez López & Gallegos Ruiz (2017), el manejo de excepciones en lenguajes procedimentales de bases de datos permite capturar errores previstos e imprevistos, garantizando que el flujo del programa termine de forma controlada y segura.",
+    "explicacionError": "De forma general, los distractores proponen métodos preventivos lógicos o correctivos posteriores, pero no el mecanismo nativo de captura de errores en tiempo de ejecución.",
+    "categoria": "Bases de Datos"
+  },
+  {
+    "id": "Q29",
+    "pregunta": "Se desea automatizar la auditoría de una tabla de PAGOS. Cada vez que se modifique el monto de un pago, el sistema debe registrar el valor antiguo, el valor nuevo y el usuario que realizó el cambio en una tabla secundaria. ¿Qué objeto de base de datos es el más adecuado para garantizar que esta acción se ejecute siempre, sin importar la aplicación que acceda?",
+    "opciones": {
+      "A": "Un Procedimiento Almacenado invocado por el backend de la aplicación.",
+      "B": "Un Trigger (Disparador) de tipo AFTER UPDATE a nivel de fila.",
+      "C": "Una Vista (View) que oculte los datos sensibles.",
+      "D": "Un Índice Clúster que organice los pagos cronológicamente."
+    },
+    "correcta": "B",
+    "justificacion": "Los triggers son objetos que se ejecutan automáticamente ante eventos DML (INSERT, UPDATE, DELETE). Al estar en el servidor de base de datos, garantizan la integridad y la auditoría independientemente de la interfaz de usuario (Silberschatz et al., 2019).",
+    "explicacionError": "El procedimiento depende de ser llamado manualmente, la vista no realiza acciones de inserción y el índice es para rendimiento de búsqueda.",
+    "categoria": "Bases de Datos"
+  },
+  {
+    "id": "Q30",
+    "pregunta": "Un administrador de base de datos nota que las consultas a la tabla HISTORIAL_ACADEMICO (con millones de registros) son extremadamente lentas. Tras analizar el plan de ejecución, decide crear un Índice No Agrupado por el campo fecha_examen. ¿Cuál es el costo técnico (trade-off) de esta decisión?",
+    "opciones": {
+      "A": "El espacio en disco disminuirá porque los datos se comprimen.",
+      "B": "Las consultas SELECT serán más rápidas, pero las operaciones INSERT y UPDATE serán más lentas debido a la actualización del índice.",
+      "C": "La base de datos se volverá de \"Solo Lectura\" automáticamente.",
+      "D": "Se perderá la integridad referencial de las claves foráneas."
+    },
+    "correcta": "B",
+    "justificacion": "Los índices mejoran la recuperación de datos (lectura), pero introducen una sobrecarga en la escritura, ya que cada vez que se modifica un dato, el motor de la base de datos debe reorganizar la estructura del índice (Martínez Silverio & Tejada, 2019).",
+    "explicacionError": "Los índices ocupan espacio adicional, no bloquean la escritura por completo y no afectan la lógica de las claves foráneas.",
+    "categoria": "Bases de Datos"
+  },
+  {
+    "id": "Q31",
+    "pregunta": "En el estudio de las bases de datos NoSQL, específicamente en MongoDB ¿cuál es la diferencia fundamental en la estructura de almacenamiento comparada con una base de datos relacional como MySQL?",
+    "opciones": {
+      "A": "MongoDB almacena datos en tablas rígidas, pero sin claves primarias.",
+      "B": "MongoDB utiliza documentos BSON (JSON binario) con esquemas dinámicos, permitiendo que cada registro tenga diferentes campos.",
+      "C": "MongoDB no permite realizar consultas de filtrado, solo búsqueda por ID.",
+      "D": "Es obligatorio que todos los documentos de una colección tengan exactamente la misma estructura."
+    },
+    "correcta": "B",
+    "justificacion": "A diferencia del modelo relacional que requiere un esquema fijo (schema-first), las bases de datos orientadas a documentos como MongoDB permiten esquemas flexibles, lo que facilita el desarrollo ágil y el manejo de datos no estructurados (Sarasa, 2016).",
+    "explicacionError": "Los distractores confunden las limitaciones de las BD relacionales con la flexibilidad nativa de los sistemas NoSQL orientados a documentos.",
+    "categoria": "Bases de Datos"
+  },
+  {
+    "id": "Q32",
+    "pregunta": "En una base de datos distribuida, la Replicación consiste en mantener copias del mismo fragmento de datos en diferentes nodos de la red para mejorar la disponibilidad y la tolerancia a fallos.",
+    "opciones": {
+      "A": "Verdadero",
+      "B": "Falso"
+    },
+    "correcta": "A",
+    "justificacion": "La replicación asegura que si un nodo falla, el sistema pueda seguir operando con la copia en otro nodo, mejorando la disponibilidad según los principios de bases de datos avanzadas del sílabo.",
+    "explicacionError": "N/A",
+    "categoria": "Bases de Datos"
+  },
+  {
+    "id": "Q33",
+    "pregunta": "Afirmación: El uso de Cursores en programación de bases de datos es la forma más eficiente de procesar grandes volúmenes de datos, ya que operan sobre todos los registros simultáneamente en lugar de procesarlos fila por fila.",
+    "opciones": {
+      "A": "Verdadero",
+      "B": "Falso"
+    },
+    "correcta": "B",
+    "justificacion": "Los cursores procesan los datos fila por fila (orientado a registros), lo cual suele ser mucho más lento y costoso en recursos que las operaciones basadas en conjuntos (orientadas a sets) de SQL estándar.",
+    "explicacionError": "N/A",
+    "categoria": "Bases de Datos"
+  },
+  {
+    "id": "Q34",
+    "pregunta": "Las bases de datos NoSQL de tipo (1)_____ como Redis son ideales para gestionar sesiones de usuario y cachés debido a su alta velocidad, mientras que el concepto de (2)_____ en BD relacionales garantiza que una transacción no sea visible para otras hasta que se confirme (Commit).",
+    "opciones": {
+      "A": "(1) Documentales - (2) Atomicidad.",
+      "B": "(1) Clave-Valor - (2) Aislamiento (Isolation).",
+      "C": "(1) Grafos - (2) Durabilidad.",
+      "D": "(1) Relacionales - (2) Consistencia."
+    },
+    "correcta": "B",
+    "justificacion": "Redis es el exponente principal de bases clave-valor para alto rendimiento (Sarasa, 2019). El aislamiento es la propiedad ACID que gestiona la visibilidad de transacciones concurrentes.",
+    "explicacionError": "Mezcla incorrectamente modelos NoSQL con propiedades que no corresponden a la visibilidad de estados intermedios.",
+    "categoria": "Bases de Datos"
+  },
+  {
+    "id": "Q35",
+    "pregunta": "Observe el gráfico que representa la ejecución de un Trigger. Si el disparador está configurado como BEFORE INSERT, ¿qué ventaja técnica ofrece al administrador antes de que el dato llegue a la tabla de 'Ventas'?",
+    "opciones": {
+      "A": "Permite cancelar la transacción o modificar los datos entrantes (como aplicar un descuento) antes de que se guarden permanentemente.",
+      "B": "Borra la tabla de Auditoría para ahorrar espacio antes de cada venta.",
+      "C": "Permite que el usuario final vea el reporte de ventas del mes anterior.",
+      "D": "Aumenta la velocidad de conexión a internet del servidor de base de datos."
+    },
+    "correcta": "A",
+    "justificacion": "Los disparadores BEFORE se ejecutan antes de que la operación DML se complete en el disco, permitiendo validaciones adicionales, ajustes de datos o incluso abortar la operación si no cumple con reglas de negocio.",
+    "explicacionError": "De forma general, los distractores plantean acciones que no corresponden al momento de ejecución o que no tienen relación con la lógica de bases de datos.",
+    "categoria": "Bases de Datos"
+  },
+  {
+    "id": "Q36",
+    "pregunta": "El gráfico muestra el Teorema CAP, fundamental en arquitecturas de datos modernas. Si una base de datos distribuida prioriza la Consistencia (C) y la Tolerancia a la Partición (P), sacrificando la Disponibilidad (A), ¿cuál será el comportamiento del sistema ante un fallo de red que divida los nodos?",
+    "opciones": {
+      "A": "El sistema responderá rápidamente con datos que podrían estar desactualizados.",
+      "B": "El sistema se bloqueará o devolverá un error hasta que la red se estabilice para asegurar que todos los nodos tengan exactamente la misma versión del dato.",
+      "C": "El sistema borrará automáticamente la mitad de la base de datos para reducir la carga.",
+      "D": "El sistema funcionará perfectamente sin notar que existe un fallo de red."
+    },
+    "correcta": "B",
+    "justificacion": "En un sistema CP (Consistente y tolerante a Particiones), la prioridad es que los datos sean idénticos en todo el clúster. Si hay una partición, se prefiere no dar servicio (sacrificar disponibilidad) antes que entregar datos inconsistentes (Sarasa, 2016).",
+    "explicacionError": "Responder con datos viejos es propio de sistemas AP (Disponibles); borrar datos o ignorar fallos de red son comportamientos erróneos en sistemas distribuidos.",
+    "categoria": "Bases de Datos"
+  },
+  {
+    "id": "Q37",
+    "pregunta": "En el contexto de la resolución de problemas mediante búsqueda en el espacio de estados, un agente debe encontrar la ruta más corta en un mapa de la ciudad de Esmeraldas. Si el agente utiliza el algoritmo de Búsqueda en Anchura (BFS), ¿qué característica técnica garantiza este algoritmo respecto a la solución?",
+    "opciones": {
+      "A": "Encuentra la solución más profunda en el árbol de búsqueda para ahorrar memoria.",
+      "B": "Es óptimo y completo si el costo de cada paso es idéntico, encontrando siempre el nodo objetivo más cercano a la raíz.",
+      "C": "Utiliza una función heurística para adivinar qué camino es el más rápido.",
+      "D": "Siempre consume menos memoria que la búsqueda en profundidad (DFS)."
+    },
+    "correcta": "B",
+    "justificacion": "Según García Serrano (2023), BFS explora todos los nodos de un nivel antes de pasar al siguiente, lo que garantiza encontrar el camino más corto en términos de número de pasos desde el inicio.",
+    "explicacionError": "BFS consume mucha memoria; no utiliza heurísticas (búsqueda no informada); no es más eficiente en memoria que DFS.",
+    "categoria": "Inteligencia Artificial"
+  },
+  {
+    "id": "Q38",
+    "pregunta": "Se desea diseñar un Sistema Experto para el diagnóstico preventivo de fallas en los laboratorios de la facultad. El sistema utiliza reglas del tipo \"SI condición ENTONCES acción\". Si el sistema empieza con los datos conocidos del problema y aplica las reglas para extraer nuevas conclusiones hasta llegar a una meta, ¿qué estrategia de inferencia está utilizando?",
+    "opciones": {
+      "A": "Encadenamiento hacia atrás (Backward Chaining).",
+      "B": "Encadenamiento hacia adelante (Forward Chaining).",
+      "C": "Búsqueda No Informada.",
+      "D": "Redes Neuronales Convolucionales."
+    },
+    "correcta": "B",
+    "justificacion": "El encadenamiento hacia adelante parte de los hechos disponibles para derivar conclusiones. Es ideal cuando hay una gran cantidad de datos iniciales y el objetivo es ver qué se puede inferir de ellos (García Serrano, 2023).",
+    "explicacionError": "El encadenamiento hacia atrás parte de la meta; la búsqueda no informada no usa reglas simbólicas; las redes neuronales son un enfoque conexionista.",
+    "categoria": "Inteligencia Artificial"
+  },
+  {
+    "id": "Q39",
+    "pregunta": "Un algoritmo de búsqueda A* (A-Estrella) combina el costo real del camino recorrido g(n) con una función heurística h(n) que estima el costo restante. ¿Qué condición debe cumplir la heurística h(n) para asegurar que el algoritmo encuentre siempre el camino óptimo?",
+    "opciones": {
+      "A": "Debe ser una heurística \"avara\", que elija siempre el valor más alto.",
+      "B": "Debe ser admisible, es decir, nunca debe sobreestimar el costo real para alcanzar el objetivo.",
+      "C": "Debe ser igual a cero en todos los nodos para acelerar el procesamiento.",
+      "D": "Debe cambiar aleatoriamente en cada iteración del algoritmo."
+    },
+    "correcta": "B",
+    "justificacion": "Para que A* sea óptimo, la heurística debe ser admisible. Si h(n) nunca supera el costo real, el algoritmo no descartará por error el camino más corto (García Serrano, 2023).",
+    "explicacionError": "Sobreestimar el costo lleva a soluciones subóptimas; si es cero, degenera en Dijkstra; valores aleatorios invalidan la búsqueda informada.",
+    "categoria": "Inteligencia Artificial"
+  },
+  {
+    "id": "Q40",
+    "pregunta": "En el aprendizaje supervisado (Machine Learning), un modelo de clasificación presenta un Overfitting (Sobreajuste) tras ser entrenado con datos de estudiantes. ¿Qué significa esto técnicamente respecto al rendimiento del modelo?",
+    "opciones": {
+      "A": "El modelo aprendió perfectamente el ruido y los detalles específicos de los datos de entrenamiento, pero no logra generalizar ante datos nuevos.",
+      "B": "El modelo es demasiado simple y no pudo aprender ni siquiera los datos de entrenamiento.",
+      "C": "El modelo tiene una precisión del 0% tanto en entrenamiento como en pruebas.",
+      "D": "El modelo es capaz de predecir el futuro con total certeza sin margen de error."
+    },
+    "correcta": "A",
+    "justificacion": "El sobreajuste ocurre cuando el modelo \"memoriza\" los datos en lugar de aprender los patrones, lo que resulta en un error muy bajo en entrenamiento pero muy alto en validación (García Serrano, 2023).",
+    "explicacionError": "La opción B describe Underfitting; la C es un fallo total; la D es una imposibilidad estadística.",
+    "categoria": "Inteligencia Artificial"
+  },
+  {
+    "id": "Q41",
+    "pregunta": "Afirmación: La Prueba de Turing, propuesta por Alan Turing, es un estándar diseñado para medir si una máquina posee \"conciencia\" y sentimientos similares a los humanos, analizando su actividad cerebral electrónica.",
+    "opciones": {
+      "A": "Verdadero",
+      "B": "Falso"
+    },
+    "correcta": "B",
+    "justificacion": "La Prueba de Turing mide la capacidad de una máquina para exhibir un comportamiento inteligente indistinguible del de un humano en una conversación, no mide conciencia ni sentimientos (García Serrano, 2023).",
+    "explicacionError": "N/A",
+    "categoria": "Inteligencia Artificial"
+  },
+  {
+    "id": "Q42",
+    "pregunta": "En la lógica de predicados, un \"Cuantificador Universal\" (∀) se utiliza para afirmar que una propiedad se cumple para todos los elementos de un dominio específico.",
+    "opciones": {
+      "A": "Verdadero",
+      "B": "Falso"
+    },
+    "correcta": "A",
+    "justificacion": "Es la definición formal en representación del conocimiento; se utiliza para expresar leyes generales sobre conjuntos de objetos.",
+    "explicacionError": "N/A",
+    "categoria": "Inteligencia Artificial"
+  },
+  {
+    "id": "Q43",
+    "pregunta": "En el desarrollo de agentes inteligentes, un agente (1)_____ toma decisiones basadas únicamente en la percepción actual, ignorando el historial de percepciones, mientras que un agente (2)_____ mantiene un estado interno para seguir rastro de aspectos del mundo que no son visibles en el momento.",
+    "opciones": {
+      "A": "(1) Híbrido - (2) De aprendizaje.",
+      "B": "(1) Reactivo simple - (2) Basado en modelos.",
+      "C": "(1) Basado en metas - (2) Reactivo.",
+      "D": "(1) Autónomo - (2) Estático."
+    },
+    "correcta": "B",
+    "justificacion": "Los agentes reactivos simples funcionan mediante reglas condición-acción sobre la entrada actual. Los basados en modelos necesitan memoria para entender entornos parcialmente observables (García Serrano, 2023).",
+    "explicacionError": "Mezcla tipos de agentes con capacidades que no corresponden a la dicotomía entre reacción inmediata y memoria del entorno.",
+    "categoria": "Inteligencia Artificial"
+  },
+  {
+    "id": "Q44",
+    "pregunta": "Observe el gráfico que ilustra la Búsqueda en Profundidad (DFS). Si el nodo objetivo se encuentra en la rama derecha a poca profundidad, ¿cuál es la principal desventaja de utilizar este algoritmo en comparación con la búsqueda en anchura?",
+    "opciones": {
+      "A": "Que DFS siempre encontrará el objetivo más rápido sin importar su ubicación.",
+      "B": "Que DFS puede perderse en ramas infinitas o muy profundas a la izquierda antes de intentar explorar la rama derecha donde está el objetivo.",
+      "C": "Que DFS consume demasiada memoria RAM al guardar todos los nodos del mismo nivel.",
+      "D": "Que DFS requiere obligatoriamente una función heurística para funcionar."
+    },
+    "correcta": "B",
+    "justificacion": "DFS prioriza la profundidad. Si el árbol es muy profundo o infinito, el algoritmo puede no terminar nunca o tardar demasiado en encontrar un objetivo que estaba cerca de la raíz pero en una rama posterior (García Serrano, 2023).",
+    "explicacionError": "DFS consume poca memoria; es búsqueda ciega; su rapidez depende totalmente de la estructura del árbol.",
+    "categoria": "Inteligencia Artificial"
+  },
+  {
+    "id": "Q45",
+    "pregunta": "El gráfico muestra la estructura básica de un Perceptrón. Si la suma ponderada de las entradas ∑ xiwi no supera el umbral definido en la función de activación, ¿qué sucederá con la salida del modelo?",
+    "opciones": {
+      "A": "La salida será proporcional a la suma recibida.",
+      "B": "La neurona no se \"disparará\" (salida 0 o valor mínimo), indicando que la señal no fue suficiente para activar la respuesta.",
+      "C": "El modelo ajustará automáticamente los pesos sin necesidad de entrenamiento.",
+      "D": "La neurona explotará debido al exceso de carga informativa."
+    },
+    "correcta": "B",
+    "justificacion": "El perceptrón imita el comportamiento biológico de \"todo o nada\". Si la entrada neta no alcanza el umbral, la función de activación (normalmente de tipo escalón) mantiene la salida en un estado inactivo (García Serrano, 2023).",
+    "explicacionError": "La proporcionalidad es de funciones lineales; el ajuste de pesos requiere un algoritmo de entrenamiento; la explosión es una exageración.",
+    "categoria": "Inteligencia Artificial"
+  },
+  {
+    "id": "Q46",
+    "pregunta": "En el entrenamiento de una Red Neuronal Multicapa, se utiliza el algoritmo de Retropropagación (Backpropagation). ¿Cuál es la función técnica de este algoritmo dentro del proceso de aprendizaje?",
+    "opciones": {
+      "A": "Seleccionar aleatoriamente las entradas del modelo para evitar sesgos.",
+      "B": "Calcular el gradiente del error y distribuirlo hacia atrás desde la salida hasta la entrada para ajustar los pesos y reducir la pérdida.",
+      "C": "Eliminar las neuronas que no se activan durante la primera iteración.",
+      "D": "Convertir una red neuronal en un sistema experto basado en reglas SI-ENTONCES."
+    },
+    "correcta": "B",
+    "justificacion": "El Backpropagation es el método fundamental para entrenar redes profundas; utiliza la regla de la cadena para calcular cómo debe cambiar cada peso para minimizar la función de coste (Freeman & Skapura, 2022).",
+    "explicacionError": "No selecciona entradas ni elimina neuronas; pertenece al aprendizaje conexionista, no al simbólico de reglas.",
+    "categoria": "Inteligencia Artificial"
+  },
+  {
+    "id": "Q47",
+    "pregunta": "Se desea implementar un sistema de control para el aire acondicionado de los laboratorios de la UTELVT que maneje conceptos imprecisos como \"un poco frío\" o \"muy caliente\". ¿Qué técnica de IA es la más adecuada para modelar este razonamiento humano?",
+    "opciones": {
+      "A": "Algoritmos Genéticos.",
+      "B": "Lógica Difusa (Fuzzy Logic).",
+      "C": "Búsqueda en Profundidad (DFS).",
+      "D": "Clasificación Bayesiana."
+    },
+    "correcta": "B",
+    "justificacion": "La lógica difusa permite representar el conocimiento mediante conjuntos que no tienen límites definidos, permitiendo grados de membresía entre 0 y 1, ideal para variables físicas continuas (Rouhiainen, 2022).",
+    "explicacionError": "Los algoritmos genéticos optimizan; DFS busca en grafos; Bayes usa probabilidad estricta.",
+    "categoria": "Inteligencia Artificial"
+  },
+  {
+    "id": "Q48",
+    "pregunta": "En los Algoritmos Genéticos, se utiliza un operador llamado \"Mutación\". ¿Cuál es el propósito biológico simulado que este operador aporta al proceso de optimización?",
+    "opciones": {
+      "A": "Asegurar que los mejores individuos sobrevivan sin cambios a la siguiente generación.",
+      "B": "Mantener la diversidad genética y evitar que el algoritmo converja prematuramente en un óptimo local.",
+      "C": "Combinar las mejores características de dos padres para crear un hijo superior.",
+      "D": "Eliminar a todos los individuos que tengan un puntaje de aptitud (fitness) bajo."
+    },
+    "correcta": "B",
+    "justificacion": "La mutación altera aleatoriamente genes de un individuo, permitiendo explorar nuevas zonas del espacio de búsqueda que no estaban presentes en la población inicial (Gestal et al., 2021).",
+    "explicacionError": "La supervivencia es Elitismo; la combinación es Cruce; el filtrado es Selección.",
+    "categoria": "Inteligencia Artificial"
+  },
+  {
+    "id": "Q49",
+    "pregunta": "Un modelo de IA diseñado para analizar los comentarios de los estudiantes sobre la calidad docente utiliza Procesamiento de Lenguaje Natural (PLN). Durante la fase de preprocesamiento, se aplica \"Lemmatization\". ¿Qué resultado técnico se obtiene con este proceso?",
+    "opciones": {
+      "A": "Contar cuántas veces aparece una palabra en un texto.",
+      "B": "Reducir las palabras a su raíz o forma base (lema) teniendo en cuenta el contexto morfológico (ej: \"comiendo\" -> \"comer\").",
+      "C": "Traducir automáticamente el texto del español al inglés.",
+      "D": "Cifrar el texto para que nadie pueda leer las opiniones."
+    },
+    "correcta": "B",
+    "justificacion": "La lematización ayuda a normalizar el texto para que el modelo identifique que distintas formas de una palabra representan el mismo concepto lingüístico (Rouhiainen, 2022).",
+    "explicacionError": "El conteo es BoW; la traducción es una tarea final; el cifrado es seguridad de datos.",
+    "categoria": "Inteligencia Artificial"
+  },
+  {
+    "id": "Q50",
+    "pregunta": "Afirmación: Las Redes Neuronales Convolucionales (CNN) son arquitecturas diseñadas específicamente para el procesamiento de datos con estructura de rejilla, como imágenes, debido a su capacidad para extraer características espaciales mediante filtros.",
+    "opciones": {
+      "A": "Verdadero",
+      "B": "Falso"
+    },
+    "correcta": "A",
+    "justificacion": "Según Rivas et al. (2022), las CNN utilizan capas de convolución que detectan patrones como bordes, texturas y formas, siendo el estándar actual para visión artificial.",
+    "explicacionError": "N/A",
+    "categoria": "Inteligencia Artificial"
+  },
+  {
+    "id": "Q51",
+    "pregunta": "Afirmación: En un Algoritmo Genético, la \"Función de Aptitud\" (Fitness Function) es un componente opcional que solo se usa si el programador no conoce el objetivo del problema.",
+    "opciones": {
+      "A": "Verdadero",
+      "B": "Falso"
+    },
+    "correcta": "B",
+    "justificacion": "La función de aptitud es obligatoria y crítica, ya que es la métrica que guía la evolución al determinar qué tan cerca está un individuo de resolver el problema propuesto (Gestal et al., 2021).",
+    "explicacionError": "N/A",
+    "categoria": "Inteligencia Artificial"
+  },
+  {
+    "id": "Q52",
+    "pregunta": "En el aprendizaje profundo, una función de (1)_____ (como ReLU o Sigmoide) determina si la salida de una neurona debe activarse o no, mientras que el (2)_____ es el hiperparámetro que controla qué tan grandes son los ajustes en los pesos durante el entrenamiento.",
+    "opciones": {
+      "A": "(1) Agregación - (2) Sesgo (Bias).",
+      "B": "(1) Activación - (2) Tasa de aprendizaje (Learning Rate).",
+      "C": "(1) Pérdida - (2) Momento.",
+      "D": "(1) Convolución - (2) Kernel."
+    },
+    "correcta": "B",
+    "justificacion": "La función de activación introduce la no-linealidad necesaria para aprender patrones complejos, y el Learning Rate define la velocidad de convergencia del modelo (Freeman & Skapura, 2022).",
+    "explicacionError": "Agregación es la suma ponderada; Sesgo es el offset; Pérdida mide el error.",
+    "categoria": "Inteligencia Artificial"
+  },
+  {
+    "id": "Q53",
+    "pregunta": "Observe el gráfico de la Red Neuronal Profunda. ¿Cuál es la función técnica de las \"Capas Ocultas\" (Hidden Layers) en este modelo comparado con un Perceptrón simple?",
+    "opciones": {
+      "A": "Sirven solo para almacenar una copia de seguridad de los datos de entrada.",
+      "B": "Permiten al modelo aprender representaciones jerárquicas y características no lineales complejas de los datos.",
+      "C": "Son las encargadas de mostrar el resultado final al usuario de forma gráfica.",
+      "D": "Reducen la cantidad de neuronas necesarias para que el modelo funcione en un celular."
+    },
+    "correcta": "B",
+    "justificacion": "Las capas ocultas son las que permiten al \"Deep Learning\" modelar problemas que no son linealmente separables, extrayendo características cada vez más abstractas en cada nivel (Rivas et al., 2022).",
+    "explicacionError": "No son memorias; no son la interfaz final; suelen aumentar la carga computacional.",
+    "categoria": "Inteligencia Artificial"
+  },
+  {
+    "id": "Q54",
+    "pregunta": "Basándose en el ciclo de vida del Algoritmo Genético mostrado en el gráfico, ¿qué sucederá con la evolución de la solución si se eliminara por completo el paso de \"Selección\"?",
+    "opciones": {
+      "A": "El algoritmo encontraría la solución más rápido porque hay menos pasos.",
+      "B": "El algoritmo perdería la presión selectiva, convirtiéndose en una búsqueda aleatoria sin dirección, ya que no habría preferencia por los individuos más aptos.",
+      "C": "La mutación se encargaría automáticamente de elegir a los mejores individuos.",
+      "D": "Los hijos serían idénticos a los padres en todas las generaciones."
+    },
+    "correcta": "B",
+    "justificacion": "La selección es el motor de la mejora en los algoritmos genéticos. Sin ella, los individuos mediocres tendrían las mismas probabilidades de reproducirse que los mejores, impidiendo la convergencia hacia una solución óptima (Gestal et al., 2021).",
+    "explicacionError": "Sin selección no hay mejora progresiva; la mutación no elige calidad; el cruce sin filtro es aleatorio.",
+    "categoria": "Inteligencia Artificial"
+  },
+  {
+    "id": "Q55",
+    "pregunta": "En el desarrollo de aplicaciones robustas en Java (según la bibliografía de Bloch), se diferencia entre el uso de Error y Exception. Si un programa agota la memoria disponible del sistema (StackOverflow), ¿qué tipo de objeto se lanza y cuál es la recomendación técnica para el programador?",
+    "opciones": {
+      "A": "Se lanza una RuntimeException; el programador debe capturarla con un bloque try-catch.",
+      "B": "Se lanza un Error (como OutOfMemoryError); generalmente no debe intentarse capturar, ya que indica un fallo crítico de la JVM.",
+      "C": "Se lanza una Checked Exception; el programador está obligado a declararla en la firma del método.",
+      "D": "El sistema se detiene sin lanzar ningún objeto, ya que la memoria es un recurso de hardware."
+    },
+    "correcta": "B",
+    "justificacion": "En la jerarquía de Throwable, los Errors representan condiciones anormales que la aplicación no debería tratar de manejar, a diferencia de las Exceptions que son recuperables (Bloch, 2018).",
+    "explicacionError": "No es recuperable por código; la JVM siempre notifica el fallo mediante objetos de la clase Error.",
+    "categoria": "Programación Avanzada"
+  },
+  {
+    "id": "Q56",
+    "pregunta": "Un sistema de facturación requiere procesar una lista de transacciones de forma segura en un entorno multihilo. El desarrollador decide usar ArrayList para almacenar los datos. ¿Qué riesgo técnico existe y qué estructura de la biblioteca java.util.concurrent sería la solución óptima?",
+    "opciones": {
+      "A": "Riesgo de fuga de memoria; solución: HashMap.",
+      "B": "Riesgo de condiciones de carrera (Race Conditions) ya que ArrayList no es sincronizado; solución: CopyOnWriteArrayList.",
+      "C": "Riesgo de lentitud; solución: LinkedList.",
+      "D": "Riesgo de errores de sintaxis; solución: un arreglo estático de tipo String[]."
+    },
+    "correcta": "B",
+    "justificacion": "ArrayList no es thread-safe. En programación concurrente, varias hebras modificando la misma lista causan inconsistencias. CopyOnWriteArrayList es una alternativa diseñada para alta concurrencia en lecturas (Subramaniam, 2011).",
+    "explicacionError": "HashMap no es para listas secuenciales; LinkedList no es thread-safe; los arreglos estáticos no solucionan la concurrencia.",
+    "categoria": "Programación Avanzada"
+  },
+  {
+    "id": "Q57",
+    "pregunta": "Dentro del estudio de la teoría de lenguajes y compiladores, se define la fase de Análisis Léxico. ¿Cuál es la unidad básica de información que esta fase entrega al Analizador Sintáctico (Parser)?",
+    "opciones": {
+      "A": "El Árbol de Sintaxis Abstracta (AST).",
+      "B": "Los Tokens (como identificadores, palabras reservadas y operadores).",
+      "C": "El código binario ejecutable.",
+      "D": "La tabla de símbolos completa con direcciones de memoria."
+    },
+    "correcta": "B",
+    "justificacion": "El analizador léxico (Scanner) lee el flujo de caracteres y los agrupa en unidades con significado llamadas tokens, eliminando espacios y comentarios (Cooper & Torczon, 2011).",
+    "explicacionError": "El AST es posterior al análisis sintáctico; el binario es el final del proceso; la tabla de símbolos se construye en todas las fases.",
+    "categoria": "Compiladores"
+  },
+  {
+    "id": "Q58",
+    "pregunta": "Al analizar la complejidad de un algoritmo de búsqueda en una estructura de datos tipo Árbol Binario de Búsqueda (BST), se determina que en el peor de los casos (árbol degenerado a lista) la complejidad es O(n). ¿Qué técnica de programación avanzada permite garantizar una complejidad O(logn) en búsquedas, inserciones y eliminaciones?",
+    "opciones": {
+      "A": "El uso de recursividad simple.",
+      "B": "La implementación de árboles balanceados como los Árboles AVL o Rojo-Negro.",
+      "C": "Convertir el árbol en una tabla Hash.",
+      "D": "Aumentar la velocidad del procesador (escalabilidad vertical)."
+    },
+    "correcta": "B",
+    "justificacion": "Los árboles auto-balanceados realizan rotaciones tras cada inserción o eliminación para mantener la altura del árbol mínima, asegurando eficiencia logarítmica (Skiena, 2020).",
+    "explicacionError": "Recursividad no cambia complejidad; Hash es otra estructura; hardware no mejora eficiencia algorítmica.",
+    "categoria": "Estructuras de Datos"
+  },
+  {
+    "id": "Q59",
+    "pregunta": "En Java, la palabra reservada synchronized aplicada a un método garantiza que solo un hilo a la vez pueda ejecutar dicho método sobre la misma instancia de un objeto, evitando la interferencia de hilos.",
+    "opciones": {
+      "A": "Verdadero",
+      "B": "Falso"
+    },
+    "correcta": "A",
+    "justificacion": "Es el mecanismo básico de monitores en Java para asegurar la exclusión mutua en secciones críticas de código (Subramaniam, 2011).",
+    "explicacionError": "N/A",
+    "categoria": "Programación Avanzada"
+  },
+  {
+    "id": "Q60",
+    "pregunta": "Las Expresiones Lambda, introducidas en versiones modernas de lenguajes como Java y Python, permiten tratar a las funciones como ciudadanos de primera clase, facilitando el paradigma de programación funcional y el procesamiento de streams.",
+    "opciones": {
+      "A": "Verdadero",
+      "B": "Falso"
+    },
+    "correcta": "A",
+    "justificacion": "Las lambdas permiten pasar comportamiento como parámetros, reduciendo el código boilerplate (clases anónimas) y mejorando la legibilidad en el manejo de colecciones (Bloch, 2018).",
+    "explicacionError": "N/A",
+    "categoria": "Programación Avanzada"
+  },
+  {
+    "id": "Q61",
+    "pregunta": "En el diseño de compiladores, el (1)_____ se encarga de verificar que el programa tenga sentido lógico (como la verificación de tipos), mientras que el (2)_____ traduce la representación intermedia a instrucciones específicas de la arquitectura del procesador.",
+    "opciones": {
+      "A": "(1) Generador de código - (2) Optimizador.",
+      "B": "(1) Analizador Semántico - (2) Generador de Código de Máquina.",
+      "C": "(1) Analizador Sintáctico - (2) Preprocesador.",
+      "D": "(1) Depurador (Debugger) - (2) Enlazador (Linker)."
+    },
+    "correcta": "B",
+    "justificacion": "El análisis semántico detecta errores de tipos o variables no declaradas. La fase final es la generación del código que entiende el hardware (Cooper & Torczon, 2011).",
+    "explicacionError": "Generador y Optimizador son fases distintas; Preprocesador es previo al léxico; Linker une archivos objeto.",
+    "categoria": "Compiladores"
+  },
+  {
+    "id": "Q62",
+    "pregunta": "Observe el gráfico de arquitectura de hilos. Si los tres hilos en el modelo de la derecha intentan incrementar una variable global ubicada en el espacio de memoria compartido (Heap) al mismo tiempo, ¿qué fenómeno técnico negativo podría ocurrir si no se implementa sincronización?",
+    "opciones": {
+      "A": "Bloqueo mutuo (Deadlock).",
+      "B": "Condición de carrera (Race Condition), resultando en un valor final de la variable incorrecto e inconsistente.",
+      "C": "Un aumento automático en la velocidad de ejecución sin errores.",
+      "D": "Que el sistema operativo borre la variable por seguridad."
+    },
+    "correcta": "B",
+    "justificacion": "Las condiciones de carrera ocurren cuando múltiples hilos acceden y modifican datos compartidos simultáneamente y el resultado depende del orden de ejecución, el cual es no determinista (Subramaniam, 2011).",
+    "explicacionError": "Deadlock es bloqueo mutuo; velocidad no aumenta con errores; SO no interviene borrando variables.",
+    "categoria": "Programación Avanzada"
+  },
+  {
+    "id": "Q63",
+    "pregunta": "El gráfico representa un AST, una estructura fundamental en la compilación. ¿Por qué el compilador prefiere esta estructura jerárquica sobre el texto plano de la expresión original?",
+    "opciones": {
+      "A": "Porque ocupa menos espacio en el disco duro que el código fuente.",
+      "B": "Porque permite evaluar correctamente la precedencia de operadores (como la multiplicación antes que la suma) y facilita la generación de código intermedio.",
+      "C": "Porque permite cambiar los números por letras de forma automática.",
+      "D": "Porque es la única forma de que el procesador pueda sumar números decimales."
+    },
+    "correcta": "B",
+    "justificacion": "El AST elimina detalles sintácticos irrelevantes (como paréntesis) y organiza la lógica de ejecución respetando las reglas semánticas y de precedencia del lenguaje (Cooper & Torczon, 2011).",
+    "explicacionError": "AST ocupa más memoria; no cambia tipos; procesador no lee AST directamente.",
+    "categoria": "Compiladores"
+  },
+  {
+    "id": "Q64",
+    "pregunta": "En el desarrollo frontend moderno, se utiliza el DOM (Document Object Model) para interactuar con la página. Si un desarrollador necesita modificar el contenido de un párrafo con id=\"mensaje\" de forma eficiente mediante JavaScript, ¿cuál es el método del estándar W3C recomendado?",
+    "opciones": {
+      "A": "document.write(\"Nuevo contenido\");",
+      "B": "document.getElementById(\"mensaje\").textContent = \"Nuevo contenido\";",
+      "C": "window.alert(\"Nuevo contenido\");",
+      "D": "console.log(\"mensaje\");"
+    },
+    "correcta": "B",
+    "justificacion": "getElementById es el método más directo y eficiente para acceder a un nodo específico por su identificador único, y textContent permite modificar el texto de forma segura sin renderizar HTML accidental (Fernández Casado, 2023).",
+    "explicacionError": "document.write sobreescribe el documento; alert es emergente; console.log es para depuración.",
+    "categoria": "Desarrollo Web"
+  },
+  {
+    "id": "Q65",
+    "pregunta": "Se está diseñando la arquitectura de una aplicación web para la UTELVT. Se decide utilizar el estilo arquitectónico REST (Representational State Transfer) para la comunicación entre el cliente y el servidor. ¿Cuál es la característica técnica obligatoria que debe cumplir una API para ser considerada RESTful?",
+    "opciones": {
+      "A": "Debe mantener el estado de la sesión del usuario en el servidor (Stateful).",
+      "B": "Debe ser sin estado (Stateless), lo que significa que cada petición del cliente debe contener toda la información necesaria para ser procesada.",
+      "C": "Solo puede devolver datos en formato XML.",
+      "D": "Requiere obligatoriamente el uso de Flash para las animaciones."
+    },
+    "correcta": "B",
+    "justificacion": "La naturaleza stateless de REST permite una mayor escalabilidad, ya que el servidor no necesita recordar peticiones anteriores para entender la actual (Mejía Trejo, 2023).",
+    "explicacionError": "REST no es stateful; puede usar JSON; no depende de tecnologías de animación como Flash.",
+    "categoria": "Desarrollo Web"
+  },
+  {
+    "id": "Q66",
+    "pregunta": "En el lenguaje CSS3, se desea implementar un diseño que sea \"Responsive\" (adaptable a dispositivos móviles). ¿Cuál es la herramienta técnica que permite aplicar estilos diferentes basados en el ancho de la pantalla del dispositivo?",
+    "opciones": {
+      "A": "Las etiquetas <section>.",
+      "B": "Las Media Queries (ej: @media (max-width: 600px)).",
+      "C": "Los bucles for de JavaScript.",
+      "D": "La base de datos MySQL."
+    },
+    "correcta": "B",
+    "justificacion": "Las Media Queries son la base del diseño web adaptativo, permitiendo condicionar las reglas CSS según las características del navegador o dispositivo (Fernández Casado, 2023).",
+    "explicacionError": "section es semántica; for es lógica de programación; MySQL es almacenamiento persistente.",
+    "categoria": "Desarrollo Web"
+  },
+  {
+    "id": "Q67",
+    "pregunta": "Un desarrollador web observa que al realizar una petición a un servidor externo desde su aplicación frontend, el navegador bloquea la respuesta con un error de CORS (Cross-Origin Resource Sharing). ¿Cuál es la causa técnica de este bloqueo?",
+    "opciones": {
+      "A": "La conexión a internet es demasiado lenta.",
+      "B": "El navegador prohíbe, por seguridad, que un script en un dominio realice peticiones a un dominio diferente a menos que el servidor lo autorice explícitamente.",
+      "C": "El archivo HTML no tiene la etiqueta <title>.",
+      "D": "El servidor de base de datos no tiene instalado JavaScript."
+    },
+    "correcta": "B",
+    "justificacion": "CORS es un mecanismo de seguridad de los navegadores que previene ataques de falsificación de peticiones en sitios cruzados, requiriendo cabeceras HTTP específicas del servidor (Mozilla Developer Network, 2025).",
+    "explicacionError": "No depende de velocidad de red ni etiquetas title ni software instalado en el servidor.",
+    "categoria": "Desarrollo Web"
+  },
+  {
+    "id": "Q68",
+    "pregunta": "En el desarrollo web con JavaScript, una Promesa (Promise) es un objeto que representa la terminación o el fracaso eventual de una operación asincrónica, permitiendo manejar flujos de datos sin bloquear el hilo principal de ejecución.",
+    "opciones": {
+      "A": "Verdadero",
+      "B": "Falso"
+    },
+    "correcta": "A",
+    "justificacion": "Las promesas (y el patrón async/await) son fundamentales para realizar peticiones a APIs o leer archivos sin que la interfaz de usuario se congele (Keith & Sambells, 2010).",
+    "explicacionError": "N/A",
+    "categoria": "Desarrollo Web"
+  },
+  {
+    "id": "Q69",
+    "pregunta": "El protocolo HTTPS es simplemente una versión más rápida de HTTP que no requiere certificados digitales ni cifrado de datos.",
+    "opciones": {
+      "A": "Verdadero",
+      "B": "Falso"
+    },
+    "correcta": "B",
+    "justificacion": "HTTPS es HTTP sobre una capa de seguridad (TLS/SSL). Su función principal es el cifrado de la comunicación y la autenticación del servidor mediante certificados (W3Schools, 2025).",
+    "explicacionError": "N/A",
+    "categoria": "Desarrollo Web"
+  },
+  {
+    "id": "Q70",
+    "pregunta": "En el modelo de desarrollo web, el (1)_____ se encarga de la lógica que se ejecuta en el navegador del usuario (interfaz), mientras que el (2)_____ gestiona el acceso a la base de datos y las reglas de negocio en el servidor.",
+    "opciones": {
+      "A": "(1) Backend - (2) Servidor DNS.",
+      "B": "(1) Frontend - (2) Backend.",
+      "C": "(1) Protocolo TCP - (2) Protocolo IP.",
+      "D": "(1) Nodo - (2) Cliente."
+    },
+    "correcta": "B",
+    "justificacion": "Es la división fundamental de responsabilidades en la web moderna. El frontend usa HTML/CSS/JS y el backend puede usar Node.js, PHP, Python, etc.",
+    "explicacionError": "Backend y DNS no dividen interfaz/lógica; TCP e IP son red; Nodo y Cliente son infraestructura.",
+    "categoria": "Desarrollo Web"
+  },
+  {
+    "id": "Q71",
+    "pregunta": "Observe el gráfico del ciclo de vida de una petición web. Si un usuario introduce una URL en su navegador y el servidor responde con un Código de Estado 404, ¿qué interpretación técnica debe darle el desarrollador a esta respuesta?",
+    "opciones": {
+      "A": "La petición fue exitosa y el recurso se envió correctamente.",
+      "B": "El cliente tiene un error de sintaxis en su código JavaScript.",
+      "C": "El servidor no pudo encontrar el recurso solicitado (la página o archivo no existe).",
+      "D": "El servidor tiene un error interno crítico y ha dejado de funcionar."
+    },
+    "correcta": "C",
+    "justificacion": "Los códigos 4xx indican errores del cliente; específicamente, el 404 significa \"Not Found\". Los errores de servidor empiezan con 5xx (W3Schools, 2025).",
+    "explicacionError": "200 es éxito; sintaxis local no genera 404; error crítico es 500.",
+    "categoria": "Desarrollo Web"
+  },
+  {
+    "id": "Q72",
+    "pregunta": "El gráfico muestra el Modelo de Caja (Box Model) de CSS. Si un desarrollador define un elemento con un ancho (width) de 300px, un padding de 20px y un border de 5px, ¿cuál será el ancho total real que ocupará el elemento en la pantalla si se utiliza el valor por defecto box-sizing: content-box?",
+    "opciones": {
+      "A": "300px",
+      "B": "325px",
+      "C": "350px",
+      "D": "250px"
+    },
+    "correcta": "C",
+    "justificacion": "En content-box, el ancho total se calcula sumando: width (300) + padding izquierdo/derecho (20+20) + border izquierdo/derecho (5+5) = 350px (Fernández Casado, 2023).",
+    "explicacionError": "El valor 300px solo sería correcto si se usara border-box. Los otros valores resultan de cálculos erróneos.",
+    "categoria": "Desarrollo Web"
+  },
+  {
+    "id": "Q73",
+    "pregunta": "Un algoritmo se define como una serie de pasos ordenados y finitos para resolver un problema. ¿Qué característica técnica asegura que el algoritmo siempre termine tras un número específico de pasos?",
+    "opciones": {
+      "A": "Precisión.",
+      "B": "Finitud.",
+      "C": "Definición.",
+      "D": "Eficiencia."
+    },
+    "correcta": "B",
+    "justificacion": "La finitud garantiza que el proceso no entre en un bucle infinito y que tenga un final claro (Joyanes Aguilar, 2020).",
+    "explicacionError": "Precisión es el orden lógico; Definición es consistencia de resultados; Eficiencia es el uso de recursos.",
+    "categoria": "Fundamentos de Programación"
+  },
+  {
+    "id": "Q74",
+    "pregunta": "Se desea declarar una variable para almacenar el promedio final de un estudiante con decimales en lenguaje C++. ¿Cuál es el tipo de dato primitivo más adecuado?",
+    "opciones": {
+      "A": "int",
+      "B": "bool",
+      "C": "float",
+      "D": "char"
+    },
+    "correcta": "C",
+    "justificacion": "El tipo float (o double) permite representar números reales con punto flotante, necesarios para promedios (Ceballos Sierra, 2018).",
+    "explicacionError": "int es para enteros; bool es lógico; char es para un solo carácter.",
+    "categoria": "Fundamentos de Programación"
+  },
+  {
+    "id": "Q75",
+    "pregunta": "¿Cuál es la función principal de un \"Compilador\" en el proceso de desarrollo de software utilizando lenguajes de alto nivel como C++?",
+    "opciones": {
+      "A": "Ejecutar el programa línea por línea sin transformarlo.",
+      "B": "Traducir el código fuente íntegro a código objeto o lenguaje máquina antes de la ejecución.",
+      "C": "Diseñar la interfaz gráfica del usuario de forma automática.",
+      "D": "Guardar el código fuente en la nube."
+    },
+    "correcta": "B",
+    "justificacion": "A diferencia de los intérpretes, los compiladores traducen todo el código fuente en un archivo ejecutable que el procesador puede entender directamente (Joyanes Aguilar, 2020).",
+    "explicacionError": "Ejecutar línea por línea es labor del intérprete; no diseña interfaces ni gestiona la nube.",
+    "categoria": "Fundamentos de Programación"
+  },
+  {
+    "id": "Q76",
+    "pregunta": "En una estructura de control Switch, ¿qué sucede si se omite la sentencia break al final de un caso (case) que ha coincidido con el valor evaluado?",
+    "opciones": {
+      "A": "El programa se detiene con un error de sintaxis.",
+      "B": "El programa continúa ejecutando los casos siguientes de forma secuencial hasta encontrar un break o el final del bloque.",
+      "C": "El programa vuelve automáticamente al primer caso del Switch.",
+      "D": "El valor de la variable evaluada se borra de la memoria."
+    },
+    "correcta": "B",
+    "justificacion": "Este comportamiento se conoce como \"fall-through\". El break es necesario para salir del bloque; de lo contrario, la ejecución fluye hacia los siguientes casos (Ceballos Sierra, 2018).",
+    "explicacionError": "No genera error de sintaxis; no vuelve al inicio ni borra memoria física.",
+    "categoria": "Fundamentos de Programación"
+  },
+  {
+    "id": "Q77",
+    "pregunta": "Se requiere repetir un bloque de código exactamente 10 veces. ¿Cuál es la estructura de control repetitiva más eficiente y recomendada cuando se conoce de antemano el número de iteraciones?",
+    "opciones": {
+      "A": "while",
+      "B": "do-while",
+      "C": "for",
+      "D": "if-else"
+    },
+    "correcta": "C",
+    "justificacion": "La estructura for integra en una sola línea la inicialización, la condición y el incremento, lo que la hace ideal para ciclos con conteo determinado (Joyanes Aguilar, 2020).",
+    "explicacionError": "while y do-while se usan cuando el número de repeticiones es incierto; if-else es condicional.",
+    "categoria": "Fundamentos de Programación"
+  },
+  {
+    "id": "Q78",
+    "pregunta": "Observe el diagrama de flujo proporcionado. ¿Qué símbolo representa la toma de decisiones donde se evalúa una condición lógica?",
+    "opciones": {
+      "A": "El óvalo.",
+      "B": "El rectángulo.",
+      "C": "El rombo.",
+      "D": "El paralelogramo."
+    },
+    "correcta": "C",
+    "justificacion": "En la simbología estándar de algoritmos, el rombo se utiliza para representar operaciones lógicas o de decisión que tienen dos salidas (Verdadero/Falso).",
+    "explicacionError": "Óvalo es inicio/fin; rectángulo es proceso; paralelogramo es entrada/salida.",
+    "categoria": "Fundamentos de Programación"
+  },
+  {
+    "id": "Q79",
+    "pregunta": "Dentro de la programación modular, ¿qué diferencia técnica existe entre pasar un parámetro \"por valor\" y pasarlo \"por referencia\" a una función?",
+    "opciones": {
+      "A": "Por valor se crea una copia del dato; por referencia se trabaja directamente con la dirección de memoria de la variable original.",
+      "B": "Por valor es más rápido para objetos grandes.",
+      "C": "Por referencia no permite modificar la variable original.",
+      "D": "No existe diferencia, ambos métodos funcionan igual en C++."
+    },
+    "correcta": "A",
+    "justificacion": "El paso por referencia permite que los cambios realizados dentro de la función afecten a la variable original, optimizando además el uso de memoria (Ceballos Sierra, 2018).",
+    "explicacionError": "Por valor es más lento para objetos grandes; por referencia sí permite modificar el original.",
+    "categoria": "Fundamentos de Programación"
+  },
+  {
+    "id": "Q80",
+    "pregunta": "En el contexto de arreglos (arrays) unidimensionales, ¿cuál es el índice de la primera posición en un arreglo de 5 elementos declarado en C++ como int notas[5];?",
+    "opciones": {
+      "A": "1",
+      "B": "-1",
+      "C": "0",
+      "D": "5"
+    },
+    "correcta": "C",
+    "justificacion": "En C++ y la mayoría de lenguajes modernos, los índices de los arreglos son base-cero, por lo que el primer elemento siempre es el índice 0 (Joyanes Aguilar, 2020).",
+    "explicacionError": "Indexar en 1 es para lenguajes antiguos; -1 es error; 5 excede el límite del arreglo.",
+    "categoria": "Fundamentos de Programación"
+  },
+  {
+    "id": "Q81",
+    "pregunta": "Según la ilustración, ¿cuál es la restricción técnica de una constante durante la ejecución de un programa?",
+    "opciones": {
+      "A": "Su valor puede cambiar solo si el usuario lo solicita.",
+      "B": "Su valor debe definirse al inicio y no puede ser modificado por ninguna instrucción durante la ejecución.",
+      "C": "Ocupa el doble de memoria que una variable normal.",
+      "D": "Solo puede almacenar números enteros."
+    },
+    "correcta": "B",
+    "justificacion": "Las constantes protegen datos sensibles que no deben variar (como la tasa de un impuesto o una constante matemática), garantizando la integridad del cálculo.",
+    "explicacionError": "No puede cambiar por solicitud; no duplica memoria; puede ser de cualquier tipo de dato.",
+    "categoria": "Fundamentos de Programación"
+  },
+  {
+    "id": "Q82",
+    "pregunta": "¿Qué operador lógico se debe utilizar para verificar que dos condiciones sean verdaderas al mismo tiempo en una instrucción if?",
+    "opciones": {
+      "A": "|| (OR)",
+      "B": "! (NOT)",
+      "C": "&& (AND)",
+      "D": "== (Igualdad)"
+    },
+    "correcta": "C",
+    "justificacion": "El operador AND lógico (&&) devuelve verdadero únicamente si ambos operandos son verdaderos (Joyanes Aguilar, 2020).",
+    "explicacionError": "OR requiere solo una condición; NOT invierte el valor; Igualdad compara valores no condiciones.",
+    "categoria": "Fundamentos de Programación"
+  },
+  {
+    "id": "Q83",
+    "pregunta": "Un estudiante escribe un programa donde un ciclo while tiene la condición constante while(true). Si no existe una sentencia de ruptura interna, ¿qué problema técnico se presenta?",
+    "opciones": {
+      "A": "Error de compilación por falta de lógica.",
+      "B": "Bucle infinito, lo que puede causar que el programa deje de responder o consuma recursos excesivos.",
+      "C": "El programa se ejecuta una sola vez y termina satisfactoriamente.",
+      "D": "La computadora se apaga por seguridad."
+    },
+    "correcta": "B",
+    "justificacion": "Un ciclo cuya condición de salida nunca se vuelve falsa genera una ejecución perpetua, lo cual es un error de lógica común en fundamentos de programación.",
+    "explicacionError": "Compila correctamente; no termina satisfactoriamente; no apaga el hardware.",
+    "categoria": "Fundamentos de Programación"
+  },
+  {
+    "id": "Q84",
+    "pregunta": "¿Cuál es la función del operador módulo % en lenguajes de programación como C++?",
+    "opciones": {
+      "A": "Calcular el porcentaje de un número.",
+      "B": "Realizar una división y devolver el residuo entero de la misma.",
+      "C": "Elevar un número a una potencia.",
+      "D": "Multiplicar tres números simultáneamente."
+    },
+    "correcta": "B",
+    "justificacion": "El operador módulo es esencial para determinar si un número es par/impar o para algoritmos de divisibilidad (Ceballos Sierra, 2018).",
+    "explicacionError": "No calcula porcentajes comerciales; no eleva potencias; no es multiplicador múltiple.",
+    "categoria": "Fundamentos de Programación"
+  },
+  {
+    "id": "Q85",
+    "pregunta": "De acuerdo con el gráfico, ¿en qué caso es obligatorio utilizar un bucle do-while en lugar de un while?",
+    "opciones": {
+      "A": "Cuando no se conoce el número de repeticiones.",
+      "B": "Cuando se necesita garantizar que el cuerpo del bucle se ejecute al menos una vez, independientemente de la condición inicial.",
+      "C": "Cuando se trabaja con números decimales.",
+      "D": "Cuando el programa debe ser más rápido."
+    },
+    "correcta": "B",
+    "justificacion": "Dado que el do-while evalúa la condición al final (post-condición), el bloque de instrucciones siempre se ejecuta en la primera iteración.",
+    "explicacionError": "No depende del tipo de dato ni de la velocidad ni del conocimiento de repeticiones.",
+    "categoria": "Fundamentos de Programación"
+  },
+  {
+    "id": "Q86",
+    "pregunta": "¿Qué nombre recibe el error que ocurre cuando un programador intenta acceder a la posición notas[10] en un arreglo declarado como int notas[5]?",
+    "opciones": {
+      "A": "Error de sintaxis.",
+      "B": "Error de desbordamiento de índice (Buffer Overflow / Out of Bounds).",
+      "C": "Error de compilación por tipo de dato.",
+      "D": "Error de hardware."
+    },
+    "correcta": "B",
+    "justificacion": "Acceder a un índice fuera del rango reservado es un error de tiempo de ejecución que puede causar inestabilidad en el sistema o corrupción de memoria.",
+    "explicacionError": "No es sintáctico ni de tipo de dato; no es un daño físico del hardware.",
+    "categoria": "Fundamentos de Programación"
+  },
+  {
+    "id": "Q87",
+    "pregunta": "En programación orientada a objetos ¿qué es una \"Clase\"?",
+    "opciones": {
+      "A": "Una variable que almacena texto.",
+      "B": "Una plantilla o molde que define los atributos y comportamientos de los objetos.",
+      "C": "Un error que detiene el sistema.",
+      "D": "Una función que solo sirve para sumar números."
+    },
+    "correcta": "B",
+    "justificacion": "La clase es la abstracción que define qué datos (atributos) y qué acciones (métodos) tendrá un objeto cuando sea instanciado (Oviedo Regino, 2015).",
+    "explicacionError": "No es un simple tipo de variable; no es un error de software; no es una función aislada.",
+    "categoria": "Fundamentos de Programación"
+  },
+  {
+    "id": "Q88",
+    "pregunta": "¿Para qué se utiliza la librería #include <iostream> en los programas escritos en C++?",
+    "opciones": {
+      "A": "Para realizar cálculos matemáticos complejos como senos y cosenos.",
+      "B": "Para permitir la entrada y salida de datos a través de la consola (cin y cout).",
+      "C": "Para conectar el programa con una base de datos externa.",
+      "D": "Para cambiar el color de las ventanas del sistema operativo."
+    },
+    "correcta": "B",
+    "justificacion": "Es la librería estándar de flujo de entrada y salida básica en C++, fundamental para la interacción con el usuario en consola.",
+    "explicacionError": "Cálculos matemáticos usan <cmath>; no gestiona BD ni estética del SO.",
+    "categoria": "Fundamentos de Programación"
+  },
+  {
+    "id": "Q89",
+    "pregunta": "Basándose en la representación de la Matriz, si queremos acceder al elemento ubicado en la tercera fila y la segunda columna, ¿cuál sería la instrucción correcta considerando la indexación base cero?",
+    "opciones": {
+      "A": "matriz[3][2]",
+      "B": "matriz[2][1]",
+      "C": "matriz[2][2]",
+      "D": "matriz[3][3]"
+    },
+    "correcta": "B",
+    "justificacion": "La tercera fila es el índice 2 y la segunda columna es el índice 1. (Fila 0,1,2; Columna 0,1).",
+    "explicacionError": "Las otras opciones apuntan a posiciones erróneas o fuera de rango.",
+    "categoria": "Fundamentos de Programación"
+  },
+  {
+    "id": "Q90",
+    "pregunta": "En el proceso de resolución de problemas por computadora, ¿cuál es el paso que consiste en verificar que el algoritmo produce los resultados esperados mediante datos de prueba manuales antes de programar?",
+    "opciones": {
+      "A": "Codificación.",
+      "B": "Mantenimiento.",
+      "C": "Prueba de escritorio.",
+      "D": "Análisis del problema."
+    },
+    "correcta": "C",
+    "justificacion": "La prueba de escritorio permite detectar errores de lógica de manera temprana siguiendo el flujo del algoritmo manualmente (Joyanes Aguilar, 2020).",
+    "explicacionError": "Codificación es escribir el programa; Mantenimiento es post-entrega; Análisis es la fase inicial.",
+    "categoria": "Fundamentos de Programación"
+  },
+  {
+    "id": "Q91",
+    "pregunta": "En la arquitectura de un ordenador, ¿cuál es el componente encargado de coordinar todas las actividades de la computadora, ejecutando instrucciones y procesando datos mediante la Unidad Aritmético Lógica (ALU)?",
+    "opciones": {
+      "A": "Memoria RAM.",
+      "B": "Unidad Central de Procesamiento (CPU).",
+      "C": "Disco Duro.",
+      "D": "Fuente de Alimentación."
+    },
+    "correcta": "B",
+    "justificacion": "La CPU es el \"cerebro\" del sistema, responsable de interpretar y ejecutar las instrucciones de los programas (Stallings, 2022).",
+    "explicacionError": "La RAM es almacenamiento temporal; el disco duro es almacenamiento permanente; la fuente solo suministra energía.",
+    "categoria": "Arquitectura de Computadores"
+  },
+  {
+    "id": "Q92",
+    "pregunta": "¿Qué tipo de memoria es volátil, lo que significa que pierde toda la información almacenada cuando se interrumpe el suministro de energía eléctrica?",
+    "opciones": {
+      "A": "Memoria ROM.",
+      "B": "Memoria RAM.",
+      "C": "Memoria Flash.",
+      "D": "Disco de Estado Sólido (SSD)."
+    },
+    "correcta": "B",
+    "justificacion": "La RAM (Random Access Memory) requiere energía para mantener los datos; por ello se utiliza como memoria de trabajo temporal.",
+    "explicacionError": "ROM, Flash y SSD son memorias no volátiles que retienen datos sin energía.",
+    "categoria": "Arquitectura de Computadores"
+  },
+  {
+    "id": "Q93",
+    "pregunta": "Durante el mantenimiento preventivo de un computador, ¿cuál es el propósito técnico de aplicar pasta térmica entre el procesador y el disipador de calor?",
+    "opciones": {
+      "A": "Pegar permanentemente el procesador a la placa base.",
+      "B": "Mejorar la transferencia de calor eliminando las burbujas de aire entre ambas superficies.",
+      "C": "Aumentar la velocidad del reloj del procesador (Overclocking).",
+      "D": "Limpiar el polvo acumulado en los ventiladores."
+    },
+    "correcta": "B",
+    "justificacion": "La pasta térmica llena las irregularidades microscópicas de las superficies, optimizando la conductividad térmica para evitar el sobrecalentamiento.",
+    "explicacionError": "No es pegamento; no altera el reloj del CPU; no tiene propiedades de limpieza.",
+    "categoria": "Arquitectura de Computadores"
+  },
+  {
+    "id": "Q94",
+    "pregunta": "De acuerdo con los componentes de la placa base, ¿qué función cumple la BIOS/UEFI durante el encendido del equipo?",
+    "opciones": {
+      "A": "Almacenar los archivos del sistema operativo permanentemente.",
+      "B": "Realizar el POST (Power-On Self-Test) e iniciar el proceso de carga del sistema operativo.",
+      "C": "Enfriar los componentes electrónicos mediante software.",
+      "D": "Aumentar la capacidad de almacenamiento del disco duro."
+    },
+    "correcta": "B",
+    "justificacion": "La BIOS es el firmware que realiza la verificación inicial del hardware antes de ceder el control al sistema operativo.",
+    "explicacionError": "No almacena archivos de usuario; no es refrigerante; no altera el hardware de almacenamiento.",
+    "categoria": "Arquitectura de Computadores"
+  },
+  {
+    "id": "Q95",
+    "pregunta": "¿Cuál es la diferencia principal entre un Disco Duro (HDD) y una Unidad de Estado Sólido (SSD) en términos de hardware?",
+    "opciones": {
+      "A": "El HDD usa memoria flash y el SSD usa platos magnéticos giratorios.",
+      "B": "El SSD no tiene partes móviles y usa memoria no volátil, lo que lo hace más rápido y resistente que el HDD magnético.",
+      "C": "El HDD no requiere energía eléctrica para funcionar.",
+      "D": "Los SSD solo pueden almacenar imágenes, no programas."
+    },
+    "correcta": "B",
+    "justificacion": "Al no depender de cabezales físicos ni discos giratorios, los SSD ofrecen tiempos de acceso significativamente menores (Stallings, 2022).",
+    "explicacionError": "Confunde las tecnologías entre HDD y SSD; ambos requieren energía; SSD almacena cualquier tipo de dato.",
+    "categoria": "Arquitectura de Computadores"
+  },
+  {
+    "id": "Q96",
+    "pregunta": "Según los fundamentos de electrónica del hardware, ¿cuál es la ventaja de los Circuitos Integrados (CI) sobre los circuitos construidos solo con componentes discretos?",
+    "opciones": {
+      "A": "Son mucho más grandes y fáciles de reparar manualmente.",
+      "B": "Permiten la miniaturización, reducen el consumo de energía y aumentan la velocidad de procesamiento.",
+      "C": "No requieren soldadura en la placa base.",
+      "D": "Solo funcionan con corriente alterna de alto voltaje."
+    },
+    "correcta": "B",
+    "justificacion": "La integración de miles de transistores en un solo chip de silicio permitió la creación de microprocesadores modernos.",
+    "explicacionError": "Son microscópicos y difíciles de reparar manualmente; sí requieren soldadura; operan con voltajes bajos DC.",
+    "categoria": "Arquitectura de Computadores"
+  },
+  {
+    "id": "Q97",
+    "pregunta": "¿Cuál de los siguientes periféricos es considerado exclusivamente de Entrada?",
+    "opciones": {
+      "A": "Monitor.",
+      "B": "Impresora.",
+      "C": "Escáner.",
+      "D": "Altavoces."
+    },
+    "correcta": "C",
+    "justificacion": "El escáner introduce información desde el mundo físico hacia el digital; los demás distractores son dispositivos de salida.",
+    "explicacionError": "Monitor, impresora y altavoces son periféricos de salida de información.",
+    "categoria": "Arquitectura de Computadores"
+  },
+  {
+    "id": "Q98",
+    "pregunta": "Al analizar el funcionamiento de la Fuente de Poder, ¿cuál es su tarea técnica principal respecto a los componentes internos del computador?",
+    "opciones": {
+      "A": "Almacenar energía para casos de apagones (como un UPS).",
+      "B": "Convertir la corriente alterna (AC) del hogar en corriente continua (DC) estable a bajos voltajes.",
+      "C": "Generar los gráficos de alta resolución para los juegos.",
+      "D": "Conectar la computadora a la red de internet."
+    },
+    "correcta": "B",
+    "justificacion": "Los componentes electrónicos internos operan con voltajes bajos de corriente continua (DC); la fuente rectifica y regula la señal de entrada.",
+    "explicacionError": "No almacena energía; no procesa gráficos; no gestiona conexiones de red.",
+    "categoria": "Arquitectura de Computadores"
+  },
+  {
+    "id": "Q99",
+    "pregunta": "¿Qué herramienta de seguridad personal es obligatoria para evitar daños por electricidad estática al manipular componentes internos sensibles como la RAM o el CPU?",
+    "opciones": {
+      "A": "Guantes de látex.",
+      "B": "Pulsera antiestática conectada a tierra.",
+      "C": "Un destornillador imantado.",
+      "D": "Gafas de protección solar."
+    },
+    "correcta": "B",
+    "justificacion": "La descarga electrostática (ESD) puede destruir circuitos microscópicos; la pulsera iguala el potencial eléctrico entre el técnico y el equipo.",
+    "explicacionError": "Látex no protege contra ESD; imanes dañan componentes; gafas no tienen función electrónica.",
+    "categoria": "Arquitectura de Computadores"
+  },
+  {
+    "id": "Q100",
+    "pregunta": "Basándose en la identificación de puertos, ¿cuál es la principal ventaja técnica del estándar USB-C frente a sus versiones anteriores?",
+    "opciones": {
+      "A": "Solo sirve para cargar la batería, no transmite datos.",
+      "B": "Es reversible (se puede conectar en cualquier posición) y soporta mayores velocidades de datos y carga de energía.",
+      "C": "Es un puerto analógico que no requiere cables de cobre.",
+      "D": "Solo es compatible con teclados y ratones antiguos."
+    },
+    "correcta": "B",
+    "justificacion": "USB-C es el estándar moderno versátil que permite datos, video y alimentación en un conector pequeño y reversible.",
+    "explicacionError": "Transmite datos a alta velocidad; es digital; está diseñado para hardware moderno.",
+    "categoria": "Arquitectura de Computadores"
+  }
+]

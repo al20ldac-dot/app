@@ -1,0 +1,10 @@
+{
+  "placeholderImages": [
+    {
+      "id": "hero-academic",
+      "description": "Estudiante de ingeniería frente a una computadora",
+      "imageUrl": "https://picsum.photos/seed/tech-edu/1200/600",
+      "imageHint": "engineering student"
+    }
+  ]
+}

@@ -1,0 +1,298 @@
+{
+  "entities": {
+    "Question": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Question",
+      "type": "object",
+      "description": "Represents a single exam question, including its statement, options, correct answer, and detailed explanations.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Question entity."
+        },
+        "statement": {
+          "type": "string",
+          "description": "The main text or enunciado of the exam question."
+        },
+        "optionA": {
+          "type": "string",
+          "description": "The text content for option A of the question."
+        },
+        "optionB": {
+          "type": "string",
+          "description": "The text content for option B of the question."
+        },
+        "optionC": {
+          "type": "string",
+          "description": "The text content for option C of the question."
+        },
+        "optionD": {
+          "type": "string",
+          "description": "The text content for option D of the question."
+        },
+        "correctOption": {
+          "type": "string",
+          "description": "The letter ('A', 'B', 'C', or 'D') indicating the correct option for the question."
+        },
+        "justification": {
+          "type": "string",
+          "description": "A detailed explanation justifying why the correct answer is indeed correct."
+        },
+        "distractorExplanation": {
+          "type": "string",
+          "description": "An explanation of why the incorrect options (distractors) are wrong, or common pitfalls associated with them."
+        },
+        "categoryId": {
+          "type": "string",
+          "description": "Reference to the Category entity this question belongs to. (Relationship: Category 1:N Question)"
+        }
+      },
+      "required": [
+        "id",
+        "statement",
+        "optionA",
+        "optionB",
+        "optionC",
+        "optionD",
+        "correctOption",
+        "justification",
+        "distractorExplanation",
+        "categoryId"
+      ]
+    },
+    "Category": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Category",
+      "type": "object",
+      "description": "Represents a classification or topic for questions (e.g., 'Redes', 'Bases de Datos').",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Category entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the question category."
+        },
+        "description": {
+          "type": "string",
+          "description": "An optional brief description of the category."
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "UserExamSession": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "UserExamSession",
+      "type": "object",
+      "description": "Records a single instance of a user taking an exam, tracking its progress and final outcome.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the UserExamSession entity."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to the external user's unique identifier. (Relationship: User 1:N UserExamSession)"
+        },
+        "startTime": {
+          "type": "string",
+          "description": "The date and time when this exam session began.",
+          "format": "date-time"
+        },
+        "endTime": {
+          "type": "string",
+          "description": "The date and time when this exam session concluded.",
+          "format": "date-time"
+        },
+        "score": {
+          "type": "number",
+          "description": "The total score achieved by the user in this exam session."
+        },
+        "percentage": {
+          "type": "number",
+          "description": "The percentage of correct answers in this exam session (0-100)."
+        },
+        "level": {
+          "type": "string",
+          "description": "The qualitative performance level achieved (e.g., 'Excelente', 'Bueno', 'Regular', 'Bajo')."
+        },
+        "correctAnswersCount": {
+          "type": "number",
+          "description": "The total number of questions answered correctly in this session."
+        },
+        "incorrectAnswersCount": {
+          "type": "number",
+          "description": "The total number of questions answered incorrectly in this session."
+        },
+        "totalAttemptsUsed": {
+          "type": "number",
+          "description": "The cumulative sum of all attempts made across all questions in this session."
+        },
+        "efficiencyScore": {
+          "type": "number",
+          "description": "A calculated metric indicating the user's efficiency, typically the average number of attempts per question."
+        },
+        "userQuestionAttemptIds": {
+          "type": "array",
+          "description": "References to individual UserQuestionAttempt entities that comprise this exam session. (Relationship: UserExamSession 1:N UserQuestionAttempt)",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "startTime",
+        "endTime",
+        "score",
+        "percentage",
+        "level",
+        "correctAnswersCount",
+        "incorrectAnswersCount",
+        "totalAttemptsUsed",
+        "efficiencyScore",
+        "userQuestionAttemptIds"
+      ]
+    },
+    "UserQuestionAttempt": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "UserQuestionAttempt",
+      "type": "object",
+      "description": "Tracks a user's interaction and outcome for a single question within a specific exam session, including multiple attempts.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the UserQuestionAttempt entity."
+        },
+        "userExamSessionId": {
+          "type": "string",
+          "description": "Reference to the UserExamSession this attempt belongs to. (Relationship: UserExamSession 1:N UserQuestionAttempt)"
+        },
+        "questionId": {
+          "type": "string",
+          "description": "Reference to the Question entity that was attempted. (Relationship: Question 1:N UserQuestionAttempt)"
+        },
+        "attemptsMade": {
+          "type": "number",
+          "description": "The number of attempts the user made for this specific question (maximum 3)."
+        },
+        "isCorrect": {
+          "type": "boolean",
+          "description": "Indicates if the user eventually answered this question correctly within the allowed attempts."
+        },
+        "selectedOptionHistory": {
+          "type": "array",
+          "description": "An ordered list of options ('A', 'B', 'C', or 'D') selected by the user for this question across all their attempts.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "finalSelectedOption": {
+          "type": "string",
+          "description": "The option ('A', 'B', 'C', or 'D') the user selected on their last attempt for this question, if any."
+        }
+      },
+      "required": [
+        "id",
+        "userExamSessionId",
+        "questionId",
+        "attemptsMade",
+        "isCorrect",
+        "selectedOptionHistory",
+        "finalSelectedOption"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/categories/{categoryId}",
+        "definition": {
+          "entityName": "Category",
+          "schema": {
+            "$ref": "#/backend/entities/Category"
+          },
+          "description": "Top-level collection for question categories. These are public-readable to allow users to browse categories, with write access restricted to administrators. No denormalized authorization fields are required as access is global/admin-controlled.",
+          "params": [
+            {
+              "name": "categoryId",
+              "description": "Unique identifier for a question category."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/questions/{questionId}",
+        "definition": {
+          "entityName": "Question",
+          "schema": {
+            "$ref": "#/backend/entities/Question"
+          },
+          "description": "Top-level collection for all exam questions. These are public-readable for all users taking exams, with write access restricted to administrators. No denormalized authorization fields are required as access is global/admin-controlled.",
+          "params": [
+            {
+              "name": "questionId",
+              "description": "Unique identifier for a question."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/examSessions/{examSessionId}",
+        "definition": {
+          "entityName": "UserExamSession",
+          "schema": {
+            "$ref": "#/backend/entities/UserExamSession"
+          },
+          "description": "Subcollection under a specific user, storing all exam sessions for that user. Access is restricted to the owner (`userId` in path). The `userId` in the path serves as the denormalized authorization context for independence.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user (from request.auth.uid)."
+            },
+            {
+              "name": "examSessionId",
+              "description": "Unique identifier for a specific user's exam session."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/examSessions/{examSessionId}/questionAttempts/{attemptId}",
+        "definition": {
+          "entityName": "UserQuestionAttempt",
+          "schema": {
+            "$ref": "#/backend/entities/UserQuestionAttempt"
+          },
+          "description": "Subcollection storing individual question attempts within a specific user's exam session. Access is restricted to the owner of the parent session (`userId` in path). The `userId` from the parent path provides the necessary denormalized authorization context.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user (from request.auth.uid)."
+            },
+            {
+              "name": "examSessionId",
+              "description": "The unique identifier of the parent user's exam session."
+            },
+            {
+              "name": "attemptId",
+              "description": "Unique identifier for a specific user's attempt at a question within an exam session."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore structure is designed following the core principles of Authorization Independence, Structural Segregation, and Path-Based Ownership to ensure security, scalability, and debuggability. \n\n**Authorization Independence:**\n1.  **Public Data (Categories, Questions):** For `/categories/{categoryId}` and `/questions/{questionId}`, these collections are designed for public read access (e.g., all authenticated users can read). Write access would be restricted to administrators, managed via an independent roles collection (e.g., `/roles_admin/{uid}`), thus avoiding any `get()` operations for authorization checks.\n2.  **User-Owned Data (UserExamSession, UserQuestionAttempt):** Authorization for `/users/{userId}/examSessions/{examSessionId}` and `/users/{userId}/examSessions/{examSessionId}/questionAttempts/{attemptId}` is achieved by embedding the `userId` directly into the path. This denormalizes the authorization context. Firebase Security Rules can then directly compare `request.auth.uid` with the `{userId}` wildcard in the path, eliminating the need for `get()` calls to parent documents or external collections to verify ownership. This ensures atomic operations and simplifies rule logic considerably.\n\n**QAPs (Queries are not Filters):**\n1.  **Global Data (`categories`, `questions`):** Since these collections are intended for all authenticated users to read, `list` operations are inherently secure. Rules can simply allow `read` if `request.auth.uid != null`, ensuring that queries return all visible data without needing server-side filtering.\n2.  **User-Specific Data (`/users/{userId}/examSessions`, `/users/{userId}/examSessions/{examSessionId}/questionAttempts`):** `list` operations on these collections are naturally secure due to the path-based ownership. A user can only query their own path (i.e., where `{userId}` matches `request.auth.uid`). Firestore's security rules will enforce this path-level authorization, guaranteeing that `list` queries only return data belonging to the requesting user, thereby satisfying the QAPs principle without complex rule logic.\n\n**Structural Segregation:** Each collection (e.g., `categories`, `questions`, `examSessions`, `questionAttempts`) maintains a homogeneous security posture. For instance, all documents within `/questions` have the same access requirements (public read), and all documents within `/users/{userId}/examSessions` are privately owned by that specific user. This prevents mixing data with different access needs in a single collection, simplifying security rules and making them easier to reason about."
+  }
+}

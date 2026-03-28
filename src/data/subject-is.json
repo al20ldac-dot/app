@@ -1,0 +1,1503 @@
+
+[
+  {
+    "id": "IS_T1",
+    "pregunta": "En la redacción de historias de usuario dentro de un marco ágil, ¿cuál es el propósito principal de definir los \"Criterios de Aceptación\"?",
+    "opciones": {
+      "A": "Estimar el tiempo exacto en horas que tomará programar la funcionalidad.",
+      "B": "Establecer las condiciones específicas que el software debe cumplir para que la historia se considere terminada y validada por el cliente.",
+      "C": "Asignar directamente las tareas técnicas a cada desarrollador del equipo.",
+      "D": "Documentar la arquitectura de base de datos que soportará la funcionalidad."
+    },
+    "correcta": "B",
+    "justificacion": "Los criterios de aceptación son condiciones específicas, claras y verificables que permiten determinar cuándo una historia de usuario ha sido completada correctamente. Estos criterios sirven como base para la validación por parte del cliente y para la ejecución de pruebas, asegurando que el desarrollo cumple con los requisitos funcionales definidos.",
+    "explicacionError": "Las demás opciones confunden los criterios de aceptación con estimaciones de tiempo, asignación de tareas técnicas o diseño de bajo nivel.",
+    "categoria": "Metodologías Ágiles",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T2",
+    "pregunta": "En el diseño de un sistema web de alta concurrencia, ¿qué ventaja principal ofrece el patrón arquitectónico de Microservicios frente a una arquitectura Monolítica?",
+    "opciones": {
+      "A": "Facilita el despliegue independiente y la escalabilidad horizontal de componentes específicos según la demanda.",
+      "B": "Reduce la complejidad de la comunicación en la red al mantener todos los procesos en un solo espacio de memoria.",
+      "C": "Garantiza la consistencia transaccional ACID de forma nativa en todas las bases de datos.",
+      "D": "Elimina la necesidad de utilizar balanceadores de carga."
+    },
+    "correcta": "A",
+    "justificacion": "La arquitectura de microservicios permite dividir el sistema en componentes independientes que pueden desplegarse, escalarse y mantenerse de manera autónoma. Esto facilita la escalabilidad horizontal, especialmente en sistemas de alta concurrencia, permitiendo asignar recursos únicamente a los servicios que lo requieren.",
+    "explicacionError": "Mantener procesos en un solo espacio de memoria es propio de monolitos; la consistencia ACID es más compleja en microservicios; y los balanceadores de carga siguen siendo necesarios.",
+    "categoria": "Arquitectura de Software",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T3",
+    "pregunta": "¿Qué patrón de diseño permite definir una familia de algoritmos, encapsular cada uno de ellos y hacerlos intercambiables de manera que el algoritmo pueda variar independientemente de los clientes que lo utilizan?",
+    "opciones": {
+      "A": "Strategy (Estrategia)",
+      "B": "Singleton (Instancia única)",
+      "C": "Abstract Factory (Fábrica abstracta)",
+      "D": "Facade (Fachada)"
+    },
+    "correcta": "A",
+    "justificacion": "El patrón Strategy permite encapsular diferentes algoritmos dentro de clases separadas y hacerlos intercambiables en tiempo de ejecución. Esto promueve el principio de abierto/cerrado y reduce el acoplamiento entre el cliente y la implementación del algoritmo.",
+    "explicacionError": "Singleton asegura una única instancia; Abstract Factory crea familias de objetos relacionados; Facade simplifica una interfaz compleja.",
+    "categoria": "Patrones de Diseño",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T4",
+    "pregunta": "En un pipeline de CI/CD, si una de las pruebas de integración falla al intentar fusionar una nueva rama a la rama principal (main), ¿cuál es la acción automática y procedimental correcta?",
+    "opciones": {
+      "A": "El pipeline ignora la prueba fallida y despliega a producción con una advertencia.",
+      "B": "Se detiene el pipeline, se bloquea la fusión (merge) y se notifica al equipo para que corrija el error.",
+      "C": "El sistema revierte automáticamente la base de datos de producción a la versión del día anterior.",
+      "D": "Se ejecuta un script que reescribe el código fallido basándose en inteligencia artificial."
+    },
+    "correcta": "B",
+    "justificacion": "En CI/CD, la calidad del código es prioritaria. Si una prueba falla, el pipeline se detiene automáticamente para evitar que código defectuoso llegue a producción. Además, se bloquea el merge y se notifica al equipo para que solucione el problema antes de continuar.",
+    "explicacionError": "Ignorar fallos anula el propósito de CI/CD; revertir la BD o usar IA para reescribir código no son acciones estándar de un pipeline ante fallos de integración.",
+    "categoria": "Integración Continua",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T5",
+    "pregunta": "¿Cuál es la diferencia fundamental entre Verificación y Validación en el ciclo de vida del software?",
+    "opciones": {
+      "A": "La verificación comprueba si estamos construyendo el producto correcto; la validación comprueba si estamos construyendo el producto correctamente.",
+      "B": "La verificación es realizada por el cliente final; la validación es realizada por el equipo de QA.",
+      "C": "La verificación comprueba si estamos construyendo el producto correctamente (acorde a especificaciones); la validación comprueba si estamos construyendo el producto correcto (acorde a la necesidad del usuario).",
+      "D": "No existe diferencia, ambos términos son sinónimos en la norma ISO/IEC/IEEE 12207."
+    },
+    "correcta": "C",
+    "justificacion": "La verificación se enfoca en asegurar que el software cumple con las especificaciones técnicas definidas, mientras que la validación garantiza que el producto satisface las necesidades reales del usuario final.",
+    "explicacionError": "La opción A intercambia los conceptos; la B asigna mal los roles; la D ignora las definiciones normativas de ingeniería.",
+    "categoria": "Calidad de Software",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T6",
+    "pregunta": "¿Qué técnica es más adecuada para obtener requisitos cuando el sistema a desarrollar implicará un cambio drástico en el flujo de trabajo operativo de los usuarios finales y estos tienen dificultades para articular sus necesidades?",
+    "opciones": {
+      "A": "Cuestionarios cerrados.",
+      "B": "Observación in situ (Etnografía).",
+      "C": "Revisión de documentación técnica.",
+      "D": "Tormenta de ideas (Brainstorming) solo con la gerencia."
+    },
+    "correcta": "B",
+    "justificacion": "La observación in situ permite analizar el comportamiento real de los usuarios en su entorno de trabajo, siendo especialmente útil cuando estos no pueden expresar claramente sus necesidades.",
+    "explicacionError": "Los cuestionarios y la documentación son limitados para flujos nuevos; el brainstorming con gerencia ignora la realidad operativa del usuario final.",
+    "categoria": "Ingeniería de Requisitos",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T7",
+    "pregunta": "¿Qué principio de diseño se viola fuertemente si un desarrollador, al modificar la lógica de un sistema de facturación, se ve obligado a modificar simultáneamente las clases de la interfaz de usuario y las clases de acceso a datos?",
+    "opciones": {
+      "A": "Principio de Segregación de Interfaces (ISP).",
+      "B": "Principio de Responsabilidad Única (SRP).",
+      "C": "Principio de Sustitución de Liskov (LSP).",
+      "D": "Principio de Inversión de Dependencias (DIP)."
+    },
+    "correcta": "B",
+    "justificacion": "El Principio de Responsabilidad Única establece que cada clase debe tener una sola razón de cambio. Si modificar una lógica implica cambiar múltiples capas, existe alto acoplamiento y violación del SRP.",
+    "explicacionError": "Los demás principios SOLID tratan sobre interfaces, herencia o dependencias, pero la dispersión de cambios en capas es síntoma de mala distribución de responsabilidades.",
+    "categoria": "Mantenibilidad",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T8",
+    "pregunta": "En la técnica de estimación \"Planning Poker\" utilizada en Scrum, ¿por qué se utiliza comúnmente una secuencia basada en la serie de Fibonacci (1, 2, 3, 5, 8, 13...)?",
+    "opciones": {
+      "A": "Porque representa los días exactos que tomará una tarea.",
+      "B": "Porque refleja que a mayor tamaño y complejidad de la tarea, mayor es la incertidumbre en la estimación.",
+      "C": "Porque es un estándar obligatorio dictado por la guía oficial de Scrum.",
+      "D": "Porque permite calcular directamente el costo en dólares del Sprint."
+    },
+    "correcta": "B",
+    "justificacion": "La serie de Fibonacci refleja el crecimiento no lineal de la incertidumbre en tareas más complejas, ayudando a obtener estimaciones más realistas.",
+    "explicacionError": "Los puntos de historia no son días; no es obligatorio por la guía (es una práctica común); y no calcula costos financieros directamente.",
+    "categoria": "Estimación",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T9",
+    "pregunta": "En el manejo de autenticación de sistemas web, ¿cuál es la práctica estándar y segura para almacenar las contraseñas de los usuarios en la base de datos?",
+    "opciones": {
+      "A": "Guardarlas en texto plano si la base de datos está en una red privada.",
+      "B": "Encriptarlas usando un algoritmo reversible como AES-256 para poder recuperarlas.",
+      "C": "Aplicar una función hash criptográfica fuerte (como bcrypt o Argon2) combinada con un \"salt\" aleatorio.",
+      "D": "Codificarlas en Base64 para ocultar los caracteres originales."
+    },
+    "correcta": "C",
+    "justificacion": "El uso de funciones hash con salt protege contra ataques de diccionario y garantiza que las contraseñas no puedan recuperarse fácilmente.",
+    "explicacionError": "Texto plano y Base64 son inseguros; algoritmos reversibles permiten la fuga de contraseñas si la clave AES se ve comprometida.",
+    "categoria": "Seguridad",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T10",
+    "pregunta": "Cuando un equipo utiliza múltiples entornos integrados de desarrollo (IDE) para compilar y ejecutar un proyecto, ¿cuál es la estrategia óptima para evitar conflictos de configuración al usar repositorios Git?",
+    "opciones": {
+      "A": "Subir los archivos de configuración locales del IDE de cada desarrollador al repositorio.",
+      "B": "Forzar a todo el equipo a usar un único entorno de desarrollo ligero.",
+      "C": "Configurar un archivo .gitignore que excluya los archivos y carpetas de configuración específicos del IDE y del sistema operativo local.",
+      "D": "Realizar un git commit solo una vez a la semana para minimizar las colisiones."
+    },
+    "correcta": "C",
+    "justificacion": "El archivo .gitignore evita que configuraciones locales se compartan en el repositorio, previniendo conflictos entre desarrolladores.",
+    "explicacionError": "Subir configuraciones locales causa conflictos constantes; forzar un IDE limita la productividad; y dilatar los commits aumenta el riesgo de pérdida de código.",
+    "categoria": "Gestión de Entornos",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T11",
+    "pregunta": "En un diagrama de casos de uso, ¿cuál es la diferencia fundamental entre las relaciones <<include>> y <<extend>>?",
+    "opciones": {
+      "A": "<<include>> representa un comportamiento opcional, mientras que <<extend>> representa un comportamiento obligatorio.",
+      "B": "<<include>> indica que el caso de uso base está incompleto sin el caso de uso incluido; <<extend>> indica un comportamiento opcional o condicional que se añade al caso de uso base.",
+      "C": "Ambas relaciones son sinónimos en UML 2.5 y se usan indistintamente según la preferencia del analista.",
+      "D": "<<extend>> se utiliza exclusivamente para conectar actores con casos de uso, no entre casos de uso."
+    },
+    "correcta": "B",
+    "justificacion": "La relación <<include>> se utiliza para factorizar comportamientos comunes obligatorios entre casos de uso, indicando que el caso base depende del incluido. Por otro lado, <<extend>> permite agregar comportamiento adicional de forma opcional o condicional, activado bajo ciertas circunstancias.",
+    "explicacionError": "Las otras opciones intercambian los conceptos o asignan funciones inexistentes a los conectores.",
+    "categoria": "UML",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T12",
+    "pregunta": "Al modelar la estructura estática de un sistema, ¿cómo se diferencia visual y conceptualmente la \"Composición\" de la \"Agregación\"?",
+    "opciones": {
+      "A": "La composición usa un rombo vacío y denota que la parte puede existir sin el todo; la agregación usa un rombo lleno y denota dependencia de ciclo de vida.",
+      "B": "La composición usa un rombo lleno y denota una fuerte dependencia de ciclo de vida (si se destruye el todo, se destruyen las partes); la agregación usa un rombo vacío e indica una relación más débil.",
+      "C": "La composición se representa con una línea punteada y la agregación con una línea continua.",
+      "D": "No existe diferencia conceptual, solo cambia la notación dependiendo del lenguaje."
+    },
+    "correcta": "B",
+    "justificacion": "La composición implica una relación fuerte donde las partes no pueden existir sin el todo, reflejando dependencia de ciclo de vida. La agregación es una relación débil donde las partes pueden existir independientemente del todo.",
+    "explicacionError": "Confunde la simbología del rombo lleno (composición) con el vacío (agregación) o niega la diferencia conceptual fundamental.",
+    "categoria": "UML",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T13",
+    "pregunta": "En el Método de Desarrollo de la Arquitectura (ADM) de TOGAF, ¿cuál es el propósito principal de la Fase B (Arquitectura de Negocio)?",
+    "opciones": {
+      "A": "Seleccionar los servidores físicos y la topología de red.",
+      "B": "Desarrollar la arquitectura de destino que describa cómo la empresa necesita operar para alcanzar sus metas.",
+      "C": "Programar los microservicios necesarios.",
+      "D": "Firmar contratos con proveedores de nube."
+    },
+    "correcta": "B",
+    "justificacion": "La Fase B define la arquitectura de negocio, estableciendo procesos, capacidades y estructura organizacional necesarios para alcanzar los objetivos estratégicos.",
+    "explicacionError": "Las otras opciones corresponden a fases tecnológicas, de implementación o administrativas que no son el foco de la Fase B.",
+    "categoria": "Arquitectura Empresarial",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T14",
+    "pregunta": "En un diagrama de secuencia, ¿cómo se representa un mensaje asíncrono y qué implicación tiene?",
+    "opciones": {
+      "A": "Flecha sólida; el emisor se bloquea.",
+      "B": "Flecha punteada; retorno.",
+      "C": "Flecha de punta abierta; el emisor no espera respuesta.",
+      "D": "Flecha con círculo; intervención manual."
+    },
+    "correcta": "C",
+    "justificacion": "Un mensaje asíncrono se representa con flecha abierta y permite que el emisor continúe su ejecución sin esperar la respuesta del receptor.",
+    "explicacionError": "La flecha sólida es para mensajes síncronos (bloqueantes) y la punteada es para el retorno de datos.",
+    "categoria": "UML",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T15",
+    "pregunta": "En ArchiMate, ¿cómo se estructuran sus capas principales?",
+    "opciones": {
+      "A": "Presentación, lógica, datos.",
+      "B": "Negocio, Aplicación, Tecnología.",
+      "C": "Estrategia, operaciones, mantenimiento.",
+      "D": "UML."
+    },
+    "correcta": "B",
+    "justificacion": "ArchiMate organiza la arquitectura empresarial en tres capas: negocio (procesos), aplicación (software) y tecnología (infraestructura).",
+    "explicacionError": "Presentación/Lógica/Datos es un patrón de software, no de arquitectura empresarial; Estrategia/Operaciones son niveles organizacionales generales.",
+    "categoria": "Arquitectura Empresarial",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T16",
+    "pregunta": "¿Qué principio fundamental define a SOA (Arquitectura Orientada a Servicios)?",
+    "opciones": {
+      "A": "Acoplamiento fuerte.",
+      "B": "Bajo acoplamiento, reutilización e interoperabilidad mediante interfaces estándar.",
+      "C": "Uso exclusivo de SQL.",
+      "D": "Uso de un solo lenguaje."
+    },
+    "correcta": "B",
+    "justificacion": "SOA promueve servicios independientes, reutilizables y desacoplados que interactúan mediante interfaces estandarizadas.",
+    "explicacionError": "El acoplamiento fuerte es lo opuesto a SOA; la arquitectura es independiente del lenguaje o tipo de base de datos.",
+    "categoria": "Arquitectura de Software",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T17",
+    "pregunta": "En un diagrama de actividad de UML, ¿qué elementos permiten modelar concurrencia?",
+    "opciones": {
+      "A": "Rombos",
+      "B": "Barras de sincronización (Fork/Join)",
+      "C": "Estados",
+      "D": "Actores"
+    },
+    "correcta": "B",
+    "justificacion": "Fork divide el flujo en paralelo y Join sincroniza múltiples flujos concurrentes.",
+    "explicacionError": "Los rombos son para decisiones lógicas; los estados pertenecen a diagramas de estado; los actores a casos de uso.",
+    "categoria": "UML",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T18",
+    "pregunta": "¿Cómo está estructurado el Framework de Zachman?",
+    "opciones": {
+      "A": "Matriz de perspectivas vs interrogantes",
+      "B": "Ciclo iterativo",
+      "C": "UI",
+      "D": "Security"
+    },
+    "correcta": "A",
+    "justificacion": "Zachman es una matriz que cruza perspectivas (roles) con interrogantes (qué, cómo, dónde, quién, cuándo, por qué).",
+    "explicacionError": "No es un ciclo como el ADM de TOGAF ni se limita a interfaces o seguridad.",
+    "categoria": "Arquitectura Empresarial",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T19",
+    "pregunta": "¿Cuál es el objetivo principal de los diagramas de despliegue en UML?",
+    "opciones": {
+      "A": "Flujos",
+      "B": "UX",
+      "C": "Nodos físicos y artefactos",
+      "D": "Reglas"
+    },
+    "correcta": "C",
+    "justificacion": "Modela la infraestructura física y la distribución del software en nodos (servidores, dispositivos).",
+    "explicacionError": "Los flujos se ven en actividad; la UX no se modela con diagramas de despliegue.",
+    "categoria": "UML",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T20",
+    "pregunta": "En una máquina de estados de UML, ¿qué representa una transición?",
+    "opciones": {
+      "A": "Variable",
+      "B": "Cambio de estado por evento",
+      "C": "Tiempo",
+      "D": "BD"
+    },
+    "correcta": "B",
+    "justificacion": "Una transición ocurre cuando un evento provoca el cambio de un estado a otro, pudiendo incluir condiciones (guardas).",
+    "explicacionError": "Una transición es un proceso dinámico, no un contenedor de datos como una variable o base de datos.",
+    "categoria": "UML",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T21",
+    "pregunta": "En el contexto de la Arquitectura Empresarial, ¿cuál es la función del \"Análisis de Brechas\" (Gap Analysis)?",
+    "opciones": {
+      "A": "Identificar vulnerabilidades de seguridad en el código fuente.",
+      "B": "Comparar la Arquitectura Base (Baseline) con la Arquitectura Destino (Target) para identificar componentes que deben ser creados, modificados o eliminados.",
+      "C": "Medir la diferencia salarial entre los distintos roles del equipo.",
+      "D": "Calcular el tiempo de inactividad de los servidores."
+    },
+    "correcta": "B",
+    "justificacion": "El Análisis de Brechas identifica las diferencias entre el estado actual y el objetivo, definiendo el trabajo necesario para la transición.",
+    "explicacionError": "Confunde el gap de arquitectura con métricas de seguridad, financieras o de infraestructura operativa.",
+    "categoria": "Arquitectura Empresarial",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T22",
+    "pregunta": "¿Cuál es el propósito del mecanismo de \"Estereotipos\" (ej. <<entidad>>) en UML?",
+    "opciones": {
+      "A": "Reemplazar la sintaxis del lenguaje de programación.",
+      "B": "Proveer un mecanismo de extensibilidad que permite introducir nuevo vocabulario y afinar el significado de elementos existentes.",
+      "C": "Encriptar diagramas.",
+      "D": "Generar automáticamente bases de datos."
+    },
+    "correcta": "B",
+    "justificacion": "Los estereotipos permiten extender UML sin modificar su núcleo, agregando semántica específica para dominios particulares.",
+    "explicacionError": "No es un traductor de código ni una herramienta de encriptación o generación automática de DB.",
+    "categoria": "UML",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T23",
+    "pregunta": "¿Por qué es crítica la creación de un \"Comité de Arquitectura\" dentro de una gran organización?",
+    "opciones": {
+      "A": "Para revisar manualmente cada línea de código.",
+      "B": "Para asegurar el cumplimiento, revisar exenciones y guiar la evolución de la arquitectura alineada con la estrategia del negocio.",
+      "C": "Para gestionar compras de hardware de oficina.",
+      "D": "Para organizar las reuniones diarias de Scrum."
+    },
+    "correcta": "B",
+    "justificacion": "El comité garantiza la gobernanza, alineación estratégica y cumplimiento de estándares en toda la organización.",
+    "explicacionError": "Su función es estratégica y de gobernanza, no operativa de código, hardware menor o ceremonias ágiles.",
+    "categoria": "Gobernanza",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T24",
+    "pregunta": "En un diagrama de componentes, ¿qué indican las interfaces provistas (provided) y requeridas (required)?",
+    "opciones": {
+      "A": "Provista es hardware; requerida es RAM.",
+      "B": "Provista ofrece servicios; requerida consume servicios.",
+      "C": "Son entradas/salidas de consola.",
+      "D": "Puertos físicos."
+    },
+    "correcta": "B",
+    "justificacion": "Las interfaces provistas representan servicios que el componente ofrece, mientras que las requeridas son dependencias necesarias.",
+    "explicacionError": "Se refiere a interfaces lógicas de software, no a componentes físicos de hardware o periféricos.",
+    "categoria": "UML",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T25",
+    "pregunta": "Respecto a la relación entre Arquitectura de Negocio y TI, ¿cuál afirmación es correcta?",
+    "opciones": {
+      "A": "TI dicta al negocio.",
+      "B": "Son independientes.",
+      "C": "TI debe alinearse al negocio.",
+      "D": "Negocio es opcional."
+    },
+    "correcta": "C",
+    "justificacion": "La arquitectura de TI debe ser habilitadora de los objetivos estratégicos del negocio, nunca un fin en sí misma.",
+    "explicacionError": "La tecnología no debe mandar sobre la estrategia; deben estar integradas para generar valor.",
+    "categoria": "Arquitectura Empresarial",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T26",
+    "pregunta": "¿Qué condición define la Tercera Forma Normal (3NF) en bases de datos?",
+    "opciones": {
+      "A": "Tener clave primaria.",
+      "B": "Estar en 2NF y no tener dependencias transitivas.",
+      "C": "Valores atómicos.",
+      "D": "Eliminar claves foráneas."
+    },
+    "correcta": "B",
+    "justificacion": "3NF elimina dependencias transitivas (donde un atributo no clave depende de otro atributo no clave), evitando redundancia.",
+    "explicacionError": "Tener PK es básico; valores atómicos es 1NF; eliminar FK rompería la relación relacional.",
+    "categoria": "Bases de Datos",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T27",
+    "pregunta": "Dentro de las propiedades ACID, ¿qué garantiza el aislamiento?",
+    "opciones": {
+      "A": "Rollback",
+      "B": "Persistencia",
+      "C": "Equivalencia a ejecución secuencial",
+      "D": "Separación física"
+    },
+    "correcta": "C",
+    "justificacion": "El aislamiento asegura que transacciones concurrentes no interfieran, comportándose como si fueran secuenciales para evitar inconsistencias.",
+    "explicacionError": "Rollback es atomicidad; Persistencia es durabilidad; Separación física no es una propiedad ACID.",
+    "categoria": "Bases de Datos",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T28",
+    "pregunta": "¿Cuál es la principal diferencia funcional entre un índice B-Tree y uno Hash?",
+    "opciones": {
+      "A": "Hash sirve para rangos",
+      "B": "B-Tree para rangos, Hash para igualdad",
+      "C": "Hash no usa memoria",
+      "D": "No hay diferencia"
+    },
+    "correcta": "B",
+    "justificacion": "B-Tree permite búsquedas ordenadas y por rango; Hash es eficiente solo en igualdad exacta debido a su función de dispersión.",
+    "explicacionError": "Hash no permite recorrer rangos eficientemente; ambos consumen memoria.",
+    "categoria": "Bases de Datos",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T29",
+    "pregunta": "¿Cuáles son las tres propiedades del Teorema CAP?",
+    "opciones": {
+      "A": "Consistencia, Accesibilidad, Paralelismo",
+      "B": "Consistencia, Disponibilidad y Tolerancia a particiones",
+      "C": "Concurrencia, Aislamiento, Persistencia",
+      "D": "Seguridad"
+    },
+    "correcta": "B",
+    "justificacion": "CAP establece que un sistema distribuido solo puede garantizar dos de estas tres propiedades simultáneamente.",
+    "explicacionError": "Mezcla términos de ACID o conceptos genéricos de computación paralela.",
+    "categoria": "Sistemas Distribuidos",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T30",
+    "pregunta": "¿Qué tipo de base de datos NoSQL es mejor para redes sociales altamente conectadas?",
+    "opciones": {
+      "A": "Key-Value",
+      "B": "Documentos",
+      "C": "Grafos",
+      "D": "Columnas"
+    },
+    "correcta": "C",
+    "justificacion": "Las bases de datos de grafos son ideales para modelar relaciones complejas y directas entre nodos, como las amistades en redes sociales.",
+    "explicacionError": "Documentos o Key-Value requerirían JOINs costosos o redundancia excesiva para relaciones N:M complejas.",
+    "categoria": "Bases de Datos",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T31",
+    "pregunta": "¿Cuál es la ventaja de una Vista Materializada frente a una Estándar?",
+    "opciones": {
+      "A": "Actualización real-time gratuita.",
+      "B": "Almacena físicamente el resultado, mejorando rendimiento en consultas costosas.",
+      "C": "Salta seguridad.",
+      "D": "Permite JOINs."
+    },
+    "correcta": "B",
+    "justificacion": "Al guardar el resultado en disco, evita el costo de ejecución del query cada vez, a cambio de requerir refrescos periódicos.",
+    "explicacionError": "La actualización consume recursos; no es un bypass de seguridad; ambas permiten JOINs.",
+    "categoria": "Bases de Datos",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T32",
+    "pregunta": "¿En qué consiste el problema de rendimiento \"N+1\" en ORMs?",
+    "opciones": {
+      "A": "Necesita N+1 servidores.",
+      "B": "Ejecuta una consulta para N registros y luego N consultas adicionales para sus relaciones.",
+      "C": "Error de claves.",
+      "D": "Fallo de memoria."
+    },
+    "correcta": "B",
+    "justificacion": "Ocurre cuando el ORM trae una lista y luego dispara queries individuales por cada elemento para traer datos relacionados (Lazy Loading mal configurado).",
+    "explicacionError": "No tiene relación con escalabilidad física ni errores de sintaxis.",
+    "categoria": "Bases de Datos",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T33",
+    "pregunta": "¿Por qué se prefiere el uso de una clave subrogada (Surrogate Key)?",
+    "opciones": {
+      "A": "No depende del negocio y evita cambios ante variaciones en reglas externas.",
+      "B": "Ocupa menos espacio.",
+      "C": "SQL no permite texto.",
+      "D": "Mejora encriptación."
+    },
+    "correcta": "A",
+    "justificacion": "Al ser un ID numérico generado sin significado de negocio, no se ve afectado si el dato real (ej. DNI o Placa) cambia de formato.",
+    "explicacionError": "No siempre ocupa menos espacio; SQL sí permite texto como PK; no afecta el cifrado.",
+    "categoria": "Bases de Datos",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T34",
+    "pregunta": "¿Qué comando SQL permite analizar detalladamente cómo se ejecutará una consulta?",
+    "opciones": {
+      "A": "EXPLAIN / EXPLAIN ANALYZE",
+      "B": "DESCRIBE",
+      "C": "SHOW",
+      "D": "OPTIMIZE"
+    },
+    "correcta": "A",
+    "justificacion": "Permite ver el plan de ejecución, identificando si se usan índices o si hay cuellos de botella en la recuperación de datos.",
+    "explicacionError": "DESCRIBE muestra la estructura de la tabla; SHOW muestra variables; OPTIMIZE reorganiza el disco.",
+    "categoria": "Bases de Datos",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T35",
+    "pregunta": "¿Qué fenómeno de concurrencia previene el nivel de aislamiento Serializable?",
+    "opciones": {
+      "A": "Dirty Reads",
+      "B": "Non-repeatable Reads",
+      "C": "Phantom Reads",
+      "D": "Lost Updates"
+    },
+    "correcta": "C",
+    "justificacion": "Serializable es el nivel más alto y evita lecturas fantasma (donde nuevos registros aparecen en medio de una transacción).",
+    "explicacionError": "Los otros fenómenos se previenen en niveles inferiores como Read Committed o Repeatable Read.",
+    "categoria": "Bases de Datos",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T36",
+    "pregunta": "¿Qué devuelve un LEFT OUTER JOIN entre la tabla A y B?",
+    "opciones": {
+      "A": "Solo coincidencias",
+      "B": "Todos los registros de A + coincidencias de B o NULL",
+      "C": "Producto cartesiano",
+      "D": "Solo no coincidentes"
+    },
+    "correcta": "B",
+    "justificacion": "Garantiza que todos los datos de la tabla izquierda se mantengan, completando con nulos donde no hay relación en la derecha.",
+    "explicacionError": "Solo coincidencias es INNER JOIN; Producto cartesiano es CROSS JOIN.",
+    "categoria": "Bases de Datos",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T37",
+    "pregunta": "¿Cuál es la técnica técnica más efectiva para prevenir la inyección SQL?",
+    "opciones": {
+      "A": "Regex en frontend",
+      "B": "Root",
+      "C": "Prepared Statements (Consultas parametrizadas)",
+      "D": "Ocultar errores"
+    },
+    "correcta": "C",
+    "justificacion": "Separa el comando SQL de los datos, evitando que el motor interprete el input del usuario como código ejecutable.",
+    "explicacionError": "El frontend es vulnerable; ser root es un riesgo; ocultar errores solo dificulta el debug.",
+    "categoria": "Seguridad",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T38",
+    "pregunta": "¿Cuál es la diferencia entre un backup Diferencial e Incremental?",
+    "opciones": {
+      "A": "Incremental copia todo",
+      "B": "Diferencial desde full; incremental desde el último backup parcial.",
+      "C": "No restaurable",
+      "D": "Solo estructura"
+    },
+    "correcta": "B",
+    "justificacion": "El diferencial crece hasta el siguiente full; el incremental es más pequeño porque solo guarda cambios desde el día anterior.",
+    "explicacionError": "Incremental no copia todo; ambos son restaurables y guardan datos reales.",
+    "categoria": "Bases de Datos",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T39",
+    "pregunta": "¿Cuál es el uso principal de motores como Redis o Memcached?",
+    "opciones": {
+      "A": "Almacenamiento permanente",
+      "B": "Caché de alta velocidad en memoria RAM",
+      "C": "Transacciones ACID",
+      "D": "Videos"
+    },
+    "correcta": "B",
+    "justificacion": "Se utilizan para guardar datos volátiles que requieren acceso instantáneo, descargando a la base de datos principal.",
+    "explicacionError": "No son para persistencia de largo plazo ni para transacciones financieras complejas.",
+    "categoria": "Arquitectura de Software",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T40",
+    "pregunta": "¿Cuál es la diferencia de invocación entre un Trigger y un Stored Procedure?",
+    "opciones": {
+      "A": "SP automático",
+      "B": "Trigger automático por evento / SP por llamada manual",
+      "C": "Resultados",
+      "D": "Igual"
+    },
+    "correcta": "B",
+    "justificacion": "Los triggers \"reaccionan\" a cambios en los datos (DML); los procedimientos se ejecutan cuando la aplicación los solicita.",
+    "explicacionError": "Un SP nunca es automático; tienen arquitecturas de ejecución distintas.",
+    "categoria": "Bases de Datos",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T41",
+    "pregunta": "Si deseas garantizar que en la columna edad de una tabla Empleados no se puedan insertar valores negativos ni mayores a 100, ¿qué tipo de restricción (constraint) debes aplicar?",
+    "opciones": {
+      "A": "UNIQUE",
+      "B": "FOREIGN KEY",
+      "C": "CHECK",
+      "D": "DEFAULT"
+    },
+    "correcta": "C",
+    "justificacion": "La restricción CHECK permite definir condiciones lógicas sobre los valores de una columna, asegurando que cumplan reglas específicas (por ejemplo: edad BETWEEN 0 AND 100).",
+    "explicacionError": "UNIQUE evita duplicados; FK es para integridad referencial; DEFAULT asigna un valor si no se envía uno.",
+    "categoria": "Bases de Datos",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T42",
+    "pregunta": "Cuando una base de datos relacional alcanza su límite y se divide horizontalmente en múltiples servidores según un criterio (ej. país), ¿cómo se denomina esta técnica?",
+    "opciones": {
+      "A": "Normalización",
+      "B": "Sharding (Fragmentación)",
+      "C": "Replicación Master-Slave",
+      "D": "Clusterización en memoria"
+    },
+    "correcta": "B",
+    "justificacion": "El sharding divide los datos horizontalmente en distintos nodos, permitiendo escalar el sistema distribuyendo la carga.",
+    "explicacionError": "Normalización es diseño interno; Replicación es copiar el mismo dato en varios sitios.",
+    "categoria": "Bases de Datos",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T43",
+    "pregunta": "¿Qué estructura tiene una tabla de hechos central rodeada de dimensiones?",
+    "opciones": {
+      "A": "Esquema de Estrella (Star Schema)",
+      "B": "3NF",
+      "C": "Orientado a objetos",
+      "D": "DAG"
+    },
+    "correcta": "A",
+    "justificacion": "El modelo estrella es típico en data warehouse, optimizado para consultas analíticas masivas.",
+    "explicacionError": "3NF es para OLTP (transaccional); DAG es una estructura de grafos.",
+    "categoria": "Bases de Datos",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T44",
+    "pregunta": "¿Qué mecanismo utiliza el Control de Concurrencia Optimista?",
+    "opciones": {
+      "A": "Bloqueo total",
+      "B": "Campo versión/timestamp",
+      "C": "Solo lectura",
+      "D": "Autorización manual"
+    },
+    "correcta": "B",
+    "justificacion": "Se asume que no habrá conflicto y se verifica una versión del registro justo antes de confirmar la escritura.",
+    "explicacionError": "El bloqueo total es pesimista; el modo solo lectura no permite concurrencia de escritura.",
+    "categoria": "Bases de Datos",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T45",
+    "pregunta": "¿Cuál es el propósito primordial de un Diccionario de Datos?",
+    "opciones": {
+      "A": "Traducir datos",
+      "B": "Documentar estructura y significado técnico de los datos",
+      "C": "Guardar contraseñas",
+      "D": "Generar UI"
+    },
+    "correcta": "B",
+    "justificacion": "Es un repositorio central que describe tablas, atributos, tipos, relaciones y reglas de negocio de la base de datos.",
+    "explicacionError": "No es un traductor ni un almacén de seguridad; su fin es la documentación técnica.",
+    "categoria": "Bases de Datos",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T46",
+    "pregunta": "¿Cuál es el orden lógico de los niveles de prueba en ingeniería de software?",
+    "opciones": {
+      "A": "Sistema → Unitarias → Integración → Aceptación",
+      "B": "Unitarias → Integración → Sistema → Aceptación",
+      "C": "Aceptación → Integración → Unitarias",
+      "D": "Integración → Carga → Unitarias"
+    },
+    "correcta": "B",
+    "justificacion": "El flujo estándar inicia con el componente más pequeño (Unitarias) y va escalando hasta la validación final del cliente (Aceptación).",
+    "explicacionError": "No se puede probar el sistema completo antes de integrar sus partes individuales.",
+    "categoria": "Calidad de Software",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T47",
+    "pregunta": "¿Cuál de las siguientes es una técnica de Caja Blanca?",
+    "opciones": {
+      "A": "Partición de equivalencia",
+      "B": "Valores límite",
+      "C": "Cobertura de decisiones",
+      "D": "Transición de estado"
+    },
+    "correcta": "C",
+    "justificacion": "La cobertura de decisiones evalúa las rutas lógicas internas del código, lo que requiere conocer la estructura interna (Caja Blanca).",
+    "explicacionError": "Las otras son técnicas de Caja Negra basadas en requerimientos y entradas/salidas.",
+    "categoria": "Calidad de Software",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T48",
+    "pregunta": "¿Cuál es la diferencia fundamental entre una prueba de Carga y una de Estrés?",
+    "opciones": {
+      "A": "Carga = condiciones normales máximas; estrés = más allá del límite de ruptura.",
+      "B": "Manual vs automático",
+      "C": "UI vs BD",
+      "D": "Son iguales"
+    },
+    "correcta": "A",
+    "justificacion": "La prueba de carga mide el comportamiento esperado; la de estrés busca ver cómo falla el sistema cuando se sobrepasa su capacidad.",
+    "explicacionError": "Ambas suelen ser automáticas; la diferencia radica en el objetivo del volumen de datos.",
+    "categoria": "Calidad de Software",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T49",
+    "pregunta": "¿Qué framework es el estándar para realizar pruebas unitarias en Java?",
+    "opciones": {
+      "A": "Hibernate",
+      "B": "JUnit",
+      "C": "Spring Boot",
+      "D": "Maven"
+    },
+    "correcta": "B",
+    "justificacion": "JUnit provee las anotaciones y aserciones necesarias para validar la lógica de métodos individuales en Java.",
+    "explicacionError": "Hibernate es un ORM; Spring Boot es un framework de aplicación; Maven es una herramienta de gestión de dependencias.",
+    "categoria": "Calidad de Software",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T50",
+    "pregunta": "¿Cuál es el ciclo correcto de TDD (Desarrollo Guiado por Pruebas)?",
+    "opciones": {
+      "A": "Código → prueba → refactor",
+      "B": "Prueba falla → código mínimo → refactor",
+      "C": "Compilar → desplegar",
+      "D": "Requisitos → aprobar"
+    },
+    "correcta": "B",
+    "justificacion": "TDD se basa en escribir la prueba antes que el código, asegurar que falle (Red), programar lo justo para que pase (Green) y limpiar el código (Refactor).",
+    "explicacionError": "No se escribe el código antes de la prueba en la metodología pura de TDD.",
+    "categoria": "Calidad de Software",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T51",
+    "pregunta": "Si un módulo tiene un \"100% de Cobertura de Sentencias\", ¿qué significa exactamente?",
+    "opciones": {
+      "A": "Que el software no tiene errores.",
+      "B": "Que cada línea de código ejecutable ha sido recorrida al menos una vez por las pruebas.",
+      "C": "Combinaciones probadas.",
+      "D": "SOLID al 100%."
+    },
+    "correcta": "B",
+    "justificacion": "Mide la ejecución física de las líneas, pero no garantiza que la lógica sea correcta para todos los casos de negocio.",
+    "explicacionError": "La cobertura de código no es sinónimo de ausencia de bugs ni de cumplimiento de principios de diseño.",
+    "categoria": "Calidad de Software",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T52",
+    "pregunta": "¿Qué herramienta es utilizada para simular alta carga de usuarios concurrentes?",
+    "opciones": {
+      "A": "Apache JMeter",
+      "B": "SonarQube",
+      "C": "Git",
+      "D": "Docker"
+    },
+    "correcta": "A",
+    "justificacion": "JMeter es la herramienta líder para pruebas de rendimiento y estrés en aplicaciones web.",
+    "explicacionError": "SonarQube es para calidad estática; Git es para versiones; Docker para contenedores.",
+    "categoria": "Calidad de Software",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T53",
+    "pregunta": "En Complejidad Ciclomática, ¿qué indica un valor muy alto (ej. > 20)?",
+    "opciones": {
+      "A": "Código fácil.",
+      "B": "Muchos caminos lógicos, difícil de mantener y probar.",
+      "C": "Seguro.",
+      "D": "Rápido."
+    },
+    "correcta": "B",
+    "justificacion": "Representa la cantidad de rutas independientes; a mayor valor, mayor es la probabilidad de errores y la dificultad de cobertura.",
+    "explicacionError": "La complejidad alta es un indicador negativo de mantenibilidad, no de seguridad o velocidad.",
+    "categoria": "Calidad de Software",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T54",
+    "pregunta": "¿Cuál es el objetivo principal de las Pruebas de Regresión?",
+    "opciones": {
+      "A": "Nuevos requisitos.",
+      "B": "Asegurar que cambios nuevos no rompan funcionalidades existentes.",
+      "C": "Medir rendimiento.",
+      "D": "Traducir."
+    },
+    "correcta": "B",
+    "justificacion": "Se ejecutan tras una modificación para verificar que el impacto se limite a lo deseado y no degrade el resto del sistema.",
+    "explicacionError": "No se enfocan en nuevas funciones, sino en la estabilidad de lo antiguo.",
+    "categoria": "Calidad de Software",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T55",
+    "pregunta": "¿Cuál es la diferencia entre Mock y Stub?",
+    "opciones": {
+      "A": "Stub verifica comportamiento.",
+      "B": "Mock verifica interacciones; Stub devuelve datos predefinidos.",
+      "C": "Mock producción.",
+      "D": "Mock BD."
+    },
+    "correcta": "B",
+    "justificacion": "El Mock es inteligente y valida si se llamó a un método; el Stub es pasivo y solo entrega valores fijos para que el test continúe.",
+    "explicacionError": "Son objetos de prueba (test doubles), ninguno se usa en producción real.",
+    "categoria": "Calidad de Software",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T56",
+    "pregunta": "¿Qué tipo de prueba verifica la interacción entre módulos?",
+    "opciones": {
+      "A": "Unitarias",
+      "B": "Integración",
+      "C": "Carga",
+      "D": "Seguridad"
+    },
+    "correcta": "B",
+    "justificacion": "Se enfocan en los flujos de datos y mensajes entre componentes que ya pasaron sus pruebas unitarias.",
+    "explicacionError": "Unitarias solo ven el módulo aislado; Carga ve volumen global.",
+    "categoria": "Calidad de Software",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T57",
+    "pregunta": "¿Quién valida típicamente las pruebas de Aceptación (UAT)?",
+    "opciones": {
+      "A": "Arquitecto",
+      "B": "Cliente / Usuario final",
+      "C": "DevOps",
+      "D": "DBA"
+    },
+    "correcta": "B",
+    "justificacion": "El usuario final confirma que el software cumple con sus necesidades operativas y expectativas de negocio.",
+    "explicacionError": "Los roles técnicos validan la calidad interna, pero la aceptación es un hito del cliente.",
+    "categoria": "Calidad de Software",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T58",
+    "pregunta": "¿Qué herramienta actúa como servidor líder de automatización?",
+    "opciones": {
+      "A": "Jenkins",
+      "B": "Kafka",
+      "C": "MongoDB",
+      "D": "Nginx"
+    },
+    "correcta": "A",
+    "justificacion": "Jenkins gestiona los pipelines de CI/CD, ejecutando builds y tests de forma automática ante cada commit.",
+    "explicacionError": "Kafka es de mensajería; MongoDB de datos; Nginx es un servidor web.",
+    "categoria": "DevOps",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T59",
+    "pregunta": "¿Cómo debe distribuirse la Pirámide de Pruebas?",
+    "opciones": {
+      "A": "Muchas UI",
+      "B": "Más unitarias, menos integración, pocas UI.",
+      "C": "Solo manual",
+      "D": "Igual cantidad"
+    },
+    "correcta": "B",
+    "justificacion": "Las pruebas unitarias son baratas y rápidas (base); las de UI son lentas y frágiles (punta).",
+    "explicacionError": "Tener muchas pruebas de UI ralentiza el ciclo de vida del software innecesariamente.",
+    "categoria": "Calidad de Software",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T60",
+    "pregunta": "¿Qué lenguaje se usa en BDD (Behavior Driven Development)?",
+    "opciones": {
+      "A": "XML",
+      "B": "Gherkin",
+      "C": "JSON",
+      "D": "YAML"
+    },
+    "correcta": "B",
+    "justificacion": "Gherkin utiliza el formato Dado/Cuando/Entonces para que los requisitos sean legibles por humanos y máquinas.",
+    "explicacionError": "JSON/YAML son para configuración; XML es un metalenguaje de etiquetas.",
+    "categoria": "Calidad de Software",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T61",
+    "pregunta": "¿Cuál es la diferencia entre SAST y DAST?",
+    "opciones": {
+      "A": "SAST analiza código sin ejecutar; DAST en ejecución.",
+      "B": "Rendimiento",
+      "C": "SQL vs NoSQL",
+      "D": "Igual"
+    },
+    "correcta": "A",
+    "justificacion": "SAST busca fallos en el código fuente; DAST ataca la aplicación corriendo para encontrar vulnerabilidades externas.",
+    "explicacionError": "Ambas son de seguridad, pero operan en momentos distintos del ciclo de vida.",
+    "categoria": "Seguridad",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T62",
+    "pregunta": "¿Qué define a las Pruebas Exploratorias?",
+    "opciones": {
+      "A": "Automatizadas",
+      "B": "Diseño y ejecución simultánea con creatividad del tester.",
+      "C": "Script rígido",
+      "D": "Solo requisitos"
+    },
+    "correcta": "B",
+    "justificacion": "Se basan en la experiencia del tester para encontrar errores que los casos de prueba formales podrían omitir.",
+    "explicacionError": "No siguen scripts rígidos; son lo opuesto a la automatización determinista.",
+    "categoria": "Calidad de Software",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T63",
+    "pregunta": "¿Cuál es el propósito de las Pruebas de Mutación?",
+    "opciones": {
+      "A": "Mejorar velocidad",
+      "B": "Introducir errores controlados para validar la calidad de los tests.",
+      "C": "Multiplataforma",
+      "D": "UI"
+    },
+    "correcta": "B",
+    "justificacion": "Si al cambiar el código (mutante) los tests siguen pasando, significa que los tests no son lo suficientemente sensibles.",
+    "explicacionError": "No optimizan el software, sino que evalúan la robustez de la suite de pruebas.",
+    "categoria": "Calidad de Software",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T64",
+    "pregunta": "¿Qué mide la densidad de defectos?",
+    "opciones": {
+      "A": "Tamaño logs",
+      "B": "Defectos encontrados por tamaño del software (KLOC o FP).",
+      "C": "Horas QA",
+      "D": "Internet"
+    },
+    "correcta": "B",
+    "justificacion": "Permite comparar la calidad entre módulos de distinto tamaño de forma normalizada.",
+    "explicacionError": "Las horas de QA o el tamaño de logs no indican calidad intrínseca del producto.",
+    "categoria": "Calidad de Software",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_T65",
+    "pregunta": "Si un bug es corregido y pasa a QA, ¿qué estado toma en el ciclo de vida?",
+    "opciones": {
+      "A": "Cerrado",
+      "B": "Rechazado",
+      "C": "Listo para Probar / En QA",
+      "D": "Diferido"
+    },
+    "correcta": "C",
+    "justificacion": "El estado indica que el desarrollador terminó su parte y ahora el tester debe validar la solución.",
+    "explicacionError": "Cerrado es el fin total; Diferido es cuando se decide no arreglarlo por ahora.",
+    "categoria": "Calidad de Software",
+    "subType": "teorico"
+  },
+  {
+    "id": "IS_P1",
+    "pregunta": "¿Qué concepto de la POO permite que un objeto de una clase derivada sea tratado como uno de su clase base?",
+    "opciones": {
+      "A": "Encapsulación",
+      "B": "Abstracción",
+      "C": "Herencia múltiple",
+      "D": "Polimorfismo"
+    },
+    "correcta": "D",
+    "justificacion": "El polimorfismo permite que una instancia de una clase derivada sea utilizada como si fuera de su clase base, habilitando el enlace dinámico.",
+    "explicacionError": "Encapsulación oculta datos; abstracción simplifica; polimorfismo es el trato de tipos.",
+    "categoria": "Programación",
+    "subType": "practico"
+  },
+  {
+    "id": "IS_P2",
+    "pregunta": "¿Qué sucede al usar delete sobre un puntero no asignado con new?",
+    "opciones": {
+      "A": "Ignorado",
+      "B": "Comportamiento indefinido / Error crítico",
+      "C": "Corregido",
+      "D": "Memoria estática"
+    },
+    "correcta": "B",
+    "justificacion": "Liberar memoria no asignada dinámicamente corrompe la gestión de memoria del proceso, causando fallos impredecibles.",
+    "explicacionError": "C++ no protege automáticamente contra errores de gestión manual de memoria.",
+    "categoria": "Programación",
+    "subType": "practico"
+  },
+  {
+    "id": "IS_P3",
+    "pregunta": "¿Cuál es el propósito de la palabra final en una clase Java?",
+    "opciones": {
+      "A": "Herencia múltiple",
+      "B": "Evitar instanciación",
+      "C": "Impedir que la clase sea heredada",
+      "D": "Sobrescribir"
+    },
+    "correcta": "C",
+    "justificacion": "Al declarar una clase como final, se cierra la posibilidad de crear subclases de ella, protegiendo su implementación.",
+    "explicacionError": "Evitar instanciación se logra con constructores privados; final bloquea la extensión.",
+    "categoria": "Programación",
+    "subType": "practico"
+  },
+  {
+    "id": "IS_P4",
+    "pregunta": "¿Cuál es la diferencia entre excepción checked y unchecked?",
+    "opciones": {
+      "A": "Compilación vs Ejecución",
+      "B": "Las checked deben manejarse o declararse obligatoriamente.",
+      "C": "Unchecked obligatorias",
+      "D": "Sin diferencia"
+    },
+    "correcta": "B",
+    "justificacion": "El compilador de Java obliga a manejar las checked (ej. IOException), mientras que las unchecked (ej. NullPointer) son opcionales.",
+    "explicacionError": "Todas ocurren en ejecución, pero las checked son validadas en tiempo de diseño por el IDE/Compilador.",
+    "categoria": "Programación",
+    "subType": "practico"
+  },
+  {
+    "id": "IS_P5",
+    "pregunta": "¿Cuál es la función principal del scheduler de procesos?",
+    "opciones": {
+      "A": "Compilar",
+      "B": "Gestionar memoria",
+      "C": "Decidir qué proceso ejecuta la CPU",
+      "D": "Red"
+    },
+    "correcta": "C",
+    "justificacion": "El planificador asigna el tiempo de procesador a los procesos listos, optimizando el rendimiento global del sistema.",
+    "explicacionError": "La memoria es tarea del MMU; el scheduler solo gestiona el acceso al núcleo de procesamiento.",
+    "categoria": "Sistemas Operativos",
+    "subType": "practico"
+  },
+  {
+    "id": "IS_P6",
+    "pregunta": "¿Qué protocolo de aplicación se usa para transferir páginas web?",
+    "opciones": {
+      "A": "TCP",
+      "B": "IP",
+      "C": "HTTP",
+      "D": "ARP"
+    },
+    "correcta": "C",
+    "justificacion": "HTTP (Hypertext Transfer Protocol) define la estructura de las peticiones y respuestas entre clientes y servidores web.",
+    "explicacionError": "TCP e IP son de capas inferiores; ARP resuelve direcciones físicas MAC.",
+    "categoria": "Redes",
+    "subType": "practico"
+  },
+  {
+    "id": "IS_P7",
+    "pregunta": "¿Qué característica define esencialmente a un sistema distribuido?",
+    "opciones": {
+      "A": "Un solo nodo",
+      "B": "Centralizado",
+      "C": "Componentes independientes comunicados por red",
+      "D": "Local"
+    },
+    "correcta": "C",
+    "justificacion": "La descentralización y la comunicación mediante paso de mensajes son los pilares de la computación distribuida.",
+    "explicacionError": "Un sistema distribuido es inherentemente multinodo y descentralizado.",
+    "categoria": "Sistemas Distribuidos",
+    "subType": "practico"
+  },
+  {
+    "id": "IS_P8",
+    "pregunta": "¿Qué problema ocurre por acceso concurrente no sincronizado a un recurso?",
+    "opciones": {
+      "A": "Deadlock",
+      "B": "Starvation",
+      "C": "Race Condition (Condición de carrera)",
+      "D": "Overflow"
+    },
+    "correcta": "C",
+    "justificacion": "La inconsistencia surge cuando el resultado final depende del orden de ejecución aleatorio de los hilos.",
+    "explicacionError": "Deadlock es un bloqueo; Race Condition es un error de valor por falta de exclusión mutua.",
+    "categoria": "Concurrencia",
+    "subType": "practico"
+  },
+  {
+    "id": "IS_P9",
+    "pregunta": "¿Qué ataque busca engañar al usuario para robar credenciales?",
+    "opciones": {
+      "A": "DoS",
+      "B": "Phishing",
+      "C": "SQL Injection",
+      "D": "Sniffing"
+    },
+    "correcta": "B",
+    "justificacion": "El phishing utiliza ingeniería social y sitios fraudulentos para suplantar identidades legítimas.",
+    "explicacionError": "DoS ataca disponibilidad; SQLi ataca datos; Sniffing intercepta tráfico de red.",
+    "categoria": "Seguridad",
+    "subType": "practico"
+  },
+  {
+    "id": "IS_P10",
+    "pregunta": "¿Qué algoritmo de búsqueda usa heurística para encontrar el camino más corto?",
+    "opciones": {
+      "A": "BFS",
+      "B": "DFS",
+      "C": "A*",
+      "D": "Dijkstra"
+    },
+    "correcta": "C",
+    "justificacion": "A* combina el costo acumulado con una estimación (heurística) para priorizar los nodos más prometedores.",
+    "explicacionError": "BFS y DFS son ciegos; Dijkstra usa costo real pero no usa heurísticas.",
+    "categoria": "IA",
+    "subType": "practico"
+  },
+  {
+    "id": "IS_P11",
+    "pregunta": "¿Cuál es el propósito primordial de un destructor en C++?",
+    "opciones": {
+      "A": "Inicializar",
+      "B": "Liberar recursos y memoria dinámica al destruir el objeto",
+      "C": "Herencia",
+      "D": "Sobrescribir"
+    },
+    "correcta": "B",
+    "justificacion": "Asegura que la memoria pedida con new sea devuelta al sistema, evitando fugas de memoria (memory leaks).",
+    "explicacionError": "Inicializar es tarea del constructor; el destructor limpia antes del cierre.",
+    "categoria": "Programación",
+    "subType": "practico"
+  },
+  {
+    "id": "IS_P12",
+    "pregunta": "¿Cuál es una característica fundamental de las interfaces en Java?",
+    "opciones": {
+      "A": "Estado mutable",
+      "B": "Permite herencia múltiple de comportamiento",
+      "C": "No implementable",
+      "D": "Constructores"
+    },
+    "correcta": "B",
+    "justificacion": "Una clase puede implementar múltiples interfaces, superando la restricción de herencia simple de clases en Java.",
+    "explicacionError": "Las interfaces no tienen constructores ni atributos de instancia con estado (solo constantes).",
+    "categoria": "Programación",
+    "subType": "practico"
+  },
+  {
+    "id": "IS_P13",
+    "pregunta": "¿Cuál es la complejidad temporal promedio de búsqueda en una tabla hash?",
+    "opciones": {
+      "A": "O(n)",
+      "B": "O(log n)",
+      "C": "O(1)",
+      "D": "O(n²)"
+    },
+    "correcta": "C",
+    "justificacion": "Gracias a la función de dispersión, el acceso al dato es directo e independiente del volumen de registros.",
+    "explicacionError": "O(n) es para listas; O(log n) para árboles; O(1) es el ideal de las tablas hash.",
+    "categoria": "Estructuras de Datos",
+    "subType": "practico"
+  },
+  {
+    "id": "IS_P14",
+    "pregunta": "¿Qué técnica permite ejecutar procesos que no caben en la RAM?",
+    "opciones": {
+      "A": "Fragmentación",
+      "B": "Paginación / Memoria Virtual",
+      "C": "Compilación",
+      "D": "Overclocking"
+    },
+    "correcta": "B",
+    "justificacion": "Divide el proceso en páginas que se cargan y descargan de disco según se necesiten (Swapping).",
+    "explicacionError": "La fragmentación es un desperdicio de espacio; la paginación es la solución técnica al tamaño.",
+    "categoria": "Sistemas Operativos",
+    "subType": "practico"
+  },
+  {
+    "id": "IS_P15",
+    "pregunta": "¿En qué capa del modelo OSI opera el protocolo TCP?",
+    "opciones": {
+      "A": "Aplicación",
+      "B": "Transporte",
+      "C": "Red",
+      "D": "Física"
+    },
+    "correcta": "B",
+    "justificacion": "TCP gestiona el control de flujo, segmentación y retransmisión de datos entre hosts finales.",
+    "explicacionError": "La capa de Red usa IP; la de Aplicación usa HTTP/FTP; Transporte es para TCP/UDP.",
+    "categoria": "Redes",
+    "subType": "practico"
+  },
+  {
+    "id": "IS_P16",
+    "pregunta": "¿Qué garantiza la consistencia fuerte en sistemas distribuidos?",
+    "opciones": {
+      "A": "Eventualidad",
+      "B": "Todos los nodos ven los mismos datos al mismo tiempo",
+      "C": "Consistencia débil",
+      "D": "Asincronía"
+    },
+    "correcta": "B",
+    "justificacion": "Asegura que tras una escritura, cualquier lectura posterior en cualquier nodo devuelva ese valor exacto.",
+    "explicacionError": "La eventual garantiza que \"algún día\" serán iguales; la fuerte lo garantiza instantáneamente.",
+    "categoria": "Sistemas Distribuidos",
+    "subType": "practico"
+  },
+  {
+    "id": "IS_P17",
+    "pregunta": "¿Cuál es una condición obligatoria para un deadlock?",
+    "opciones": {
+      "A": "Exclusión mutua",
+      "B": "Bajo uso CPU",
+      "C": "Alta disponibilidad",
+      "D": "Balanceo"
+    },
+    "correcta": "A",
+    "justificacion": "Si los recursos se pudieran compartir libremente, no habría bloqueos por espera de recursos pillados.",
+    "explicacionError": "Sin exclusión mutua, retención y espera, espera circular y no expropiación, no hay interbloqueo.",
+    "categoria": "Concurrencia",
+    "subType": "practico"
+  },
+  {
+    "id": "IS_P18",
+    "pregunta": "¿Cuál es la diferencia clave de la criptografía asimétrica?",
+    "opciones": {
+      "A": "Usa 2 claves",
+      "B": "Usa un par de claves (Pública y Privada)",
+      "C": "Sin diferencia",
+      "D": "Lenta"
+    },
+    "correcta": "B",
+    "justificacion": "Lo que se cifra con la pública solo se descifra con la privada, resolviendo el problema del intercambio de llaves.",
+    "explicacionError": "La simétrica usa la misma llave para ambos; la asimétrica usa el par matemático.",
+    "categoria": "Seguridad",
+    "subType": "practico"
+  },
+  {
+    "id": "IS_P19",
+    "pregunta": "¿Qué problema representa el overfitting en IA?",
+    "opciones": {
+      "A": "Simple",
+      "B": "Ajuste excesivo a datos de entrenamiento, falla en generalizar",
+      "C": "Falta datos",
+      "D": "Error sintaxis"
+    },
+    "correcta": "B",
+    "justificacion": "El modelo memoriza el ruido de los ejemplos y pierde la capacidad de predecir casos nuevos.",
+    "explicacionError": "Un modelo simple causa underfitting; el overfitting es exceso de complejidad para los datos.",
+    "categoria": "IA",
+    "subType": "practico"
+  },
+  {
+    "id": "IS_P20",
+    "pregunta": "¿Cuál es la diferencia de exploración entre BFS y DFS?",
+    "opciones": {
+      "A": "BFS pila; DFS cola",
+      "B": "BFS explora niveles; DFS profundiza primero",
+      "C": "Iguales",
+      "D": "Recursivo"
+    },
+    "correcta": "B",
+    "justificacion": "BFS garantiza encontrar el camino más corto por niveles; DFS va al fondo de una rama antes de retroceder.",
+    "explicacionError": "BFS usa Cola (FIFO); DFS usa Pila (LIFO) o recursividad.",
+    "categoria": "Algoritmos",
+    "subType": "practico"
+  },
+  {
+    "id": "IS_P21",
+    "pregunta": "¿Qué permite la sobrecarga de operadores en C++?",
+    "opciones": {
+      "A": "Nuevos operadores",
+      "B": "Redefinir comportamiento de operadores existentes para objetos",
+      "C": "Eliminar",
+      "D": "Solo tipos primitivos"
+    },
+    "correcta": "B",
+    "justificacion": "Permite usar símbolos como + o == con clases propias, haciendo el código más natural y legible.",
+    "explicacionError": "No se pueden inventar símbolos; solo se cambian los que el lenguaje ya trae.",
+    "categoria": "Programación",
+    "subType": "practico"
+  },
+  {
+    "id": "IS_P22",
+    "pregunta": "¿Cuál es la diferencia de acceso entre ArrayList y LinkedList?",
+    "opciones": {
+      "A": "ArrayList nodos",
+      "B": "ArrayList acceso O(1) por índice; LinkedList inserción eficiente",
+      "C": "Iguales",
+      "D": "LinkedList siempre rápido"
+    },
+    "correcta": "B",
+    "justificacion": "ArrayList es un arreglo contiguo; LinkedList es una cadena de punteros donde buscar implica recorrer.",
+    "explicacionError": "LinkedList es lenta en acceso aleatorio; ArrayList es lenta en borrar al inicio.",
+    "categoria": "Programación",
+    "subType": "practico"
+  },
+  {
+    "id": "IS_P23",
+    "pregunta": "¿Qué propiedad define a un Árbol Binario de Búsqueda (BST)?",
+    "opciones": {
+      "A": "Hijos iguales",
+      "B": "Subárbol izquierdo < raíz < subárbol derecho",
+      "C": "Aleatorio",
+      "D": "Balanceado"
+    },
+    "correcta": "B",
+    "justificacion": "Esta estructura permite búsquedas logarítmicas eficientes al descartar la mitad del árbol en cada paso.",
+    "explicacionError": "Un BST no tiene por qué estar balanceado (eso sería un AVL o Rojo-Negro).",
+    "categoria": "Estructuras de Datos",
+    "subType": "practico"
+  },
+  {
+    "id": "IS_P24",
+    "pregunta": "¿Cuál es la diferencia de memoria entre proceso e hilo?",
+    "opciones": {
+      "A": "Hilo independiente",
+      "B": "Proceso comparte",
+      "C": "Hilo comparte memoria de su proceso padre",
+      "D": "Iguales"
+    },
+    "correcta": "C",
+    "justificacion": "Los hilos son ligeros porque no tienen espacio de memoria propio separado, lo que facilita la comunicación.",
+    "explicacionError": "Los procesos están aislados por el SO; los hilos conviven en el mismo espacio.",
+    "categoria": "Sistemas Operativos",
+    "subType": "practico"
+  },
+  {
+    "id": "IS_P25",
+    "pregunta": "¿A qué clase pertenece el rango IP 192.168.x.x?",
+    "opciones": {
+      "A": "Clase A",
+      "B": "Clase B",
+      "C": "Clase C",
+      "D": "Clase D"
+    },
+    "correcta": "C",
+    "justificacion": "El rango 192.0.0.0 a 223.255.255.255 define la Clase C, usada típicamente en redes LAN privadas.",
+    "explicacionError": "Clase A empieza en 10.x; Clase B en 172.16.x; Clase D es para Multicast.",
+    "categoria": "Redes",
+    "subType": "practico"
+  },
+  {
+    "id": "IS_P26",
+    "pregunta": "¿Qué implica la escalabilidad horizontal en sistemas?",
+    "opciones": {
+      "A": "Mejor CPU",
+      "B": "Añadir más nodos (máquinas) al clúster",
+      "C": "Mejor RAM",
+      "D": "Optimizar"
+    },
+    "correcta": "B",
+    "justificacion": "Escalar \"hacia afuera\" permite crecer casi ilimitadamente sumando hardware económico en paralelo.",
+    "explicacionError": "Mejorar la máquina actual (CPU/RAM) es escalabilidad vertical.",
+    "categoria": "Sistemas Distribuidos",
+    "subType": "practico"
+  },
+  {
+    "id": "IS_P27",
+    "pregunta": "¿Qué mecanismo de sincronización evita race conditions?",
+    "opciones": {
+      "A": "Cache",
+      "B": "Mutex (Exclusión Mutua)",
+      "C": "Swap",
+      "D": "Buffer"
+    },
+    "correcta": "B",
+    "justificacion": "Funciona como una llave: solo el hilo que tiene el mutex puede entrar a la sección crítica.",
+    "explicacionError": "Swap y Cache son de memoria; Buffer es de E/S de datos.",
+    "categoria": "Concurrencia",
+    "subType": "practico"
+  },
+  {
+    "id": "IS_P28",
+    "pregunta": "¿Qué define a la autenticación multifactor (MFA)?",
+    "opciones": {
+      "A": "Una clave",
+      "B": "Combinar múltiples métodos independientes de verificación",
+      "C": "Firewall",
+      "D": "Antivirus"
+    },
+    "correcta": "B",
+    "justificacion": "Requiere algo que sabes (clave), algo que tienes (token) o algo que eres (biometría).",
+    "explicacionError": "Tener 5 contraseñas no es MFA si todas son del mismo tipo (\"algo que sabes\").",
+    "categoria": "Seguridad",
+    "subType": "practico"
+  },
+  {
+    "id": "IS_P29",
+    "pregunta": "¿Qué tipo de aprendizaje usa datos etiquetados (input-output conocidos)?",
+    "opciones": {
+      "A": "No supervisado",
+      "B": "Supervisado",
+      "C": "Reforzado",
+      "D": "Aleatorio"
+    },
+    "correcta": "B",
+    "justificacion": "El algoritmo aprende una función que mapea entradas a salidas basándose en ejemplos previos validados.",
+    "explicacionError": "El no supervisado busca patrones ocultos sin etiquetas; el reforzado usa premios/castigos.",
+    "categoria": "IA",
+    "subType": "practico"
+  },
+  {
+    "id": "IS_P30",
+    "pregunta": "¿Qué algoritmo tiene complejidad garantizada de O(n log n)?",
+    "opciones": {
+      "A": "Bubble Sort",
+      "B": "Selection Sort",
+      "C": "Merge Sort",
+      "D": "Insertion Sort"
+    },
+    "correcta": "C",
+    "justificacion": "Al usar la estrategia divide y vencerás, asegura un tiempo de ejecución eficiente incluso en el peor caso.",
+    "explicacionError": "Burbuja e Inserción son O(n²) en el promedio/peor caso.",
+    "categoria": "Algoritmos",
+    "subType": "practico"
+  },
+  {
+    "id": "IS_P31",
+    "pregunta": "¿Cuál es el riesgo principal de una recursividad sin caso base?",
+    "opciones": {
+      "A": "Rapidez",
+      "B": "Stack Overflow (Agotamiento de pila)",
+      "C": "Menos memoria",
+      "D": "Compilación"
+    },
+    "correcta": "B",
+    "justificacion": "Cada llamada a la función consume espacio en la pila; sin fin, el programa colapsa por falta de memoria.",
+    "explicacionError": "No mejora el rendimiento; de hecho, suele ser más lenta que un bucle iterativo.",
+    "categoria": "Programación",
+    "subType": "practico"
+  },
+  {
+    "id": "IS_P32",
+    "pregunta": "¿Qué comando SQL deshace cambios no confirmados?",
+    "opciones": {
+      "A": "COMMIT",
+      "B": "ROLLBACK",
+      "C": "SAVE",
+      "D": "DELETE"
+    },
+    "correcta": "B",
+    "justificacion": "Devuelve la base de datos al estado anterior al inicio de la transacción actual.",
+    "explicacionError": "COMMIT guarda permanentemente; DELETE borra datos pero es una operación DML.",
+    "categoria": "Bases de Datos",
+    "subType": "practico"
+  },
+  {
+    "id": "IS_P33",
+    "pregunta": "¿Cuál es la función del servidor DNS?",
+    "opciones": {
+      "A": "Cifrar",
+      "B": "Traducir nombres de dominio a direcciones IP",
+      "C": "Correo",
+      "D": "Firewall"
+    },
+    "correcta": "B",
+    "justificacion": "Permite que los humanos usen nombres (google.com) en lugar de números difíciles de recordar.",
+    "explicacionError": "No es un sistema de seguridad ni de transferencia de archivos.",
+    "categoria": "Redes",
+    "subType": "practico"
+  },
+  {
+    "id": "IS_P34",
+    "pregunta": "¿Qué es esencialmente un sistema de archivos?",
+    "opciones": {
+      "A": "Programa",
+      "B": "Método para organizar y almacenar datos en disco",
+      "C": "Red",
+      "D": "CPU"
+    },
+    "correcta": "B",
+    "justificacion": "Define cómo se nombran, guardan y recuperan los archivos en el soporte físico (ej. NTFS, ext4).",
+    "explicacionError": "No es un hardware; es una capa lógica de gestión del sistema operativo.",
+    "categoria": "Sistemas Operativos",
+    "subType": "practico"
+  },
+  {
+    "id": "IS_P35",
+    "pregunta": "¿Qué define al modelo de ciclo de vida en Cascada?",
+    "opciones": {
+      "A": "Iterativo",
+      "B": "Lineal y secuencial",
+      "C": "Ágil",
+      "D": "DevOps"
+    },
+    "correcta": "B",
+    "justificacion": "Requiere terminar totalmente una fase (ej. requisitos) antes de pasar a la siguiente (ej. diseño).",
+    "explicacionError": "Es lo opuesto a las metodologías ágiles que son incrementales e iterativas.",
+    "categoria": "Ingeniería de Software",
+    "subType": "practico"
+  }
+]
