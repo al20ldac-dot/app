@@ -105,7 +105,7 @@ export default function SimuladorPage() {
           <QuestionCard />
         </div>
 
-        <aside className="lg:col-span-3 order-last">
+        <aside className="hidden md:block md:col-span-3 order-last">
           <Card className="border-none shadow-sm rounded-[1.5rem] md:rounded-[2rem] bg-white overflow-hidden academic-shadow">
             <div className="p-4 md:p-6 border-b border-slate-50 bg-slate-50/50">
               <h4 className="font-black text-[10px] md:text-[11px] uppercase tracking-[0.2em] text-slate-500 flex items-center gap-3">

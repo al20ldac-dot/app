@@ -37,6 +37,17 @@ interface QuizContextType {
 
 const QuizContext = createContext<QuizContextType | undefined>(undefined);
 
+const normalizeName = (name: string) => name.trim().replace(/\s+/g, ' ').toLowerCase();
+
+const shuffleArray = <T,>(items: T[]) => {
+  const arr = [...items];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+};
+
 export function QuizProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const { firestore, user } = useFirebase();
@@ -218,6 +229,7 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
       await setDoc(doc(firestore, 'users', cleanName), {
         uid: currentUser.uid,
         name: cleanName,
+        nameNormalized: normalizeName(cleanName),
         lastActive: serverTimestamp(),
       }, { merge: true });
     }
@@ -237,7 +249,13 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
     pool = pool.sort(() => Math.random() - 0.5);
     
     const newState: QuizState = {
-      questions: pool.map((q: any) => ({ ...q })),
+      questions: pool.map((q: any) => ({
+        ...q,
+        optionOrder: shuffleArray(
+          (['A', 'B', 'C', 'D'] as Array<'A' | 'B' | 'C' | 'D'>)
+            .filter((key) => q.opciones[key] && q.opciones[key].trim() !== '' && q.opciones[key] !== 'N/A')
+        )
+      })),
       currentQuestionIndex: 0,
       responses: [],
       status: 'in_progress',

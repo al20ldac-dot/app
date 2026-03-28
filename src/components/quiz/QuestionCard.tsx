@@ -24,50 +24,54 @@ export function QuestionCard() {
   const attemptsLeft = maxAttempts - currentAttempts;
   const isLastAttempt = attemptsLeft === 1;
 
-  const availableOptions = (Object.entries(currentQuestion.opciones) as [('A' | 'B' | 'C' | 'D'), string][])
-    .filter(([_, value]) => value && value.trim() !== "" && value !== "N/A");
+  const availableOptions = React.useMemo(() => {
+    const keys = currentQuestion.optionOrder ?? (Object.keys(currentQuestion.opciones) as Array<'A' | 'B' | 'C' | 'D'>);
+    return keys
+      .map((key) => [key, currentQuestion.opciones[key]] as const)
+      .filter(([_, value]) => value && value.trim() !== "" && value !== "N/A");
+  }, [currentQuestion.id, currentQuestion.optionOrder, currentQuestion.opciones.A, currentQuestion.opciones.B, currentQuestion.opciones.C, currentQuestion.opciones.D]);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 animate-fade-in items-start w-full">
       {/* Sidebar de Posición y Metadata */}
       <div className="lg:col-span-3 space-y-6 lg:sticky lg:top-24">
-        <Card className="border-none shadow-2xl rounded-[2rem] overflow-hidden bg-[#0a0f1e] text-white p-8">
-          <div className="space-y-10">
-            <div className="flex flex-col items-center space-y-4 text-center">
+        <Card className="border-none shadow-2xl rounded-[2rem] overflow-hidden bg-[#0a0f1e] text-white p-4 md:p-8">
+          <div className="space-y-8 md:space-y-10">
+            <div className="flex flex-col items-center space-y-3 text-center">
               <div className="flex items-center justify-center gap-2 text-primary w-full">
                 <ChevronRight className="w-3.5 h-3.5 text-primary stroke-[3px]" />
-                <span className="text-[10px] font-black uppercase tracking-[0.3em] opacity-80">Posición</span>
+                <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em] opacity-80">Posición</span>
               </div>
-              <h3 className="text-5xl md:text-6xl font-black tracking-tighter italic leading-none w-full">
+              <h3 className="text-4xl md:text-6xl font-black tracking-tighter italic leading-none w-full">
                 #{state.currentQuestionIndex + 1}
               </h3>
               <div className="flex justify-center w-full">
-                <Badge className="bg-primary/20 text-primary border-none font-black text-[9px] uppercase tracking-widest px-4 py-1.5 rounded-full">
+                <Badge className="bg-primary/20 text-primary border-none font-black text-[8px] md:text-[9px] uppercase tracking-widest px-3 py-1.5 rounded-full">
                   {currentQuestion.categoria}
                 </Badge>
               </div>
             </div>
             
-            <div className="grid grid-cols-1 gap-4 pt-8 border-t border-white/5">
-              <div className="p-6 bg-white/5 rounded-[1.5rem] border border-white/10 shadow-inner group flex flex-col items-center text-center">
-                <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-2 group-hover:text-slate-400 transition-colors">Intentos</p>
-                <p className={cn("font-black text-4xl leading-none", isLastAttempt && !lastFeedback?.isFinished ? "text-red-400 animate-pulse" : "text-white")}>
+            <div className="grid grid-cols-1 gap-4 pt-6 border-t border-white/5">
+              <div className="p-4 md:p-6 bg-white/5 rounded-[1.5rem] border border-white/10 shadow-inner group flex flex-col items-center text-center">
+                <p className="text-[8px] md:text-[9px] font-black text-slate-500 uppercase tracking-widest mb-2 group-hover:text-slate-400 transition-colors">Intentos</p>
+                <p className={cn("font-black text-3xl md:text-4xl leading-none", isLastAttempt && !lastFeedback?.isFinished ? "text-red-400 animate-pulse" : "text-white")}>
                   {attemptsLeft}
                 </p>
               </div>
-              <div className="p-6 bg-white/5 rounded-[1.5rem] border border-white/10 shadow-inner group flex flex-col items-center text-center">
-                <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-2 group-hover:text-slate-400 transition-colors">Valor</p>
-                <p className="font-black text-4xl leading-none tabular-nums">1.00</p>
+              <div className="p-4 md:p-6 bg-white/5 rounded-[1.5rem] border border-white/10 shadow-inner group flex flex-col items-center text-center">
+                <p className="text-[8px] md:text-[9px] font-black text-slate-500 uppercase tracking-widest mb-2 group-hover:text-slate-400 transition-colors">Valor</p>
+                <p className="font-black text-3xl md:text-4xl leading-none tabular-nums">1.00</p>
               </div>
             </div>
           </div>
         </Card>
 
-        <div className="p-7 bg-white rounded-[2rem] border border-slate-100 shadow-sm academic-shadow text-center">
-          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4 flex items-center justify-center gap-3">
+        <div className="p-5 md:p-7 bg-white rounded-[2rem] border border-slate-100 shadow-sm academic-shadow text-center">
+          <p className="text-[9px] md:text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4 flex items-center justify-center gap-2">
             <Info className="w-4 h-4 text-primary" /> Tip Académico
           </p>
-          <p className="text-[13px] text-slate-500 font-medium leading-relaxed">
+          <p className="text-sm md:text-[13px] text-slate-500 font-medium leading-relaxed">
             {currentQuestion.code 
               ? "Analiza la sintaxis y el flujo de ejecución cuidadosamente antes de responder." 
               : "Busca palabras clave técnicas en el enunciado para descartar distractores."}
@@ -209,10 +213,10 @@ export function QuestionCard() {
 
                       <Button 
                         onClick={nextQuestion} 
-                        size="lg" 
-                        className="w-full h-14 md:h-20 text-lg md:text-2xl font-black rounded-[1.5rem] md:rounded-[2rem] bg-primary shadow-2xl shadow-primary/30 transition-all hover:scale-[1.02] active:scale-95 gap-4 uppercase"
+                        size="sm" 
+                        className="w-full h-10 md:h-20 text-xs md:text-2xl font-bold rounded-[1.5rem] md:rounded-[2rem] bg-primary shadow-2xl shadow-primary/30 transition-all hover:scale-[1.02] active:scale-95 gap-2 md:gap-4 uppercase"
                       >
-                        Continuar evaluación <ArrowRight className="w-6 h-6 md:w-8 md:h-8" />
+                        Continuar evaluación <ArrowRight className="w-4 h-4 md:w-8 md:h-8" />
                       </Button>
                     </div>
                   )}

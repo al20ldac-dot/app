@@ -36,6 +36,9 @@ export default function Home() {
     setMounted(true);
   }, []);
 
+  const normalizeName = (name: string) => name.trim().replace(/\s+/g, ' ').toLowerCase();
+  const formatName = (name: string) => name.trim().replace(/\s+/g, ' ');
+
   const handleStartAttempt = (subject: 'general' | 'is' | 'prog' = 'general') => {
     if (subject === 'prog') {
       toast({ title: "Módulo en Desarrollo", description: "El simulador de Programación estará disponible próximamente." });
@@ -56,20 +59,61 @@ export default function Home() {
   };
 
   const handleIdentity = async () => {
-    if (!fullName.trim()) return;
+    const rawName = fullName.trim();
+    if (!rawName) return;
+    const formattedName = formatName(rawName);
+    const normalizedInput = normalizeName(formattedName);
+    const inputWords = normalizedInput.split(' ');
+
     setIsProcessing(true);
     try {
-      const name = fullName.trim();
+      if (!firestore) throw new Error('Sin conexión a la base de datos');
+
+      const usersSnapshot = await getDocs(collection(firestore, 'users'));
+      const userDoc = usersSnapshot.docs.find((doc) => {
+        const data = doc.data();
+        const storedName = typeof data.name === 'string'
+          ? data.name
+          : typeof data.displayName === 'string'
+          ? data.displayName
+          : '';
+        const normalizedStored = normalizeName(storedName);
+        const storedWords = normalizedStored.split(' ');
+
+        if (normalizedStored === normalizedInput) return true;
+        if (inputWords.length === 1 && storedWords[0] === inputWords[0]) return true;
+        return false;
+      });
+
+      if (!userDoc) {
+        toast({
+          variant: 'destructive',
+          title: 'Acceso denegado',
+          description: 'El nombre no coincide con la base de datos. Revisa mayúsculas, minúsculas y apellido.'
+        });
+        return;
+      }
+
+      const canonicalName = formatName(
+        (userDoc.data().name || userDoc.data().displayName || formattedName).toString()
+      );
+      setFullName(canonicalName);
+
       if (pendingSubject === 'is') {
         setAuthOpen(false);
         setModeOpen(true);
-      } else if (pendingSubject === 'general') {
-        await startQuiz(name, 'general');
+      } else {
+        await startQuiz(canonicalName, pendingSubject || 'general');
         setAuthOpen(false);
         setPendingSubject(null);
       }
     } catch (err: any) {
-      toast({ variant: "destructive", title: "Error de Acceso", description: "No pudimos conectar con tu perfil académico." });
+      console.error(err);
+      toast({
+        variant: 'destructive',
+        title: 'Error de Acceso',
+        description: 'No pudimos conectar con tu perfil académico.'
+      });
     } finally {
       setIsProcessing(false);
     }
