@@ -14,6 +14,7 @@ import { cn } from '@/lib/utils';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogClose } from "@/components/ui/dialog";
 import { toast } from '@/hooks/use-toast';
 import { collection, query, where, getDocs } from 'firebase/firestore';
+import { getAuth, signInAnonymously } from 'firebase/auth';
 
 export default function Home() {
   const { history, ranking, isLoadingHistory, startQuiz, identifiedName, deleteResult } = useQuiz();
@@ -68,6 +69,11 @@ export default function Home() {
     setIsProcessing(true);
     try {
       if (!firestore) throw new Error('Sin conexión a la base de datos');
+
+      const auth = getAuth();
+      if (!auth.currentUser) {
+        await signInAnonymously(auth);
+      }
 
       const usersSnapshot = await getDocs(collection(firestore, 'users'));
       const userDoc = usersSnapshot.docs.find((doc) => {
