@@ -83,6 +83,7 @@ export default function Home() {
         setPendingSubject(null);
       }
     } catch (err: any) {
+      console.error("Error capturado durante handleIdentity:", err);
       toast({ variant: "destructive", title: "Error de Acceso", description: "No pudimos conectar con tu perfil académico." });
     } finally {
       setIsProcessing(false);

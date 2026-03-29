@@ -5,7 +5,7 @@ import React, { createContext, useContext, useState, useCallback, useEffect } fr
 import { QuizState, UserResponse, Question } from '@/types/quiz';
 import { useRouter } from 'next/navigation';
 import { useFirebase } from '@/firebase';
-import { doc, setDoc, getDoc, collection, serverTimestamp, query, limit, onSnapshot, where, deleteDoc, getDocs, orderBy, or } from 'firebase/firestore';
+import { doc, setDoc, getDoc, collection, serverTimestamp, query, limit, onSnapshot, where, deleteDoc, getDocs, orderBy, or, and } from 'firebase/firestore';
 import { getAuth, updateProfile, signInAnonymously } from 'firebase/auth';
 import officialQuestions from '@/data/official-questions.json';
 import subjectIS from '@/data/subject-is.json';
@@ -43,7 +43,7 @@ const normalizeDisplayName = (name: string) => name.trim().replace(/\s+/g, ' ');
 
 export function QuizProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
-  const { firestore, user } = useFirebase();
+  const { firestore, user, auth } = useFirebase();
   const maxAttempts = 3;
   
   const [state, setState] = useState<QuizState>({
@@ -211,7 +211,7 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
    * Retorna el nombre limpio normalizado.
    */
   const identifyUser = useCallback(async (fullName: string): Promise<string> => {
-    const auth = getAuth();
+    if (!auth) throw new Error("Firebase Auth no inicializado");
     const cleanName = normalizeDisplayName(fullName);
     let currentUser = auth.currentUser;
 
@@ -245,12 +245,12 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
     }
 
     return cleanName;
-  }, [firestore]);
+  }, [firestore, auth]);
 
   const startQuiz = useCallback(async (fullName: string, subjectKey: 'general' | 'is' | 'prog' = 'general', subType?: 'teorico' | 'practico') => {
     // Primero identificamos/registramos al usuario
     const cleanName = await identifyUser(fullName);
-    const auth = getAuth();
+    if (!auth) throw new Error("Firebase Auth no inicializado");
     const currentUser = auth.currentUser;
     if (!currentUser) throw new Error('No se pudo autenticar al usuario');
 
@@ -287,7 +287,7 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
     
     await saveToCloud(newState, sessionId, cleanName, currentUser.uid, subjectKey);
     router.push('/simulador');
-  }, [router, identifyUser, saveToCloud]);
+  }, [router, identifyUser, saveToCloud, auth]);
 
   const submitAnswer = useCallback((answer: 'A' | 'B' | 'C' | 'D') => {
     const currentName = identifiedName || user?.displayName;
@@ -381,12 +381,14 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
           const normalizedDisplayName = normalizeUserName(displayName || '');
           const q = query(
             collection(firestore, 'resultados'),
-            or(
-              where('displayNameLower', '==', normalizedDisplayName),
-              where('displayName', '==', displayName)
-            ),
-            where('subjectKey', '==', 'general'),
-            where('status', '==', 'completed')
+            and(
+              or(
+                where('displayNameLower', '==', normalizedDisplayName),
+                where('displayName', '==', displayName)
+              ),
+              where('subjectKey', '==', 'general'),
+              where('status', '==', 'completed')
+            )
           );
 
           const allUserSnap = await getDocs(q);
