@@ -24,6 +24,13 @@ export default function Home() {
   const [authOpen, setAuthOpen] = useState(false);
   const [modeOpen, setModeOpen] = useState(false);
   const [fullName, setFullName] = useState("");
+
+  const cleanDisplayName = (name?: string | null) => {
+    if (!name) return '';
+    return name.trim().replace(/\s+/g, ' ');
+  };
+
+  const normalizedDisplayName = cleanDisplayName(identifiedName || user?.displayName);
   const [isProcessing, setIsProcessing] = useState(false);
   const [pendingSubject, setPendingSubject] = useState<'general' | 'is' | 'prog' | null>(null);
 
@@ -132,7 +139,7 @@ export default function Home() {
     }
   };
 
-  const displayName = identifiedName || user?.displayName;
+  const displayName = normalizedDisplayName;
   const generalRanking = ranking.filter(entry => entry.subjectKey === 'general');
 
   if (!mounted) {
@@ -194,11 +201,20 @@ export default function Home() {
                   Espacio diseñado para practicar, reforzar conocimientos y prepararse de forma efectiva antes del examen.
                 </p>
               </div>
+              <div className="flex flex-col gap-4">
               <div className="flex justify-center lg:justify-start">
                 <Button onClick={() => handleStartAttempt('general')} size="lg" className="h-12 md:h-16 px-8 md:px-10 text-sm md:text-lg font-bold rounded-xl md:rounded-2xl bg-primary hover:bg-primary/90 shadow-xl shadow-primary/30 transition-all gap-3 w-full sm:w-auto">
                   <Play className="w-5 h-5 fill-current" /> INICIAR PRÁCTICA GENERAL
                 </Button>
               </div>
+              {!displayName && (
+                <div className="rounded-[1.5rem] border border-blue-100 bg-blue-50 p-4 md:p-6 text-sm md:text-base text-slate-700">
+                  <p className="font-black uppercase tracking-[0.2em] text-blue-700 text-[10px] md:text-xs mb-2">Primeros pasos</p>
+                  <p>Identifícate con tu nombre completo o solo tu nombre. El apellido es opcional y las mayúsculas/minúsculas no importan.</p>
+                  <p className="mt-3 font-semibold">Si no estás registrado, el sistema te registrará automáticamente al acceder.</p>
+                </div>
+              )}
+            </div>
             </div>
           </div>
         </section>
@@ -487,7 +503,7 @@ export default function Home() {
           <DialogHeader>
             <DialogTitle className="text-xl md:text-2xl font-black text-center tracking-tight uppercase">Identificación</DialogTitle>
             <DialogDescription className="text-center text-[9px] md:text-[11px] font-bold text-slate-400 uppercase mt-2">
-              Ingresa tu nombre para gestionar tu historial.
+              Ingresa tu nombre para gestionar tu historial. Si eres nuevo, te registramos automáticamente. El apellido es opcional; mayúsculas/minúsculas no generan duplicados.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-6 md:space-y-8 mt-6">
