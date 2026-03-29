@@ -24,7 +24,6 @@ export default function Home() {
   const [authOpen, setAuthOpen] = useState(false);
   const [modeOpen, setModeOpen] = useState(false);
   const [fullName, setFullName] = useState("");
-  const [pin, setPin] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
   const [pendingSubject, setPendingSubject] = useState<'general' | 'is' | 'prog' | null>(null);
 
@@ -65,10 +64,9 @@ export default function Home() {
         setAuthOpen(false);
         setModeOpen(true);
       } else if (pendingSubject === 'general') {
-        await startQuiz(name, 'general', undefined, pin);
+        await startQuiz(name, 'general');
         setAuthOpen(false);
         setPendingSubject(null);
-        setPin('');
       }
     } catch (err: any) {
       toast({ variant: "destructive", title: "Error de Acceso", description: "No pudimos conectar con tu perfil académico." });
@@ -79,19 +77,11 @@ export default function Home() {
 
   const selectMode = (mode: 'teorico' | 'practico') => {
     setModeOpen(false);
-    startQuiz(identifiedName || user?.displayName || fullName || "", 'is', mode, pin);
-    setPin('');
+    startQuiz(identifiedName || user?.displayName || fullName || "", 'is', mode);
   };
 
   const viewStudentProfile = async (student: any) => {
-    if (!firestore || !student || !user?.displayName) return;
-    const currentUsername = normalizeIdentifier(identifiedName || user.displayName);
-    const studentUsername = student.username || normalizeIdentifier(student.displayName || '');
-    if (currentUsername !== studentUsername) {
-      toast({ title: 'Privacidad', description: 'Solo puedes ver tu propio historial.' });
-      return;
-    }
-
+    if (!firestore || !student) return;
     setSelectedStudent(student);
     setStudentHistory([]);
     
@@ -99,7 +89,7 @@ export default function Home() {
     try {
       const q = query(
         collection(firestore, 'resultados'),
-        where('username', '==', studentUsername)
+        where('displayName', '==', student.displayName)
       );
       const snap = await getDocs(q);
       const results = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -119,35 +109,11 @@ export default function Home() {
     return `${m}m ${s}s`;
   };
 
-  const formatResultDate = (date: Date | null | undefined) => {
-    if (!date) return "Fecha desconocida";
-    return new Intl.DateTimeFormat('es-ES', {
-      day: '2-digit',
-      month: 'numeric',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit'
-    }).format(date);
-  };
-
   const getInitials = (name: string) => {
     if (!name) return "?";
     const parts = name.trim().split(/\s+/);
     if (parts.length === 1) return parts[0].substring(0, 1).toUpperCase();
     return (parts[0].charAt(0) + parts[parts.length - 1].charAt(0)).toUpperCase();
-  };
-
-  const normalizeIdentifier = (value: string) => {
-    return value
-      .trim()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .toLowerCase()
-      .replace(/\s+/g, '_')
-      .replace(/[^a-z0-9_]/g, '')
-      .replace(/_+/g, '_')
-      .replace(/^_|_$/g, '');
   };
 
   const handleDelete = async (e: React.MouseEvent, id: string) => {
@@ -309,58 +275,45 @@ export default function Home() {
               </div>
             ) : (
               <div className="grid gap-4 md:gap-6">
-                {history.map((item) => {
-                  const correctCount = item.correctAnswersCount ?? item.score ?? 0;
-                  const totalAnswered = item.totalAnswered ?? item.totalQuestions ?? 0;
-                  const failedCount = Math.max(totalAnswered - correctCount, 0);
-                  const historyDate = item.lastUpdate?.toDate ? new Date(item.lastUpdate.toDate()) : new Date();
-                  const subjectLabel = item.subjectKey === 'is'
-                    ? 'Ingeniería de Software'
-                    : item.subjectKey === 'prog'
-                    ? 'Programación'
-                    : 'Práctica General';
-
-                  return (
-                    <Card key={item.id} className="group p-5 md:p-6 rounded-[2rem] bg-white flex flex-col sm:flex-row items-center gap-4 md:gap-6 shadow-xl transition-all duration-300 overflow-hidden">
-                      <div className="w-16 h-16 md:w-20 md:h-20 bg-blue-50 rounded-[1.5rem] flex items-center justify-center text-primary font-black text-2xl shadow-sm border border-blue-100">
-                        {getInitials(displayName || item.displayName)}
+                {history.map((item) => (
+                  <Card key={item.id} className="group p-4 md:p-7 rounded-[1.5rem] md:rounded-[2.5rem] border-none bg-white flex flex-col sm:flex-row items-center gap-4 md:gap-8 shadow-sm hover:shadow-xl transition-all duration-300 relative overflow-hidden academic-shadow">
+                    <div className="w-14 h-14 md:w-20 md:h-20 bg-blue-50/50 rounded-2xl md:rounded-[1.5rem] flex items-center justify-center shrink-0 text-primary font-black text-lg md:text-2xl shadow-sm border border-blue-100">
+                      {getInitials(displayName)}
+                    </div>
+                    
+                    <div className="flex-1 min-w-0 space-y-1 text-center sm:text-left">
+                      <p className="text-[8px] md:text-[10px] font-bold text-slate-400 uppercase tracking-tight">
+                        {item.lastUpdate?.toDate ? new Date(item.lastUpdate.toDate()).toLocaleString('es-ES') : 'Sesión Reciente'}
+                      </p>
+                      <h4 className="font-black text-slate-800 text-base md:text-xl tracking-tight truncate leading-tight uppercase">
+                        {item.subjectKey === 'is' ? 'Ing. de Software' : item.subjectKey === 'prog' ? 'Programación' : 'Práctica General'}
+                      </h4>
+                      <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-3 md:gap-x-4 gap-y-1 pt-1">
+                        <span className="text-[8px] md:text-[11px] font-bold text-slate-500 uppercase flex items-center gap-1">
+                          <Timer className="w-3.5 h-3.5 text-primary/60" /> {formatDuration(item.duration)}
+                        </span>
+                        <span className="text-[8px] md:text-[11px] font-bold text-green-500 uppercase flex items-center gap-1">
+                          <CheckCircle2 className="w-3.5 h-3.5" /> {item.correctAnswersCount || 0} OK
+                        </span>
                       </div>
+                    </div>
 
-                      <div className="flex-1 min-w-0 space-y-3 text-center sm:text-left">
-                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                          <div>
-                            <p className="text-[10px] md:text-[11px] text-slate-400 uppercase tracking-[0.3em] font-bold">{formatResultDate(historyDate)}</p>
-                            <h4 className="mt-2 text-lg md:text-xl font-black text-slate-900 uppercase tracking-tight">{subjectLabel}</h4>
-                          </div>
-                        </div>
-
-                        <div className="flex flex-wrap items-center gap-4 text-[11px] md:text-[12px] font-bold uppercase tracking-[0.2em] text-slate-500">
-                          <span className="inline-flex items-center gap-2 text-slate-400">
-                            <Clock className="w-3.5 h-3.5 text-primary" /> {formatDuration(item.duration)}
-                          </span>
-                          <span className="inline-flex items-center gap-2 text-emerald-600">
-                            <CheckCircle2 className="w-3.5 h-3.5" /> {correctCount} correctas
-                          </span>
-                          <span className="inline-flex items-center gap-2 text-red-500">
-                            <XCircle className="w-3.5 h-3.5" /> {failedCount} fallidas
-                          </span>
-                        </div>
+                    <div className="flex items-center gap-4 md:gap-6 shrink-0 w-full sm:w-auto justify-center sm:justify-end pr-0 sm:pr-2 border-t sm:border-t-0 pt-4 sm:pt-0 mt-2 sm:mt-0">
+                      <div className="text-center sm:text-right min-w-[60px] md:min-w-[70px]">
+                        <p className="text-2xl md:text-4xl font-black text-slate-900 leading-none tabular-nums tracking-tighter">{item.percentage}%</p>
+                        <p className="text-[8px] md:text-[10px] font-black text-slate-400 uppercase tracking-widest mt-0.5 md:mt-1">ÉXITO</p>
                       </div>
-
-                      <div className="flex flex-col items-center gap-3 sm:items-end">
-                        <div className="text-3xl md:text-4xl font-black text-slate-900 tabular-nums">{item.percentage}%</div>
-                        <div className="text-[10px] md:text-[11px] uppercase font-black tracking-[0.25em] text-slate-400">ÉXITO</div>
-                        <button
-                          onClick={(e) => handleDelete(e, item.id)}
-                          className="w-12 h-12 rounded-full bg-red-500 text-white hover:bg-red-600 transition-all shadow-lg flex items-center justify-center"
-                          title="Eliminar Registro"
-                        >
-                          <Trash2 className="w-5 h-5" />
-                        </button>
-                      </div>
-                    </Card>
-                  );
-                })}
+                      
+                      <button 
+                        onClick={(e) => handleDelete(e, item.id)}
+                        className="w-10 h-10 md:w-12 md:h-12 bg-red-500/10 text-red-600 hover:bg-red-600 hover:text-white rounded-full flex items-center justify-center transition-all shadow-sm group-hover:scale-110"
+                        title="Eliminar Registro"
+                      >
+                        <Trash2 className="w-4 h-4 md:w-5 md:h-5" />
+                      </button>
+                    </div>
+                  </Card>
+                ))}
               </div>
             )}
           </div>
@@ -377,9 +330,10 @@ export default function Home() {
                 </div>
                 <div className="space-y-3 md:space-y-4">
                   {generalRanking.length > 0 ? generalRanking.map((entry, i) => (
-                    <div 
+                    <button 
                       key={entry.id || i} 
-                      className="w-full flex items-center justify-between p-4 md:p-5 bg-white/5 rounded-xl md:rounded-[1.2rem] border border-white/5 transition-all group shadow-inner"
+                      onClick={() => viewStudentProfile(entry)}
+                      className="w-full flex items-center justify-between p-4 md:p-5 bg-white/5 rounded-xl md:rounded-[1.2rem] border border-white/5 hover:bg-white/10 transition-all group shadow-inner"
                     >
                       <div className="flex items-center gap-3 md:gap-4 min-w-0">
                         <span className={cn(
@@ -395,7 +349,10 @@ export default function Home() {
                           </span>
                         </div>
                       </div>
-                    </div>
+                      <div className="text-right shrink-0">
+                        <span className="font-black text-primary text-xs md:text-base block leading-none">{entry.percentage}%</span>
+                      </div>
+                    </button>
                   )) : (
                     <div className="py-10 text-center">
                       <p className="text-[9px] text-slate-500 font-bold uppercase tracking-[0.2em] italic">Esperando primeros resultados...</p>
@@ -530,19 +487,8 @@ export default function Home() {
           </DialogHeader>
           <div className="space-y-6 md:space-y-8 mt-6">
             <div className="space-y-2">
-              <Label className="text-[8px] md:text-[10px] font-black uppercase text-slate-400 ml-1">Nombre, apellido o usuario</Label>
-              <Input placeholder="Ej: leonardo.alvarado o juanp123" value={fullName} onChange={(e) => setFullName(e.target.value)} className="h-12 md:h-14 rounded-xl md:rounded-2xl text-sm md:text-base font-bold bg-slate-50 border-none shadow-inner" />
-            </div>
-            <div className="space-y-2">
-              <Label className="text-[8px] md:text-[10px] font-black uppercase text-slate-400 ml-1">PIN opcional</Label>
-              <Input
-                type="password"
-                maxLength={4}
-                placeholder="4 dígitos"
-                value={pin}
-                onChange={(e) => setPin(e.target.value.replace(/[^0-9]/g, ''))}
-                className="h-12 md:h-14 rounded-xl md:rounded-2xl text-sm md:text-base font-bold bg-slate-50 border-none shadow-inner"
-              />
+              <Label className="text-[8px] md:text-[10px] font-black uppercase text-slate-400 ml-1">Nombre Completo</Label>
+              <Input placeholder="Ej: Leonardo Alvarado" value={fullName} onChange={(e) => setFullName(e.target.value)} className="h-12 md:h-14 rounded-xl md:rounded-2xl text-sm md:text-base font-bold bg-slate-50 border-none shadow-inner" />
             </div>
             <Button onClick={handleIdentity} disabled={isProcessing || !fullName.trim()} className="w-full h-12 md:h-14 rounded-xl md:rounded-2xl font-black bg-primary shadow-xl shadow-primary/20 transition-all text-sm md:text-base group">
               {isProcessing ? "SINCRONIZANDO..." : "ACCEDER"}
