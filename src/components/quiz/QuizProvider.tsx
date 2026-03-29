@@ -5,7 +5,7 @@ import React, { createContext, useContext, useState, useCallback, useEffect } fr
 import { QuizState, UserResponse, Question } from '@/types/quiz';
 import { useRouter } from 'next/navigation';
 import { useFirebase } from '@/firebase';
-import { doc, setDoc, getDoc, collection, serverTimestamp, query, limit, onSnapshot, where, deleteDoc, getDocs, orderBy } from 'firebase/firestore';
+import { doc, setDoc, getDoc, collection, serverTimestamp, query, limit, onSnapshot, where, deleteDoc, getDocs, orderBy, or } from 'firebase/firestore';
 import { getAuth, updateProfile, signInAnonymously } from 'firebase/auth';
 import officialQuestions from '@/data/official-questions.json';
 import subjectIS from '@/data/subject-is.json';
@@ -36,6 +36,9 @@ interface QuizContextType {
 }
 
 const QuizContext = createContext<QuizContextType | undefined>(undefined);
+
+const normalizeUserName = (name: string) => name.trim().replace(/\s+/g, ' ').toLowerCase();
+const normalizeDisplayName = (name: string) => name.trim().replace(/\s+/g, ' ');
 
 export function QuizProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -96,10 +99,14 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
       return;
     }
     
+    const searchNameLower = normalizeUserName(searchName);
     setIsLoadingHistory(true);
     const q = query(
       collection(firestore, 'resultados'),
-      where('displayName', '==', searchName)
+      or(
+        where('displayNameLower', '==', searchNameLower),
+        where('displayName', '==', searchName)
+      )
     );
     
     const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -122,7 +129,8 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
   const updateRankingEntry = useCallback(async (name: string, uid: string, perc: number, dur: number, aciertos: number) => {
     if (!firestore || !name) return;
 
-    const rankingRef = doc(firestore, 'ranking', name);
+    const normalizedName = normalizeUserName(name);
+    const rankingRef = doc(firestore, 'ranking', normalizedName);
     const rankingSnap = await getDoc(rankingRef);
 
     let shouldUpdate = false;
@@ -173,6 +181,7 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
       id: sessionId,
       userId: uid || 'anonymous',
       displayName: name,
+      displayNameLower: normalizeUserName(name),
       score: correctCount,
       percentage,
       correctAnswersCount: correctCount,
@@ -197,7 +206,7 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
 
   const startQuiz = useCallback(async (fullName: string, subjectKey: 'general' | 'is' | 'prog' = 'general', subType?: 'teorico' | 'practico') => {
     const auth = getAuth();
-    const cleanName = fullName.trim();
+    const cleanName = normalizeDisplayName(fullName);
     let currentUser = auth.currentUser;
 
     if (!currentUser) {
@@ -215,11 +224,22 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem('tic_quiz_start_time', now.toString());
 
     if (firestore) {
-      await setDoc(doc(firestore, 'users', cleanName), {
-        uid: currentUser.uid,
-        name: cleanName,
-        lastActive: serverTimestamp(),
-      }, { merge: true });
+      const normalizedName = normalizeUserName(cleanName);
+      const userDocRef = doc(firestore, 'users', normalizedName);
+      const userDocSnap = await getDoc(userDocRef);
+
+      if (!userDocSnap.exists()) {
+        await setDoc(userDocRef, {
+          uid: currentUser.uid,
+          displayName: cleanName,
+          displayNameLower: normalizedName,
+          lastActive: serverTimestamp(),
+        }, { merge: true });
+      } else {
+        await setDoc(userDocRef, {
+          lastActive: serverTimestamp(),
+        }, { merge: true });
+      }
     }
 
     const sessionId = `sess_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`;
@@ -340,12 +360,17 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
         
         if (displayName && subjectKey === 'general') {
           // Buscamos todos los resultados generales del usuario
+          const normalizedDisplayName = normalizeUserName(displayName || '');
           const q = query(
             collection(firestore, 'resultados'),
-            where('displayName', '==', displayName),
+            or(
+              where('displayNameLower', '==', normalizedDisplayName),
+              where('displayName', '==', displayName)
+            ),
             where('subjectKey', '==', 'general'),
             where('status', '==', 'completed')
           );
+
           const allUserSnap = await getDocs(q);
           
           if (!allUserSnap.empty) {
@@ -357,9 +382,11 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
             });
             const best = results[0];
             
-            await setDoc(doc(firestore, 'ranking', displayName), {
+            const normalizedDisplayName = normalizeUserName(displayName || '');
+            await setDoc(doc(firestore, 'ranking', normalizedDisplayName), {
               userId: best.userId,
               displayName: best.displayName,
+              displayNameLower: normalizeUserName(best.displayName || ''),
               percentage: best.percentage,
               correctAnswersCount: best.correctAnswersCount,
               duration: best.duration,
@@ -367,7 +394,8 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
               subjectKey: 'general'
             }, { merge: true });
           } else {
-            await deleteDoc(doc(firestore, 'ranking', displayName));
+            const normalizedDisplayName = normalizeUserName(displayName || '');
+            await deleteDoc(doc(firestore, 'ranking', normalizedDisplayName));
           }
         }
       }

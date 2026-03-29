@@ -13,7 +13,7 @@ import { useUser, useFirestore } from '@/firebase';
 import { cn } from '@/lib/utils';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogClose } from "@/components/ui/dialog";
 import { toast } from '@/hooks/use-toast';
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { collection, query, where, getDocs, or } from 'firebase/firestore';
 
 export default function Home() {
   const { history, ranking, isLoadingHistory, startQuiz, identifiedName, deleteResult } = useQuiz();
@@ -87,9 +87,14 @@ export default function Home() {
     
     setIsLoadingProfile(true);
     try {
+      const studentName = student?.displayName?.trim() || '';
+      const studentNameLower = studentName.toLowerCase();
       const q = query(
         collection(firestore, 'resultados'),
-        where('displayName', '==', student.displayName)
+        or(
+          where('displayNameLower', '==', studentNameLower),
+          where('displayName', '==', student.displayName)
+        )
       );
       const snap = await getDocs(q);
       const results = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
