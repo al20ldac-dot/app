@@ -5,21 +5,32 @@ service cloud.firestore {
       return request.auth != null;
     }
 
-    // Perfiles de usuario: el nombre es la clave para persistencia
+    // Perfiles de usuario: solo el dueño puede leer o escribir su perfil
     match /users/{userName} {
-      allow read, write: if isSignedIn();
+      allow create: if isSignedIn()
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.username == userName;
+      allow read, update, delete: if isSignedIn()
+        && resource.data.uid == request.auth.uid;
     }
 
-    // Resultados: lectura para historial, escritura propia
+    // Resultados: lectura para historial privado, escritura propia
     match /resultados/{resultId} {
-      allow read: if isSignedIn();
-      allow create, update, delete: if isSignedIn();
+      allow create: if isSignedIn()
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.username is string;
+      allow read, update, delete: if isSignedIn()
+        && resource.data.userId == request.auth.uid;
     }
 
     // Ranking Estudiantil
     match /ranking/{name} {
-      allow read: if isSignedIn();
-      allow write: if isSignedIn();
+      allow read: if true;
+      allow create, update: if isSignedIn()
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.username == name;
+      allow delete: if isSignedIn()
+        && resource.data.userId == request.auth.uid;
     }
   }
 }

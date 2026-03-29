@@ -11,11 +11,34 @@ import officialQuestions from '@/data/official-questions.json';
 import subjectIS from '@/data/subject-is.json';
 import subjectProg from '@/data/subject-prog.json';
 
+const normalizeIdentifier = (value: string) => {
+  return value
+    .trim()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/\s+/g, '_')
+    .replace(/[^a-z0-9_áéíóúüñ]/g, '')
+    .replace(/_+/g, '_')
+    .replace(/^_|_$/g, '');
+};
+
+const formatDisplayName = (value: string) => {
+  const cleaned = value.trim().replace(/\s+/g, ' ');
+  return cleaned
+    .split(' ')
+    .filter(Boolean)
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(' ');
+};
+
+const isValidPin = (pin: string) => /^\d{4}$/.test(pin);
+
 interface QuizContextType {
   state: QuizState;
   history: any[];
   ranking: any[];
-  startQuiz: (fullName: string, subjectKey?: 'general' | 'is' | 'prog', subType?: 'teorico' | 'practico') => Promise<void>;
+  startQuiz: (fullNameOrQuestions: string | Question[], subjectKey?: 'general' | 'is' | 'prog', subType?: 'teorico' | 'practico', pin?: string) => Promise<void>;
   submitAnswer: (answer: 'A' | 'B' | 'C' | 'D') => void;
   nextQuestion: () => void;
   restartQuiz: () => void;
@@ -56,6 +79,18 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
   const [historyData, setHistoryData] = useState<any[]>([]);
   const [isLoadingHistory, setIsLoadingHistory] = useState(false);
   const [identifiedName, setIdentifiedName] = useState<string | null>(null);
+  const [identifiedUsername, setIdentifiedUsername] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const savedName = localStorage.getItem('tic_student_name');
+    const savedUsername = localStorage.getItem('tic_student_username');
+    if (savedName) setIdentifiedName(savedName);
+    if (savedUsername) setIdentifiedUsername(savedUsername);
+    if (!savedUsername && savedName) {
+      setIdentifiedUsername(normalizeIdentifier(savedName));
+    }
+  }, []);
 
   // Listener en tiempo real para el Ranking (Solo General)
   // Optimizamos: traemos los datos y ordenamos en memoria para evitar errores de índice compuesto
@@ -64,14 +99,17 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
     
     const q = query(
       collection(firestore, 'ranking'), 
-      where('subjectKey', '==', 'general')
+      where('subjectKey', '==', 'general'),
+      where('percentage', '>=', 70)
     );
     
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       
       // Ordenamiento Académico: 1. Porcentaje Desc, 2. Duración Asc
-      const sorted = data.sort((a: any, b: any) => {
+      const sorted = data
+        .filter((item: any) => typeof item.percentage === 'number' && item.percentage >= 70)
+        .sort((a: any, b: any) => {
         const percA = a.percentage || 0;
         const percB = b.percentage || 0;
         if (percB !== percA) return percB - percA;
@@ -91,7 +129,8 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
   // Listener para Historial Personal
   useEffect(() => {
     const searchName = identifiedName || user?.displayName;
-    if (!firestore || !searchName || !user) {
+    const searchUsername = identifiedUsername || (searchName ? normalizeIdentifier(searchName) : '');
+    if (!firestore || !searchUsername || !user) {
       if (!searchName) setHistoryData([]);
       return;
     }
@@ -99,7 +138,7 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
     setIsLoadingHistory(true);
     const q = query(
       collection(firestore, 'resultados'),
-      where('displayName', '==', searchName)
+      where('username', '==', searchUsername)
     );
     
     const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -117,12 +156,13 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
     });
     
     return () => unsubscribe();
-  }, [firestore, user, identifiedName]);
+  }, [firestore, user, identifiedName, identifiedUsername]);
 
-  const updateRankingEntry = useCallback(async (name: string, uid: string, perc: number, dur: number, aciertos: number) => {
-    if (!firestore || !name) return;
+  const updateRankingEntry = useCallback(async (name: string, username: string, uid: string, perc: number, dur: number, aciertos: number) => {
+    if (!firestore || !name || !username) return;
+    if (perc < 70) return;
 
-    const rankingRef = doc(firestore, 'ranking', name);
+    const rankingRef = doc(firestore, 'ranking', username);
     const rankingSnap = await getDoc(rankingRef);
 
     let shouldUpdate = false;
@@ -144,6 +184,7 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
     if (shouldUpdate) {
       await setDoc(rankingRef, {
         userId: uid,
+        username,
         displayName: name,
         percentage: perc,
         correctAnswersCount: aciertos,
@@ -172,6 +213,7 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
     const resultData = {
       id: sessionId,
       userId: uid || 'anonymous',
+      username: normalizeIdentifier(name),
       displayName: name,
       score: correctCount,
       percentage,
@@ -188,16 +230,49 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
       await setDoc(doc(firestore, 'resultados', sessionId), resultData, { merge: true });
       
       if (subjectKey === 'general' && currentState.status === 'completed') {
-        await updateRankingEntry(name, uid || 'anonymous', percentage, resultData.duration, correctCount);
+        await updateRankingEntry(name, normalizeIdentifier(name), uid || 'anonymous', percentage, resultData.duration, correctCount);
       }
     } catch (e) {
       console.error("Error al guardar en la nube:", e);
     }
   }, [firestore, updateRankingEntry]);
 
-  const startQuiz = useCallback(async (fullName: string, subjectKey: 'general' | 'is' | 'prog' = 'general', subType?: 'teorico' | 'practico') => {
+  const startQuiz = useCallback(async (
+    fullNameOrQuestions: string | Question[],
+    subjectKey: 'general' | 'is' | 'prog' = 'general',
+    subType?: 'teorico' | 'practico',
+    pin?: string
+  ) => {
     const auth = getAuth();
-    const cleanName = fullName.trim();
+    const now = Date.now();
+
+    if (Array.isArray(fullNameOrQuestions)) {
+      const questionPool = fullNameOrQuestions;
+      const sessionId = `sess_${now}_${Math.random().toString(36).substr(2, 5)}`;
+      setActiveSessionId(sessionId);
+
+      const newState: QuizState = {
+        questions: questionPool.map((q: any) => ({ ...q })),
+        currentQuestionIndex: 0,
+        responses: [],
+        status: 'in_progress',
+      };
+
+      setState(newState);
+      setCurrentAttempts(0);
+      setLastFeedback(null);
+      
+      const currentName = identifiedName || user?.displayName || 'Invitado';
+      await saveToCloud(newState, sessionId, currentName, user?.uid || 'anonymous', subjectKey);
+      router.push('/simulador');
+      return;
+    }
+
+    const rawInput = fullNameOrQuestions.trim();
+    if (!rawInput) throw new Error('Nombre o usuario inválido');
+
+    const username = normalizeIdentifier(rawInput);
+    const displayName = formatDisplayName(rawInput);
     let currentUser = auth.currentUser;
 
     if (!currentUser) {
@@ -205,24 +280,58 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
       currentUser = userCred.user;
     }
 
-    await updateProfile(currentUser, { displayName: cleanName });
-    setIdentifiedName(cleanName);
-    localStorage.setItem('tic_student_name', cleanName);
+    await updateProfile(currentUser, { displayName });
+    setIdentifiedName(displayName);
+    setIdentifiedUsername(username);
+    localStorage.setItem('tic_student_name', displayName);
+    localStorage.setItem('tic_student_username', username);
     localStorage.setItem('tic_active_subject', subjectKey);
     if (subType) localStorage.setItem('tic_active_subtype', subType);
-    
-    const now = Date.now();
     localStorage.setItem('tic_quiz_start_time', now.toString());
 
     if (firestore) {
-      await setDoc(doc(firestore, 'users', cleanName), {
-        uid: currentUser.uid,
-        name: cleanName,
-        lastActive: serverTimestamp(),
-      }, { merge: true });
+      const userRef = doc(firestore, 'users', username);
+      const userSnap = await getDoc(userRef);
+      const normalizedPin = pin?.trim();
+
+      if (!userSnap.exists()) {
+        const newUserData: any = {
+          uid: currentUser.uid,
+          username,
+          displayName,
+          createdAt: serverTimestamp(),
+          lastActive: serverTimestamp(),
+        };
+        if (normalizedPin && isValidPin(normalizedPin)) {
+          newUserData.pin = normalizedPin;
+        }
+        await setDoc(userRef, newUserData, { merge: true });
+      } else {
+        const existingData = userSnap.data() as any;
+        if (existingData.pin) {
+          if (!normalizedPin || normalizedPin !== existingData.pin) {
+            throw new Error('PIN incorrecto');
+          }
+        } else if (normalizedPin && isValidPin(normalizedPin)) {
+          await setDoc(userRef, {
+            uid: currentUser.uid,
+            username,
+            displayName,
+            pin: normalizedPin,
+            lastActive: serverTimestamp(),
+          }, { merge: true });
+        } else {
+          await setDoc(userRef, {
+            uid: currentUser.uid,
+            username,
+            displayName,
+            lastActive: serverTimestamp(),
+          }, { merge: true });
+        }
+      }
     }
 
-    const sessionId = `sess_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`;
+    const sessionId = `sess_${now}_${Math.random().toString(36).substr(2, 5)}`;
     setActiveSessionId(sessionId);
 
     let pool: Question[] = [];
@@ -235,7 +344,7 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
     }
 
     pool = pool.sort(() => Math.random() - 0.5);
-    
+
     const newState: QuizState = {
       questions: pool.map((q: any) => ({ ...q })),
       currentQuestionIndex: 0,
@@ -247,9 +356,9 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
     setCurrentAttempts(0);
     setLastFeedback(null);
     
-    await saveToCloud(newState, sessionId, cleanName, currentUser.uid, subjectKey);
+    await saveToCloud(newState, sessionId, displayName, currentUser.uid, subjectKey);
     router.push('/simulador');
-  }, [router, firestore, saveToCloud]);
+  }, [router, firestore, saveToCloud, identifiedName, user]);
 
   const submitAnswer = useCallback((answer: 'A' | 'B' | 'C' | 'D') => {
     const currentName = identifiedName || user?.displayName;
@@ -335,14 +444,21 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
       const docRef = doc(firestore, 'resultados', id);
       const snap = await getDoc(docRef);
       if (snap.exists()) {
-        const { displayName, subjectKey } = snap.data();
+        const { username, displayName, subjectKey } = snap.data() as any;
+        const userIdentifier = username || normalizeIdentifier(displayName || '');
+        const currentUsername = identifiedUsername || normalizeIdentifier(user?.displayName || '');
+        if (!currentUsername || currentUsername !== userIdentifier) {
+          console.warn('Intento de eliminación de registro ajeno detectado');
+          return;
+        }
+
         await deleteDoc(docRef);
         
-        if (displayName && subjectKey === 'general') {
+        if (userIdentifier && subjectKey === 'general') {
           // Buscamos todos los resultados generales del usuario
           const q = query(
             collection(firestore, 'resultados'),
-            where('displayName', '==', displayName),
+            where('username', '==', userIdentifier),
             where('subjectKey', '==', 'general'),
             where('status', '==', 'completed')
           );
@@ -357,8 +473,9 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
             });
             const best = results[0];
             
-            await setDoc(doc(firestore, 'ranking', displayName), {
+            await setDoc(doc(firestore, 'ranking', userIdentifier), {
               userId: best.userId,
+              username: userIdentifier,
               displayName: best.displayName,
               percentage: best.percentage,
               correctAnswersCount: best.correctAnswersCount,
@@ -367,7 +484,7 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
               subjectKey: 'general'
             }, { merge: true });
           } else {
-            await deleteDoc(doc(firestore, 'ranking', displayName));
+            await deleteDoc(doc(firestore, 'ranking', userIdentifier));
           }
         }
       }
