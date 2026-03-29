@@ -15,6 +15,7 @@ interface QuizContextType {
   state: QuizState;
   history: any[];
   ranking: any[];
+  identifyUser: (fullName: string) => Promise<string>; // Registra/identifica sin iniciar quiz
   startQuiz: (fullName: string, subjectKey?: 'general' | 'is' | 'prog', subType?: 'teorico' | 'practico') => Promise<void>;
   submitAnswer: (answer: 'A' | 'B' | 'C' | 'D') => void;
   nextQuestion: () => void;
@@ -204,7 +205,12 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
     }
   }, [firestore, updateRankingEntry]);
 
-  const startQuiz = useCallback(async (fullName: string, subjectKey: 'general' | 'is' | 'prog' = 'general', subType?: 'teorico' | 'practico') => {
+  /**
+   * identifyUser: Registra o identifica al usuario sin iniciar el quiz.
+   * Hace sign-in anónimo, actualiza el perfil y crea el documento en Firestore.
+   * Retorna el nombre limpio normalizado.
+   */
+  const identifyUser = useCallback(async (fullName: string): Promise<string> => {
     const auth = getAuth();
     const cleanName = normalizeDisplayName(fullName);
     let currentUser = auth.currentUser;
@@ -217,11 +223,6 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
     await updateProfile(currentUser, { displayName: cleanName });
     setIdentifiedName(cleanName);
     localStorage.setItem('tic_student_name', cleanName);
-    localStorage.setItem('tic_active_subject', subjectKey);
-    if (subType) localStorage.setItem('tic_active_subtype', subType);
-    
-    const now = Date.now();
-    localStorage.setItem('tic_quiz_start_time', now.toString());
 
     if (firestore) {
       const normalizedName = normalizeUserName(cleanName);
@@ -233,6 +234,7 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
           uid: currentUser.uid,
           displayName: cleanName,
           displayNameLower: normalizedName,
+          createdAt: serverTimestamp(),
           lastActive: serverTimestamp(),
         }, { merge: true });
       } else {
@@ -241,6 +243,22 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
         }, { merge: true });
       }
     }
+
+    return cleanName;
+  }, [firestore]);
+
+  const startQuiz = useCallback(async (fullName: string, subjectKey: 'general' | 'is' | 'prog' = 'general', subType?: 'teorico' | 'practico') => {
+    // Primero identificamos/registramos al usuario
+    const cleanName = await identifyUser(fullName);
+    const auth = getAuth();
+    const currentUser = auth.currentUser;
+    if (!currentUser) throw new Error('No se pudo autenticar al usuario');
+
+    localStorage.setItem('tic_active_subject', subjectKey);
+    if (subType) localStorage.setItem('tic_active_subtype', subType);
+    
+    const now = Date.now();
+    localStorage.setItem('tic_quiz_start_time', now.toString());
 
     const sessionId = `sess_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`;
     setActiveSessionId(sessionId);
@@ -269,7 +287,7 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
     
     await saveToCloud(newState, sessionId, cleanName, currentUser.uid, subjectKey);
     router.push('/simulador');
-  }, [router, firestore, saveToCloud]);
+  }, [router, identifyUser, saveToCloud]);
 
   const submitAnswer = useCallback((answer: 'A' | 'B' | 'C' | 'D') => {
     const currentName = identifiedName || user?.displayName;
@@ -413,7 +431,7 @@ export function QuizProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <QuizContext.Provider value={{ 
-      state, history: historyData, ranking, startQuiz, submitAnswer, nextQuestion, restartQuiz, finishQuizEarly, completeQuiz, deleteResult,
+      state, history: historyData, ranking, identifyUser, startQuiz, submitAnswer, nextQuestion, restartQuiz, finishQuizEarly, completeQuiz, deleteResult,
       currentAttempts, maxAttempts, lastFeedback, isLoadingHistory, activeSessionId, identifiedName
     }}>
       {children}

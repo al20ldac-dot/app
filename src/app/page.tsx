@@ -16,7 +16,7 @@ import { toast } from '@/hooks/use-toast';
 import { collection, query, where, getDocs, or } from 'firebase/firestore';
 
 export default function Home() {
-  const { history, ranking, isLoadingHistory, startQuiz, identifiedName, deleteResult } = useQuiz();
+  const { history, ranking, isLoadingHistory, identifyUser, startQuiz, identifiedName, deleteResult } = useQuiz();
   const { user } = useUser();
   const firestore = useFirestore();
   
@@ -68,10 +68,17 @@ export default function Home() {
     try {
       const name = fullName.trim();
       if (pendingSubject === 'is') {
+        // Sólo identificamos/registramos al usuario — NO iniciamos el quiz todavía
+        await identifyUser(name);
         setAuthOpen(false);
-        setModeOpen(true);
+        setModeOpen(true); // Ahora sí se elige el modo
       } else if (pendingSubject === 'general') {
         await startQuiz(name, 'general');
+        setAuthOpen(false);
+        setPendingSubject(null);
+      } else {
+        // Sin sujeto pendiente: identificar al usuario para ver su historial
+        await identifyUser(name);
         setAuthOpen(false);
         setPendingSubject(null);
       }
@@ -84,7 +91,9 @@ export default function Home() {
 
   const selectMode = (mode: 'teorico' | 'practico') => {
     setModeOpen(false);
-    startQuiz(identifiedName || user?.displayName || fullName || "", 'is', mode);
+    // identifiedName fue seteado por identifyUser; fullName como fallback de seguridad
+    const resolvedName = identifiedName || user?.displayName || fullName.trim();
+    startQuiz(resolvedName, 'is', mode);
   };
 
   const viewStudentProfile = async (student: any) => {
